@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://example.com/2021/12/26/JavaScript_1/b.jpg">
 <meta property="og:image" content="http://example.com/2021/12/26/JavaScript_1/c.jpg">
 <meta property="article:published_time" content="2021-12-26T12:27:39.000Z">
-<meta property="article:modified_time" content="2021-12-26T13:11:55.509Z">
+<meta property="article:modified_time" content="2021-12-27T04:49:54.164Z">
 <meta property="article:author" content="CHJ">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/12/26/JavaScript_1/a.jpg">
@@ -216,10 +216,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-12-26 20:27:39 / Modified: 21:11:55" itemprop="dateCreated datePublished" datetime="2021-12-26T20:27:39+08:00">2021-12-26</time>
+              <time title="Created: 2021-12-26 20:27:39" itemprop="dateCreated datePublished" datetime="2021-12-26T20:27:39+08:00">2021-12-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-27 12:49:54" itemprop="dateModified" datetime="2021-12-27T12:49:54+08:00">2021-12-27</time>
+              </span>
 
           
 
@@ -237,7 +243,8 @@
 </blockquote>
 <span id="more"></span>
 
-<h2 id="第三章-语言基础"><a href="#第三章-语言基础" class="headerlink" title="第三章  语言基础"></a>第三章  语言基础</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>1.var关键字</p>
+<p>###第三章  语言基础</p>
+<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><p>1.var关键字</p>
 <ul>
 <li><p>声明作用域：</p>
 <p>使用var操作符定义的变量会成为包含它的函数的局部变量：</p>
@@ -272,7 +279,8 @@
 <li><p>const的行为与let基本相同，唯一一个重要的区别就是用const声明时，必须同时初始化变量，且尝试修改const声明的变量会导致运行时报错</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const age = 21;</span><br><span class="line">age = 20;	//报错：给常量赋值</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>1.简单数据类型：</p>
+<p>#####数据类型</p>
+<p>1.简单数据类型：</p>
 <p>undefined，Boolean，null，symbol，string，number，bigint（基本没用过，新出的）</p>
 <p>2.复杂数据类型：</p>
 <p>Object（包括普通对象Object，数组对象Array，正则对象RegExp，日期对象Date，数学函数Math，函数对象Function)</p>
@@ -341,7 +349,7 @@
 <p>在Object.is中：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.is(+0,-0));     //false;</span><br><span class="line">console.log(Object.is(NaN,NaN));   //true;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="第四章-变量、作用域与内存"><a href="#第四章-变量、作用域与内存" class="headerlink" title="第四章 变量、作用域与内存"></a>第四章 变量、作用域与内存</h2><h3 id="原始值与引用值"><a href="#原始值与引用值" class="headerlink" title="原始值与引用值"></a>原始值与引用值</h3><ul>
+<h3 id="第四章-变量、作用域与内存"><a href="#第四章-变量、作用域与内存" class="headerlink" title="第四章 变量、作用域与内存"></a>第四章 变量、作用域与内存</h3><h5 id="原始值与引用值"><a href="#原始值与引用值" class="headerlink" title="原始值与引用值"></a>原始值与引用值</h5><ul>
 <li><p>原始值是最简单的数据</p>
 <p>保存原始值的变量是按值访问的，因为我们操作的就是存储在变量中的实际值</p>
 </li>
@@ -369,7 +377,7 @@
 <p><strong>参数为引用数据类型：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function test(obj)&#123;</span><br><span class="line">    obj.name = &quot;jun&quot;;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &quot;hui&quot;;</span><br><span class="line">&#125;</span><br><span class="line">let person = new Object();</span><br><span class="line">person.name = &quot;chen&quot;;</span><br><span class="line">test(person);</span><br><span class="line">console.log(person.name);	//&quot;jun&quot;</span><br><span class="line"></span><br><span class="line">这个函数内部，先是对obj的name属性进行操作，然后，将obj重新定义为一个有着不同name的新对象，如果person是按引用传递的，那么person的name属性将被改成“hui”，但是，我们再次访问name属性时，它的值为第一次操作的值。当obj在函数内部重写时，他变成了指向本地对象的指针，而那个对象在函数执行结束后就销毁了。</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="执行上下文（Context）与作用域-Scope"><a href="#执行上下文（Context）与作用域-Scope" class="headerlink" title="执行上下文（Context）与作用域(Scope)"></a>执行上下文（Context）与作用域(Scope)</h3><blockquote>
+<h5 id="执行上下文（Context）与作用域-Scope"><a href="#执行上下文（Context）与作用域-Scope" class="headerlink" title="执行上下文（Context）与作用域(Scope)"></a>执行上下文（Context）与作用域(Scope)</h5><blockquote>
 <p>执行上下文的概念非常重要，但是也很难理解，函数的每次调用都有与之紧密相关的作用域和上下文。从根本上来说，作用域是基于函数的，而上下文是基于对象的。 换句话说，作用域涉及到所被调用函数中的变量访问，并且不同的调用场景是不一样的。上下文始终是<code>this</code>关键字的值， 它是拥有（控制）当前所执行代码的对象的引用.</p>
 </blockquote>
 <ul>
@@ -384,7 +392,7 @@
 <blockquote>
 <p>以上一图就很好地解释了：每个上下文都有一个关联的变量对象，上下文中定义的所有变量和函数都存在于这个对象上</p>
 </blockquote>
-<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><blockquote>
+<h5 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h5><blockquote>
 <p>至于内存管理，涉及到v8引擎关于如何进行垃圾回收的原理，后续我会专门写一篇总结</p>
 </blockquote>
 
@@ -469,7 +477,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">第三章  语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">数据类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">第四章 变量、作用域与内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%80%BC%E4%B8%8E%E5%BC%95%E7%94%A8%E5%80%BC"><span class="nav-number">2.1.</span> <span class="nav-text">原始值与引用值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%EF%BC%88Context%EF%BC%89%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F-Scope"><span class="nav-number">2.2.</span> <span class="nav-text">执行上下文（Context）与作用域(Scope)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">内存管理</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">变量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98"><span class="nav-number"></span> <span class="nav-text">第四章 变量、作用域与内存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%80%BC%E4%B8%8E%E5%BC%95%E7%94%A8%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">原始值与引用值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%EF%BC%88Context%EF%BC%89%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F-Scope"><span class="nav-number">2.</span> <span class="nav-text">执行上下文（Context）与作用域(Scope)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">内存管理</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
