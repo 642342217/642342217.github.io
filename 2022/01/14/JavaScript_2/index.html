@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="考试周加上放假，耽误了一段时间，加上这章内容也比较多，看了挺久的，也花了点时间消化，总的来说，这章内容还是挺重要的，当然，这里只是简单介绍了这两章的一些比较重要的知识点，以及一些容易忽视的地方，至于深究，到时候结合一些博客以及自己学过的框架中的一些原理另外写总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript总结篇（2）">
+<meta property="og:url" content="http://example.com/2022/01/14/JavaScript_2/index.html">
+<meta property="og:site_name" content="CHJ &amp; HD">
+<meta property="og:description" content="考试周加上放假，耽误了一段时间，加上这章内容也比较多，看了挺久的，也花了点时间消化，总的来说，这章内容还是挺重要的，当然，这里只是简单介绍了这两章的一些比较重要的知识点，以及一些容易忽视的地方，至于深究，到时候结合一些博客以及自己学过的框架中的一些原理另外写总结">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-14T03:38:56.000Z">
+<meta property="article:modified_time" content="2022-01-14T03:46:42.878Z">
+<meta property="article:author" content="CHJ">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/01/14/JavaScript_2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>JavaScript总结篇（2） | CHJ & HD</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="CHJ & HD" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CHJ & HD</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">前端攻城狮笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/14/JavaScript_2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CHJ">
+      <meta itemprop="description" content="Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHJ & HD">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript总结篇（2）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-01-14 11:38:56 / Modified: 11:46:42" itemprop="dateCreated datePublished" datetime="2022-01-14T11:38:56+08:00">2022-01-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>考试周加上放假，耽误了一段时间，加上这章内容也比较多，看了挺久的，也花了点时间消化，总的来说，这章内容还是挺重要的，当然，这里只是简单介绍了这两章的一些比较重要的知识点，以及一些容易忽视的地方，至于深究，到时候结合一些博客以及自己学过的框架中的一些原理另外写总结</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="第五章-基本引用类型"><a href="#第五章-基本引用类型" class="headerlink" title="第五章 基本引用类型"></a>第五章 基本引用类型</h3><h4 id="1-Date"><a href="#1-Date" class="headerlink" title="1.Date"></a>1.Date</h4><blockquote>
+<p>此处只介绍Date类型常见的一些API，以及一些容易犯错的地方</p>
+</blockquote>
+<p><strong>getTime()</strong>:返回日期的毫秒表示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let date = new Date();</span><br><span class="line">console.log(date.getTime());   //1641859833554</span><br></pre></td></tr></table></figure>
+
+<p><strong>getFullYear()</strong>:返回4位数年</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(date.getFullYear());  //2022</span><br></pre></td></tr></table></figure>
+
+<p><strong>getMonth()</strong>:返回日期的月</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(date.getMonth())    //0</span><br></pre></td></tr></table></figure>
+
+<p><strong>此处getMonth返回的月是从0开始的（即代表一月）</strong></p>
+<p><strong>getDate()</strong>:返回日期的日</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(date.getDate());    //11</span><br></pre></td></tr></table></figure>
+
+<p><strong>getDay()</strong>:返回日期中表示星期几的数值</p>
+<blockquote>
+<p>此处的数值，0表示周日，6表示周六，国外都把周日当作一周的第一天</p>
+</blockquote>
+<p>后面的getHours()，getMinutes()，getSeconds()就不一一介绍了</p>
+<h4 id="2-RegExp"><a href="#2-RegExp" class="headerlink" title="2.RegExp"></a>2.RegExp</h4><blockquote>
+<p>创建正则表达式：</p>
+</blockquote>
+<p><strong>let re = /pattern/flags;</strong></p>
+<blockquote>
+<p>这个正则表达式的pattern可以是任何简单或复杂的正则表达式；每个正则表达式可以带0个或者多个flags，用于控制正则表达式的行为。</p>
+</blockquote>
+<p><strong>let re = new RegExp(“pattern”,”flags”)</strong></p>
+<p>下面是flags的取值以及作用</p>
+<blockquote>
+<p>g：全局模式，表示查找字符串的全部内容，而不是找到第一个匹配的内容就结束</p>
+<p>i：不区分大小写</p>
+<p>m：多行模式，表示查找到一行文本末尾时会继续查找</p>
+</blockquote>
+<p><strong>与其他语言中的正则表达式类似，所有元字符在模式中也必须转义，包括：</strong></p>
+<p>（ ）{ } [ ] \ ^ $ |? * + .</p>
+<p><strong>RegExp实例方法</strong></p>
+<p><strong>exec：</strong>一个在字符串中执行查找匹配的RegExp方法，它返回一个数组（未匹配到则返回 null）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var myRe = /db+d/g;</span><br><span class="line">var myArray = myRe.exec(&quot;cdbbd dbbdz&quot;);   //[ &#x27;dbbd&#x27;, index: 1, input: &#x27;cdbbd dbbdz&#x27;, groups: undefined ]</span><br></pre></td></tr></table></figure>
+
+<p><strong>test：</strong>一个在字符串中测试是否匹配的RegExp方法，它返回 true 或 false</p>
+<p><strong>match：</strong>一个在字符串中执行查找匹配的String方法，它返回一个数组，在未匹配到时会返回 null    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var myRe = /db+d/g;</span><br><span class="line">var test = &quot;cdbbddbdz&quot;.match(myRe);   //[ &#x27;dbbd&#x27;, &#x27;dbd&#x27; ]</span><br></pre></td></tr></table></figure>
+
+<p><strong>replace：</strong>一个在字符串中执行查找匹配的String方法，并且使用替换字符串替换掉匹配到的子字符串</p>
+<blockquote>
+<p>正则表达式要是真要很熟练还是挺难的，平时只要能看懂我觉得就差不多了，要用到的时候再去查一下</p>
+</blockquote>
+<h4 id="3-原始值包装类型"><a href="#3-原始值包装类型" class="headerlink" title="3.原始值包装类型"></a>3.原始值包装类型</h4><blockquote>
+<p>为了方便操作原始值，ECMAScript提供了三种特殊的引用类型：Boolean，Number和String</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let s1 = &quot;some text&quot;;</span><br><span class="line">let s2 = s1.substring(2);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在这里，s1是一个包含字符串的变量，并且是一个原始值。第二行紧接着在s1上调用了substring()方法，我们知道，原始值并不是对象，因此逻辑上不应该有方法，而实际上这个例子却按照预期执行了，这是因为后台进行了处理</p>
+</blockquote>
+<p>后台会执行以下三步：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let s1= new String(&quot;some text&quot;);	//创建一个String类型实例</span><br><span class="line">let s2 = s1.substring(2);		    //调用实例上的方法</span><br><span class="line">s1 = null;						   //销毁实例</span><br></pre></td></tr></table></figure>
+
+<p>这种行为让原始值拥有对象的行为。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let value = &quot;123&quot;;</span><br><span class="line">let number = Number(value);</span><br><span class="line">console.log(typeof number);	  //number</span><br><span class="line">let obj = new Number(value);</span><br><span class="line">console.log(typeof obj);      //object</span><br><span class="line">注意区分构造函数和转型函数的调用</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>下面是一些经常犯错的点，虽然可能和本章没什么关系，但是，在总结时想到了这类问题</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1toString()    //报错，语法错误</span><br><span class="line">1.toString()   //报错，JS引擎无法确定这里的`.`是什么意思，是点运算符（对象方法）还是浮点数？</span><br><span class="line">1..toString()    //成功，运算结果&quot;1&quot; 解析: 第二个点被视为点运算符，前面的是浮点数。</span><br><span class="line">1.0.toString()   //成功，运算结果&quot;1&quot; 解析: 第二个点被视为点运算符，前面的是浮点数。</span><br><span class="line">1 .toString()    //成功，运算结果&quot;1&quot; 解析: 用空格和后面的.toString()隔开, 把前面的当成运算式处理</span><br><span class="line">1+2.toString() //报错，JS引擎无法确定这里的`.`是什么意思，是点运算符（对象方法）还是浮点数？</span><br><span class="line">1+2 .toString() //成功，运算结果&quot;12&quot; 解析: 用空格和后面的.toString()隔开, 把前面的当成运算式处理</span><br><span class="line">(1+2).toString() //成功，运算结果&quot;3&quot; 解析: 括号内部的先进行算法运算，在进行类型转换</span><br><span class="line">(1)+(2).toString() //运算结果&quot;12&quot; 解析: 括号内部进行类型修改并将数字n转换为字符串“n “，在进行拼接，然后再应用toString方法。</span><br><span class="line">(1)+(2)+0 .toString() //成功，运算结果&quot;30&quot; 解析: 如果有多个`+`号，且不包含中括号与&quot;&quot;的情况下，则把最后一个加号之前的进行数学运算(不管他有没有被括号包住)，最后一个加号留作拼接作用。</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1Boolean"><a href="#3-1Boolean" class="headerlink" title="3.1Boolean"></a>3.1Boolean</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let falseObject = new Boolean(false);</span><br><span class="line">let result = falseObject &amp;&amp; true;</span><br><span class="line">console.log(result);    //true;</span><br><span class="line"></span><br><span class="line">在这段代码中，我们创建了一个值为false的Boolean对象，在布尔运算中，false &amp;&amp; true 应该为false，但是这里，falseObject并不是false，它是一个对象，前面一个章节讲过，在进行布尔运算时，所有的对象都会转换为true，因此此处为 true &amp;&amp; true</span><br><span class="line"></span><br><span class="line">let falseValue = false;</span><br><span class="line">console.log(typeof falseObject);  //object</span><br><span class="line">console.log(typeof falseValue);   //boolean</span><br><span class="line">console.log(falseObject instanceof Boolean);  //true</span><br><span class="line">console.log(falseValue instanceof Boolean);   //false;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="3-2Number"><a href="#3-2Number" class="headerlink" title="3.2Number"></a>3.2Number</h5><p><strong>toString()</strong>:可选地接收一个表示基数的参数，并返回相应基数形式的数值字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let num = 10;</span><br><span class="line">console.log(num.toString());      //&quot;10&quot;</span><br><span class="line">console.log(num.toString(2));     //&quot;1010&quot;</span><br><span class="line">console.log(num.toString(8));     //&quot;12&quot;</span><br><span class="line">console.log(num.toString(16));    //&quot;a&quot;</span><br></pre></td></tr></table></figure>
+
+<p>**toFixed():**返回包含指定小数点的数值字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let num = 10;</span><br><span class="line">console.log(num.toFixed(2));  //&quot;10.00&quot;</span><br></pre></td></tr></table></figure>
+
+<p>**isInteger():**ES6新增了Number.isInteger()方法，用于辨别一个数值是否是整数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(Number.isInteger(1));    //true</span><br><span class="line">console.log(Number.isInteger(1.00)); //true</span><br><span class="line">console.log(Number.isInteger(1.01)); //false</span><br><span class="line"></span><br><span class="line">当然也可以使用其他方法判断一个数值是否是整数</span><br><span class="line">console.log(number % 1 === 0);  //为true则为整数，否则不为整数</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>整数的范围：Number.MIN_SAFE_INTEGER(-2的53次方+1) 到Number.MAX_SAFE_INTEGER(2的53次方-1)</p>
+</blockquote>
+<h5 id="3-3String"><a href="#3-3String" class="headerlink" title="3.3String"></a>3.3String</h5><p><strong>slice，substring 和 substr 的区别：</strong></p>
+<blockquote>
+<p>当参数都是正数时</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let str = &quot;hello world&quot;;</span><br><span class="line">console.log(str.slice(3));         //&quot;lo world&quot;</span><br><span class="line">console.log(str.substring(3));     //&quot;lo world&quot;</span><br><span class="line">console.log(str.substr(3));        //&quot;lo world&quot;</span><br><span class="line">console.log(str.slice(3, 7));      //&quot;lo w&quot;</span><br><span class="line">console.log(str.substring(3, 7));  //&quot;lo w&quot;</span><br><span class="line">console.log(str.substr(3, 7));     //&quot;lo worl&quot;,此处的7代表的是截取的长度</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当参数中有负数时</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let str = &quot;hello world&quot;;</span><br><span class="line">console.log(str.slice(-3));        //&quot;rld&quot;，截取开始位置=length+负数</span><br><span class="line">console.log(str.substring(-3));    //&quot;hello world&quot;，只要碰到负数，就转换为0</span><br><span class="line">console.log(str.slice(-3));        //&quot;rld&quot;，截取开始位置=length+负数</span><br><span class="line">console.log(str.substring(3, -4)); //&quot;lo w&quot;，只要碰到负数，就转换为length+负数</span><br><span class="line">console.log(str.substr(3, -4));    //&quot;&quot;，空字符串，截取长度不能为负数</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ES6新增方法：startsWith()  endsWith()  includes()</p>
+<p>startsWith()和includes()接收两个参数，第一个表示搜索的字符串，第二个表示开始搜索的位置，默认为0</p>
+<p>endsWith()也接收两个参数，第一个表示搜索的字符串，第二个表示搜索的末尾位置</p>
+</blockquote>
+<h4 id="4-单例内置对象"><a href="#4-单例内置对象" class="headerlink" title="4.单例内置对象"></a>4.单例内置对象</h4><blockquote>
+<p>这里有Global和Math，这两个平时用的也比较多，这里就不详细介绍了，稍微总结Math的舍入方法</p>
+</blockquote>
+<p>**Math.ceil():**始终向上舍入为最接近的整数</p>
+<p>**Math.floor():**始终向下舍入为最接近的整数</p>
+<p>**Math.round():**执行四舍五入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(Math.ceil(26.1));       //27</span><br><span class="line">console.log(Math.ceil(-26.1));      //-26</span><br><span class="line">console.log(Math.floor(26.9));      //26</span><br><span class="line">console.log(Math.floor(-26.1));     //-27</span><br><span class="line">console.log(Math.round(26.4));      //26</span><br><span class="line">console.log(Math.round(-26.4));     //-26</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="第六章-集合引用类型"><a href="#第六章-集合引用类型" class="headerlink" title="第六章 集合引用类型"></a>第六章 集合引用类型</h3><h4 id="1-Object（对象）"><a href="#1-Object（对象）" class="headerlink" title="1.Object（对象）"></a>1.Object（对象）</h4><blockquote>
+<p>显式地创建Object实例有两种方式</p>
+</blockquote>
+<p>第一种是使用new操作符和Object构造函数创建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let person = new Object();</span><br><span class="line">person.name = &quot;chj&quot;;</span><br><span class="line">person.age = 21;</span><br></pre></td></tr></table></figure>
+
+<p>第二种是使用<strong>对象字面量</strong>表示法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let person = &#123;</span><br><span class="line">    name: &quot;chj&quot;,</span><br><span class="line">    age: 21</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在对象字面量表示法中，属性名可以是字符串或者数值，如果是数值，会自动转换为字符串</p>
+<p>Object类型是无序的，因此不可迭代</p>
+</blockquote>
+<h4 id="2-Array"><a href="#2-Array" class="headerlink" title="2.Array"></a>2.Array</h4><blockquote>
+<p>两个ES6新增的用于创建数组的静态方法：Array.from()和Array.of()</p>
+</blockquote>
+<p><strong>Array.from():<strong>第一个参数为</strong>类数组对象</strong>，即任何可迭代的结构，或者有一个length属性和可索引的元素的结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Array.from(&quot;Matt));	   //[&quot;M&quot;, &quot;a&quot;, &quot;t&quot;, &quot;t&quot;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const m = new Map().set(1, 2)</span><br><span class="line">			      .set(3, 4);</span><br><span class="line">console.log(Array.from(m));     //[[1, 2], [3, 4]]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//Array.from()对现有数组进行浅复制</span><br><span class="line">const a1 = [1, 2, 3, 4];</span><br><span class="line">const a2 = Array.from(a1);</span><br><span class="line">console.log(a2);      //[1, 2, 3, 4]</span><br><span class="line">console.log(a1 === a2)  //false</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>数组的length并不是只读的，可以通过修改length的值对数组进行操作</p>
+</blockquote>
+<p><strong>检测数组：</strong></p>
+<blockquote>
+<p>使用instanceof会存在问题，如果网页里面有多个框架，则可能涉及两个不同的全局执行上下文，因此会有两个不同版本的Array构造函数，为了解决这个问题，这里有个更好的方法用来判断数组：Array.isArray()</p>
+</blockquote>
+<p><strong>迭代器方法：</strong></p>
+<blockquote>
+<p>在ES6中，Array的原型上暴露了3个用于检索数组内容的方法：keys()  values()  和  entries()</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const a = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;];</span><br><span class="line"></span><br><span class="line">//因为这些方法返回的都是迭代器，所以需要将他们通过Array.from()转换为数组</span><br><span class="line">const aKeys = Array.from(a.keys());</span><br><span class="line">const aValues = Array.from(a.values());</span><br><span class="line">const aEntries = Array.from(a.entries());</span><br><span class="line"></span><br><span class="line">console.log(aKeys);			//[0, 1, 2, 3]</span><br><span class="line">console.log(aValues);		//[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]</span><br><span class="line">console.log(aEntries);		//[[0,&quot;a&quot;], [1,&quot;b&quot;], [2,&quot;c&quot;], [3,&quot;d&quot;]]</span><br><span class="line"></span><br><span class="line">//可以使用ES6的解构在循环中，拆分aEntries的键值对</span><br><span class="line">for(let [index, value] of a.Entries())&#123;//....&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>填充方法：fill()</p>
+<p>栈方法：push()  pop()</p>
+<p>队列方法：unshift()  shift()  push()</p>
+<p>排序方法：sort()  reverse()    都会改变原数组</p>
+</blockquote>
+<p><strong>迭代方法：</strong>（都不会改变原数组，进行操作之后，返回新数组）</p>
+<blockquote>
+<p>**every():**对数组每一项都运行传入的函数，如果每一项都返回true，则这个方法返回为true</p>
+<p>**some():**对数组每一项都运行传入的函数，如果有一项返回为true，则这个方法返回为true</p>
+<p>**filter():**对数组每一项都运行传入的函数，函数返回为true的项会组成新数组进行返回</p>
+<p>**forEach():**对数组每一项都运行传入的函数，没有返回值，且不可停止遍历</p>
+<p>**map():**对数组每一项都运行传入的函数，返回由每次函数调用的返回结果组成的新数组</p>
+</blockquote>
+<h4 id="3-Map"><a href="#3-Map" class="headerlink" title="3.Map"></a>3.Map</h4><blockquote>
+<p>ECMAScript6之前，在JavaScript中实现键值对形式存储可以使用Object来完成，作为ES6的新增特性，Map是一种新的集合类型，为这门语言带来了真正的键值对存储机制，Map的大多数特性都可以通过Object类型实现，但二者还是存在一些细微的差异。</p>
+</blockquote>
+<p>使用new关键字和Map构造函数创建一个空映射</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const map = new Map()</span><br></pre></td></tr></table></figure>
+
+<p>可以在初始化时传入一个可迭代对象，可迭代对象的每个键值对都会按照迭代顺序插入新的映射实例（即新的Map对象）中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const m1 = new Map([</span><br><span class="line">    [&quot;key1&quot;, &quot;val1&quot;],</span><br><span class="line">    [&quot;key2&quot;, &quot;val2&quot;],</span><br><span class="line">    [&quot;key3&quot;, &quot;&quot;val3&quot;]</span><br><span class="line">]);</span><br><span class="line">alert(m1.size);       //3，size为映射实例对象的属性，获取键值对的个数</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例对象的方法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let map = new Map();</span><br><span class="line">map.set(key, value);	//插入键值对</span><br><span class="line">map.get(key);			//获取对应键的映射</span><br><span class="line">map.has(key);			//查询实例对象中是否有该键</span><br><span class="line">map.delete(key);		//删除指定的键值对</span><br><span class="line">map.clear();			//删除所有的键值对</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>与Object只能使用数值、字符串或者符号作为键不同，Map可以使用任何JavaScript数据类型作为键</p>
+</blockquote>
+<p><strong>顺序与迭代</strong></p>
+<blockquote>
+<p>与Object类型的一个主要差异是，Map实例会维护键值对的插入顺序，因此可根据插入顺序执行迭代操作，</p>
+<p>映射实例可以提供一个迭代器（Iterator），能以插入顺序生成[key，value]形式的数组，可以通过entries方法或者[Symbol.iterator]属性获得这个迭代器</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const map = new Map([</span><br><span class="line">    [&quot;key1&quot;, &quot;val1&quot;],</span><br><span class="line">    [&quot;key2&quot;, &quot;val2&quot;],</span><br><span class="line">    [&quot;key3&quot;, &quot;&quot;val3&quot;]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">alert(map.entries() === map[Symbol.iterator]);	//true</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-WeakMap"><a href="#4-WeakMap" class="headerlink" title="4.WeakMap"></a>4.WeakMap</h4><blockquote>
+<p>ES6新增的“弱映射”是一种新的集合类型，WeakMap中的“weak（弱）”，描述的是JavaScript垃圾回收程序对待“弱映射”中键的方式，其API是Map的子集</p>
+</blockquote>
+<p><strong>弱映射中的键只能是Object类型或者继承自Object的类型</strong></p>
+<blockquote>
+<p>Map存在两个很大的缺点：</p>
+<p>1.首先赋值和搜索操作都是O（n）的时间复杂度（n是键值对的个数），因为这两个操作都需要遍历整个数组来进行匹配。</p>
+<p>2.另外一个缺点就是可能会导致内存泄漏，因为数组会一直引用着每个键和值，这种引用使得垃圾回收算法不能回收处理他们，即使没有任何其他引用存在了</p>
+</blockquote>
+<blockquote>
+<p>相比之下，原生的WeakMap持有的是每个键对象的“弱引用”，这意味着没有其他引用存在时，垃圾回收能正确进行。原生WeakMap的结构是特殊且有效的，其用于key只有在没有被回收时才是有效的</p>
+</blockquote>
+<p><strong>正是由于这样的弱引用，WeakMap的key是不可枚举的</strong>（没有方法能给出所有的key）</p>
+<h4 id="5-Set和WeakSet"><a href="#5-Set和WeakSet" class="headerlink" title="5.Set和WeakSet"></a>5.Set和WeakSet</h4><blockquote>
+<p>ES6新增的Set是一种新集合类型，为这门语言带来集合数据结构，Set在很多方面都像是加强的Map，因为他们的大多数API和行为都是共有的</p>
+</blockquote>
+<p>这里不介绍这两个集合类型了，和Map非常相似</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/01/My2021/" rel="prev" title="我与前端的2021">
+      <i class="fa fa-chevron-left"></i> 我与前端的2021
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">第五章 基本引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Date"><span class="nav-number">1.1.</span> <span class="nav-text">1.Date</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-RegExp"><span class="nav-number">1.2.</span> <span class="nav-text">2.RegExp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%8E%9F%E5%A7%8B%E5%80%BC%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">3.原始值包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1Boolean"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1Boolean</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2Number"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2Number</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3String"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3String</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%8D%95%E4%BE%8B%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.</span> <span class="nav-text">4.单例内置对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">第六章 集合引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Object%EF%BC%88%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1.Object（对象）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Array"><span class="nav-number">2.2.</span> <span class="nav-text">2.Array</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Map"><span class="nav-number">2.3.</span> <span class="nav-text">3.Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-WeakMap"><span class="nav-number">2.4.</span> <span class="nav-text">4.WeakMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Set%E5%92%8CWeakSet"><span class="nav-number">2.5.</span> <span class="nav-text">5.Set和WeakSet</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">CHJ</p>
+  <div class="site-description" itemprop="description">Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/642342217" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;642342217" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:642342217@qq.com" title="E-Mail → mailto:642342217@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CHJ</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : ,
+      el    : 'wpac-rating',
+      color : 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
