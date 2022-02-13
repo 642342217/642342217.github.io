@@ -39,7 +39,7 @@
 <meta property="og:image" content="http://example.com/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/10.png">
 <meta property="og:image" content="http://example.com/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/11.png">
 <meta property="article:published_time" content="2022-01-23T07:49:56.000Z">
-<meta property="article:modified_time" content="2022-01-23T08:00:42.263Z">
+<meta property="article:modified_time" content="2022-02-10T05:37:45.148Z">
 <meta property="article:author" content="CHJ">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/1.png">
@@ -224,10 +224,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-01-23 15:49:56 / Modified: 16:00:42" itemprop="dateCreated datePublished" datetime="2022-01-23T15:49:56+08:00">2022-01-23</time>
+              <time title="Created: 2022-01-23 15:49:56" itemprop="dateCreated datePublished" datetime="2022-01-23T15:49:56+08:00">2022-01-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-10 13:37:45" itemprop="dateModified" datetime="2022-02-10T13:37:45+08:00">2022-02-10</time>
+              </span>
 
           
 
@@ -378,9 +384,35 @@
 <p>服务器会通过响应行的状态码来告诉浏览器它的处理结果。</p>
 <p>常见的状态码：</p>
 <ul>
-<li>200：表示处理成功</li>
+<li><p>1**：信息，服务器收到请求，需要请求者继续执行操作</p>
+<p><strong>100</strong>：Continue，继续，客户端应继续其请求</p>
+<p><strong>101</strong>：切换协议，服务器根据客户端的的请求切换协议，只能切换到更高级的协议，例如，切换到HTTP的新版本协议</p>
+</li>
+<li><p>2**：成功，操作被成功接收并处理</p>
+<p><strong>200</strong>：请求成功</p>
+<p><strong>201</strong>：已创建，成功请求并创建了新的资源</p>
+<p><strong>202</strong>：已接受，但未完成处理</p>
+<p><strong>204</strong>：无内容，服务器成功处理，但未返回内容，也就是说服务器不需要返回信息，此状态代码的示例包括删除请求或请求是通过表单发送的</p>
+</li>
+<li><p>3**：重定向，需要进一步操作以完成请求</p>
+<p><strong>301</strong>：永久重定向，请求的资源已被永久地移动到新URI，返回信息包括新                URI，浏览器会自动定向到新URI</p>
+<p><strong>302</strong>：临时重定向，与301类似，但是资源只是临时被移动，客户端应继续使用原有URI</p>
+<p><strong>304</strong>：未修改，所请求的资源未修改，服务器返回此状态码，不会返回任何资源</p>
+</li>
+<li><p>4**：客户端错误，请求包含语法错误或无法完成请求</p>
+<p><strong>400</strong>：客户端请求的语法错误，服务器无法理解</p>
+<p><strong>401</strong>：请求用户的身份认证</p>
+<p><strong>403</strong>：服务器理解请求客户端的请求，但是拒绝执行此操作</p>
+<p><strong>404</strong>：服务器无法根据客户端的请求找到资源</p>
+<p><strong>408</strong>：服务器等待客户端发送的时间过长，超时</p>
+<p><strong>409</strong>：当请求与资源的当前状态冲突时，发送状态码409，这通常是同时更新或版本相互冲突的问题，服务器完成客户端的PUT请求时可能返回此代码</p>
+<p><strong>410</strong>：请求的资源不可再用，并且将不再可用</p>
+</li>
+<li><p>5**：服务器错误，服务器在处理请求的过程中发生了错误</p>
+<p><strong>500</strong>：服务器内部错误，无法完成请求</p>
+</li>
 </ul>
-<p>随后，服务器会返回<strong>响应头</strong>，响应头包括服务器自身的一些信息，比如故武器生成返回数据的时间，返回的数据类型，以及服务器要在客户端保存的Cookie信息。</p>
+<p>随后，服务器会返回<strong>响应头</strong>，响应头包括服务器自身的一些信息，比如浏览器生成返回数据的时间，返回的数据类型，以及服务器要在客户端保存的Cookie信息。</p>
 <p>发送完响应头之后，服务器就继续发送<strong>响应体</strong>，通常，响应体包含了HTML的实际内容。</p>
 <p><strong>2.断开连接</strong></p>
 <p>通常情况下，一旦服务器向客户端返回了请求数据，他就要关闭TCP连接。不过，如果浏览器或者服务器在其头信息中加入了：</p>
@@ -495,7 +527,10 @@
     <a href="/2022/01/14/JavaScript_2/" rel="prev" title="JavaScript总结篇（2）">
       <i class="fa fa-chevron-left"></i> JavaScript总结篇（2）
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="next" title="计算机网络">
+      计算机网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -568,7 +603,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

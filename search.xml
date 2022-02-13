@@ -1,165 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>JavaScript总结篇（1）</title>
-    <url>/2021/12/26/JavaScript_1/</url>
-    <content><![CDATA[<blockquote>
-<p>在第一遍看完《JavaScript高级程序设计》后，自己并没有太大的收获，究其原因就是，自己在看书的过程中，抱着看完一本书的目的，一目十行，并没有吸收里面的知识，这次，我结合他人博客，仔细的看了一遍一些重要的内容，收获很大，每看完一部分，我都会写一篇笔记来记录自己的收获。</p>
+    <title>计算机网络</title>
+    <url>/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
+    <content><![CDATA[<h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><h4 id="第一章：计算机网络和因特网"><a href="#第一章：计算机网络和因特网" class="headerlink" title="第一章：计算机网络和因特网"></a>第一章：计算机网络和因特网</h4><h5 id="什么是协议"><a href="#什么是协议" class="headerlink" title="什么是协议"></a>什么是协议</h5><p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C1.png" alt="64427891989"></p>
+<p>要理解计算机网络协议这一概念的一个最容易的办法就是：将其与人类的活动进行类比。上图就是一个典型的交互过程。当你想要向某人询问时间时，你首先得和他打招呼：“你好”，然后，根据此人根据情况进行回应：如果他热情地回复：“你好”，说明他愿意继续跟你聊下去，也就是愿意接受你接下来的提问，反之，如果他回复的是：“不要烦我”，那么他应该是不愿意跟你聊下去了，你们此次的对话也就结束了。</p>
+<h5 id="协议层次及其服务模型"><a href="#协议层次及其服务模型" class="headerlink" title="协议层次及其服务模型"></a>协议层次及其服务模型</h5><blockquote>
+<p>为了给网络协议的设计提供一个结构，网络设计者以分层的方式组织协议以及实现这些协议的网络硬件和软件，每个协议属于这些层次之一</p>
 </blockquote>
+<p>一个协议层能够用软件、硬件或两者的结合来实现，例如HTTP应用层协议几乎总是在端系统（主机）中用软件实现，运输层协议也是如此，网络层经常是硬件和软件实现的混合体。</p>
+<p>各层的所有协议被称为<strong>协议栈</strong>，因特网的协议栈由五个层次组成：物理层、链路层、网络层、运输层和应用层。这里我们采用了自顶向下方法，首先处理应用层，然后向下处理。</p>
+<p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C2.png" alt="64342755717"></p>
+<p>（1）应用层</p>
+<p>应用层是网络应用程序及它们的应用层协议存留的地方。因特网的应用层包括许多协议，例如HTTP（提供Web文档的请求和传送）、SMTP（提供电子邮件报文的传输）和FTP（提供两个端系统之间的文件传送），我们将看到，某些网络功能，如将<a href="http://www.itef.org这样对人友好的端系统名字转换为32比特的网络地址,也是借助于特定的应用层协议即域名系统(dns)完成的./">www.itef.org这样对人友好的端系统名字转换为32比特的网络地址，也是借助于特定的应用层协议即域名系统（DNS）完成的。</a></p>
+<p>应用层协议分布在多个端系统上，而一个端系统中的应用程序使用协议与另一个端系统中的应用程序交互信息分组。我们把这种位于应用层的信息分组称为<strong>报文</strong>。</p>
+<p>（2）传输层</p>
+<p>因特网的运输层在应用程序端点之间传送应用层报文，在因特网中，有两种传输协议：TCP和UDP，利用其中任何一个都能运输应用层报文。</p>
+<p>TCP：向它的应用程序提供了面向连接的服务，这种服务包括了应用层报文向目的地的确保传递和流量控制，同时，TCP也将长报文划分为短报文，并提供<strong>拥塞控制机制</strong>，因此当网络拥塞时，源抑制其传输速率。</p>
+<p>UDP：向它的应用程序提供无连接服务，这是一种不提供不必要服务的服务，没有可靠性，没有流量控制，也没有拥塞控制。</p>
+<p>我们把运输层的分组称为<strong>报文段</strong>。</p>
+<p>（3）网络层</p>
+<p>因特网的网络层负责将称为<strong>数据报</strong>的网络层分组从一台主机移动到另一台主机。</p>
+<p>因特网的网络层包括著名的网际协议IP，该协议定义了在数据报中的各个字段以及端系统和路由器如何作用于这些字段。</p>
+<p>（4）链路层</p>
+<p>（5）物理层</p>
+<h5 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h5><p>在原有的五层模型上，增加了<strong>表示层</strong>,<strong>会话层</strong></p>
+<p>表示层：使通信的应用程序能够解释交换数据的含义，这些服务包括：数据压缩，数据加密以及数据描述。</p>
+<p>会话层：提供了数据交换的定界和同步功能，包括了建立检查点和恢复方案的方法。</p>
+<h4 id="第二章：应用层"><a href="#第二章：应用层" class="headerlink" title="第二章：应用层"></a>第二章：应用层</h4><p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C3.png" alt="64395921225"></p>
+<h5 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h5><p>在构建网络应用程序前，还需要对运行在多个端系统上的程序是如何互相通信的情况有一个基本了解。用操作系统的术语来说，进行通信的实际上是<strong>进程</strong>，而不是程序</p>
+<h5 id="HTTP（P82）"><a href="#HTTP（P82）" class="headerlink" title="HTTP（P82）"></a>HTTP（P82）</h5><p>Web的应用层协议是<strong>超文本传输协议</strong>（HTTP），HTTP由两个程序实现：一个客户程序和一个服务器程序。</p>
+<p>在继续讨论之前，我们来简单估算一下从客户请求HTML基本文件起到该客户收到整个文件止所花费的时间。为此，我们给出往返时间（Round Trip Time, RTF）的定义，该时间是指一个短分组从客户到服务器然后再返回客户所花费的时间。RTT包括分组传播时延、分组在中间路由器和交换机上的排队时延以及分组处理时延（这些时延在1・4节已经讨论过）。现在考虑当用户点击超链接时会发生什么现象。如图2・7所示，<br><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C4.png" alt="64396026006"></p>
+<p>这引起浏览器在它和Web服务器之间发起一个TCP连接；这涉及一次“三次握手”过程,即客户向服务器发送一个小TCP报文段，服务器用一个小TCP报文段做出确认和响应,最后，客户向服务器返回确认。三次握手中前两个部分所耗费的时间占用了一个RTT。完成了三次握手的前两个部分后，客户结合三次握手的第三部分（确认）向该TCP连接发送一个HTTP请求报文。一旦该请求报文到达服务器，服务器就在该TCP连接上发送HTML文件。该HTTP请求/响应用去了另一个RTT。因此，粗略地讲，总的响时间就是两个RTT加上服务器传输HTML文件的时间。</p>
+<p><strong>Web缓存</strong></p>
+<p>Web缓存也叫代理服务器，它是能够代表初始Web服务器来满足HTTP请求的网络实体。Web缓存器有自己的磁盘存储空间，并在存储空间中保存最近请求过的对象的副本。</p>
+<p>举例来说，假设浏览器正在请求<code>http://www.baidu.com</code>，将会发生如下情况：</p>
+<ul>
+<li>浏览器创建一个到Web缓存器的TCP连接，并向Web缓存器中的对象发送一个HTTP请求</li>
+<li>Web缓存器进行检查，查看本地是否存储了该对象副本，如果有，Web缓存器就向客户浏览器用HTTP报文返回该对象</li>
+<li>如果Web缓存器中没有该对象，它就打开一个与该对象的初始服务器（即<a href="http://www.baidu.com)的tcp连接,web缓存器则在这个缓存器到服务器的tcp连接上发送一个该对象的http请求.收到该请求后,初始服务器向该web缓存器发送具有该对象的http响应./">www.baidu.com）的TCP连接，Web缓存器则在这个缓存器到服务器的TCP连接上发送一个该对象的HTTP请求。收到该请求后，初始服务器向该Web缓存器发送具有该对象的HTTP响应。</a></li>
+<li>当Web缓存器接收到该对象时，它在本地存储空间存储一份副本，并向客户的浏览器用HTTP响应报文发送该副本</li>
+</ul>
+<h4 id="第三章：运输层"><a href="#第三章：运输层" class="headerlink" title="第三章：运输层"></a>第三章：运输层</h4><h5 id="无连接运输：UDP"><a href="#无连接运输：UDP" class="headerlink" title="无连接运输：UDP"></a>无连接运输：UDP</h5><p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C5.png" alt="64428289303"></p>
+<p>UDP只是做了运输协议能够做的最少工作，除了复用/分解功能以及少量的差错检测外，它几乎没有对IP增加别的东西，实际上，如果应用程序开发人员选择UDP而不是TCP，则该应用程序差不多就是直接与IP打交道。</p>
+<p>特点：</p>
+<ul>
+<li>关于发送什么数据以及何时发送的应用层控制更为精细。采用UDP，只要应用进程将数据传递给UDP，UDP就会将此数据打包进UDP报文段，并立即将其传递给网络层。</li>
+<li>无需连接建立，因此UDP不会引入建立连接的时延。</li>
+<li>无连接状态，UDP不需要维护连接状态，也不跟踪这些参数</li>
+<li>分组首部开销小，每个TCP报文段都有20字节的首部开销，而UDP仅有8字节的开销</li>
+</ul>
+<p>一些应用能够容忍少量的分组丢失，因此可靠传输对于这些应用并不是至关重要的，比如说因特网电话、视频会议之类的实时应用，由于这些原因，开发人员通常将这些应用运行在UDP上而不是TCP上。</p>
+<h5 id="面向连接的运输：TCP"><a href="#面向连接的运输：TCP" class="headerlink" title="面向连接的运输：TCP"></a>面向连接的运输：TCP</h5><p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C6.png" alt="64428296711"></p>
+<ul>
+<li>32比特的<strong>序号字段</strong>和32比特的<strong>确认号字段</strong>，被TCP发送方和接收方用来实现可靠数据传输服务。</li>
+<li>6比特的标志字段。<strong>ACK比特</strong>用于指示确认字段中的值是有效的，即该报文段包括一个对已被成功接收报文段的确认。<strong>RST、SYN和FIN</strong>比特用于连接建立和拆除。</li>
+</ul>
+<p><strong>三次握手</strong></p>
+<p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C7.png" alt="64428422291"></p>
+<p>SYN：表示建立连接</p>
+<p>FIN：表示关闭连接</p>
+<p>ACK：表示响应</p>
+<ul>
+<li>刚开始，客户端处于Closed状态，服务端处于Listen状态</li>
+<li>第一次握手：客户端给服务端发送一个SYN报文，表示自己要建立连接，SYN=1，随机产生seq number（即序号），然后，服务端由SYN=1知道，客户端要建立连接，客户端处于SYN_SEND状态，此时不能携带数据，但要消耗掉一个序号</li>
+<li>第二次握手：服务端向客户端发送一个ack number（即确认号，值为客户端的seq number + 1），SYN=1，ACK=1，随机产生seq number（序号）的包，服务端处于SYN_REVD状态</li>
+<li>第三次握手：客户端收到后，检查ack number是否正确，即值为第一次发送的seq number + 1，ACK是否为1，若正确，客户端处于ESTABLISHED客户端再发送ack number（服务端的seq number + 1），ACK = 1，服务端收到ack number以及ACK的值，确认无误后建立连接，服务端也处于ESTABLISHED状态。双方就建立了连接。</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>浏览器基础篇</title>
+    <url>/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
+    <content><![CDATA[<p>最近突然想了解一下浏览器的工作原理，于是跑到极客时间上面找到李兵老师的课程进行学习，于是有了这篇笔记，做笔记过程中，并没有完整记下来，只记录了自己觉得陌生重要的部分，如果想深入了解一下，大家可以去极客时间上面找到李兵老师的课程<a href="http://gk.link/a/115Sf">浏览器工作原理<a>。</a></a></p>
 <span id="more"></span>
 
-<p>###第三章  语言基础</p>
-<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><p>1.var关键字</p>
-<ul>
-<li><p>声明作用域：</p>
-<p>使用var操作符定义的变量会成为包含它的函数的局部变量：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test()&#123;</span><br><span class="line">    var message = &#x27;hi&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line">console.log(messsage);	//报错</span><br></pre></td></tr></table></figure>
 
-<p>而在函数内部定义变量时，省略var操作符，会创建一个全局变量：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test()&#123;</span><br><span class="line">    message = &#x27;hi&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line">console.log(messsage);	//&quot;hi&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p>声明提升：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo()&#123;</span><br><span class="line">    console.log(age);	</span><br><span class="line">    var age = 21;</span><br><span class="line">&#125;</span><br><span class="line">foo()	//undefined</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>2.let声明</p>
-<ul>
-<li><p>声明作用域：</p>
-<p>let声明的范围是块作用域，而var声明的范围是函数作用域</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    let age = 21;</span><br><span class="line">    console.log(age);	//21</span><br><span class="line">&#125;</span><br><span class="line">console.log(age)	//报错</span><br></pre></td></tr></table></figure></li>
-<li><p>在同一作用域中，不可重复声明：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let age = 21;</span><br><span class="line">let age = 20;	//报错：age已经声明过了</span><br></pre></td></tr></table></figure></li>
-<li><p>暂时性死区：</p>
-<p>let与var的另一个重要区别，就是let声明的变量不会在作用域中被提升</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(age);	//报错，age没有定义</span><br><span class="line">let age = 21;</span><br></pre></td></tr></table></figure>
 
+<h3 id="浏览器工作原理"><a href="#浏览器工作原理" class="headerlink" title="浏览器工作原理"></a>浏览器工作原理</h3><h4 id="01-仅仅打开一个页面，为什么有多个进程"><a href="#01-仅仅打开一个页面，为什么有多个进程" class="headerlink" title="01|仅仅打开一个页面，为什么有多个进程"></a>01|仅仅打开一个页面，为什么有多个进程</h4><p>首先大家可以打开Chrome浏览器右上角的“选项”菜单，选择“更多工具”，点击“任务管理器”</p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/1.png" alt="64273051510"></p>
+<p>大家可以看到，这里启动了多个进程，至于原因，大家需要先跟着了解一下进程的概念</p>
+<h5 id="什么是并行处理"><a href="#什么是并行处理" class="headerlink" title="什么是并行处理"></a>什么是并行处理</h5><p>计算机中的并行处理就是同一时刻处理多个任务，下面举个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A = 1 + 2;</span><br><span class="line">B = 20 / 5;</span><br><span class="line">C = 7 * 8;</span><br></pre></td></tr></table></figure>
+
+<p>在编写代码的时候，我们可以把这个过程拆分为四个任务：</p>
+<p><strong>任务1</strong>是计算A = 1+2</p>
+<p><strong>任务2</strong>是计算B = 20/5</p>
+<p><strong>任务3</strong>是计算C = 7*8</p>
+<p><strong>任务4</strong>是显示最后的结果</p>
 <blockquote>
-<p>在解析代码时，JavaScript引擎也会注意在块后面的let声明，只不过在此之前不能以任何方式来引用未声明的变量。在let声明之前的瞬间被称为“暂时性死区”，在此阶段引用任何后面才声明的变量都会抛出错误。</p>
+<p>如果程序使用单线程来处理，那么这个程序需要分四步执行这四个任务</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var age = 22;</span><br><span class="line">function test()&#123;</span><br><span class="line">    console.log(age);	//报错</span><br><span class="line">    let age = 22;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></li>
-<li><p>全局声明：</p>
-<p>与var关键字不同，使用let在全局作用域声明的变量不会成为window对象的属性</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var name = &quot;chj&quot;;</span><br><span class="line">console.log(window.name);	//&quot;chj&quot;</span><br><span class="line"></span><br><span class="line">let name = &quot;chj&quot;;</span><br><span class="line">console.log(window.name);	//undefined</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>3.const声明</p>
-<ul>
-<li><p>const的行为与let基本相同，唯一一个重要的区别就是用const声明时，必须同时初始化变量，且尝试修改const声明的变量会导致运行时报错</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const age = 21;</span><br><span class="line">age = 20;	//报错：给常量赋值</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>#####数据类型</p>
-<p>1.简单数据类型：</p>
-<p>undefined，Boolean，null，symbol，string，number，bigint（基本没用过，新出的）</p>
-<p>2.复杂数据类型：</p>
-<p>Object（包括普通对象Object，数组对象Array，正则对象RegExp，日期对象Date，数学函数Math，函数对象Function)</p>
-<p>判断数据类型</p>
-<ul>
-<li><p>对于基本数据类型来说，除了null都可以调用typeof显示正确的类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof 1      //&#x27;number&#x27;</span><br><span class="line">typeof &#x27;1&#x27;    //&#x27;string&#x27;</span><br><span class="line">typeof true   //&#x27;boolean&#x27;</span><br><span class="line">typeof undefined    //&#x27;undefined&#x27;</span><br><span class="line">typeod Symbol()     //&#x27;symbol&#x27;</span><br><span class="line">typeof null    //&#x27;object&#x27;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>对于复杂数据类型，除了函数之外，都会显示object</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof []  //&#x27;object&#x27;</span><br><span class="line">typeof &#123;&#125;  //&#x27;object&#x27;</span><br><span class="line">const test = function()&#123;</span><br><span class="line">    console.log(1);</span><br><span class="line">&#125;</span><br><span class="line">console.log(typeof test);  //&#x27;function&#x27;</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>这里可以实现一下判断复杂对象数据类型：</p>
+<p>但是，如果程序采用的是多线程，那么只需要两步就可以完成这四个任务：第一步使用三个线程完成前三个任务，第二步使用一个线程显示最后的结果</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const myTypeof(obj)&#123;</span><br><span class="line">    return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase;</span><br><span class="line">&#125;</span><br><span class="line">console.log(mytypeof([]));  //&#x27;array&#x27;</span><br><span class="line">console.log(mytypeof(&#123;&#125;));  //&#x27;object&#x27;</span><br></pre></td></tr></table></figure>
-
+<p>通过对比分析，我们可以发现，使用并行处理可以大大提升性能</p>
+<h5 id="进程VS线程"><a href="#进程VS线程" class="headerlink" title="进程VS线程"></a>进程VS线程</h5><p>多线程可以并行处理程序，但是<strong>线程是不能单独存在的，它是由进程来启动和管理的</strong>，那进程又是什么呢？</p>
+<p><strong>一个进程就是一个程序的运行实例</strong>，详细解释就是：启动一个程序的时候，操作系统会为该程序创建一块内存，用来存放代码、运行中的数据和一个执行任务的主线程，我们把这样的一个<strong>运行环境</strong>叫<strong>进程</strong>。</p>
+<p><strong>线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率</strong></p>
+<p>总结来说，进程与线程的关系有以下四个特点：</p>
+<p><strong>1.进程中的任一线程出错，都会导致整个进程崩溃</strong></p>
+<p><strong>2.线程之间共享进程中的数据</strong></p>
+<p><strong>3.当一个进程关闭之后，操作系统会回收进程中所占用的内存</strong></p>
+<p><strong>4.进程之间的内容相互隔离</strong></p>
+<h5 id="目前多进程架构"><a href="#目前多进程架构" class="headerlink" title="目前多进程架构"></a>目前多进程架构</h5><p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/2.png" alt="64273183201"></p>
+<p>从图中可以看出，最新的Chrome浏览器包括：1个浏览器主进程，1个GPU进程，一个网络进程，多个插件进程，多个渲染进程</p>
+<p><strong>浏览器进程：</strong>主要负责页面展示，用户交互，子进程管理，同时提供存储等功能</p>
+<p><strong>渲染进程：</strong>核心任务是将HTML，CSS和JavaScript转换为可以与之交互的网页，排版引擎Blink和JavaScript引擎V8都是运行在该程序中。出于安全考虑，渲染进程都是运行在沙箱模式下。</p>
+<p><strong>GPU进程：</strong>其实，Chrome刚开始发布的时候是没有GPU进程的，而GPU进程的使用初衷是为了实现3DCSS的效果，只是随后网页、Chrome的UI界面都选择采用GPU来绘制，这使得GPU成为浏览器普遍的需求，最后，Chrome在其多进程架构上也引入了GPU进程。</p>
+<p><strong>网络进程：</strong>主要负责页面的网络资源加载</p>
+<p><strong>插件进程：</strong>主要是负责插件的运行，因为插件容易崩溃，所以需要通过插件进程来隔离，以保证插件进程崩溃不会对浏览器和页面造成影响。</p>
+<p>虽然多进程模型提升了浏览器的稳定性、流畅性和安全性，但同样带来了一些问题：</p>
+<p><strong>更高的资源占用：</strong>每个进程都包含公共基础结构的副本，这就意味着浏览器会消耗更多的内存资源</p>
+<p><strong>更复杂的体系结构：</strong>浏览器各模块之间的耦合度高，扩展性差，会导致现在的架构已经很难适应新的需求了</p>
+<h4 id="02-TCP协议：如何保证页面文件能被完整送达浏览器"><a href="#02-TCP协议：如何保证页面文件能被完整送达浏览器" class="headerlink" title="02|TCP协议：如何保证页面文件能被完整送达浏览器"></a>02|TCP协议：如何保证页面文件能被完整送达浏览器</h4><blockquote>
+<p>要想优化Web页面的加载速度，需要对网络有充分的了解。而理解网络的关键是对网络协议有深刻的认识，不管是使用HTTP还是WebSocket，他们都是基于TCP/IP的</p>
+</blockquote>
+<h5 id="一个数据包的“旅程”"><a href="#一个数据包的“旅程”" class="headerlink" title="一个数据包的“旅程”"></a>一个数据包的“旅程”</h5><p><strong>互联网，实际上是一套理念和协议组成的协议架构，</strong>其中，协议是一套众所周知的规则和标准，如果各方都同意使用，那么它们之间的通信将变得毫无障碍。</p>
+<p>互联网中的数据是通过<strong>数据包</strong>来传输的，如果发送的数据很大，那么该数据会被<strong>拆分为很多小数据包</strong>来传输。</p>
+<h5 id="1-IP：把数据包送达目的主机"><a href="#1-IP：把数据包送达目的主机" class="headerlink" title="1.IP：把数据包送达目的主机"></a>1.IP：把数据包送达目的主机</h5><p>数据包要在互联网上进行传输，就要符合<strong>网络协议</strong>（Internet Protocol，简称IP）标准，互联网上不同的在线设备都有唯一的地址，地址只是一个数字，这和大部分家庭收件地址类似，只要知道一个家庭的具体地址，就可以往这个地址发送包裹，物流系统也能把物品送到目的地。</p>
 <blockquote>
-<p>当然，这里也可以使用instanceof来判断复杂数据类型</p>
+<p>计算机的地址称为IP地址，访问任何网站，实际上就是你的计算机向另外一台计算机请求信息。</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log([] instanceof Array);   //true</span><br><span class="line">console.log(&#123;&#125; instanceof Object);  //true</span><br><span class="line"></span><br><span class="line">//instanceof的原理就是顺着要判断的对象的原型链向上查找，若能找到对应构造函数的原型对象，则返回true，否则返回false</span><br></pre></td></tr></table></figure>
-
+<p>那么如果想要把一个数据包从主机A发送给主机B，那么传输之前，数据包需要附加上主机B的IP地址信息，这样才能正确送达，另外，数据包还需要附加上主机A（也就是本机）的IP地址，有了这些信息，主机B才可以回复信息给主机A。这些<strong>附加的信息会被装进一个叫IP头的数据结构里</strong>。</p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/3.png" alt="64273557786"></p>
+<p>​                                       <strong>简化的IP网络三层传输模型</strong></p>
+<ul>
+<li>上层将含有“极客时间”的数据包交给网络层；</li>
+<li>网络层再将IP头附在数据包上，组成新的IP数据包，并交给底层；</li>
+<li>底层通过物理网络将数据包传输给主机B；</li>
+<li>数据包被传输到主机B的网络层，在这里主机B拆开数据包的IP头信息，并将拆开来的数据部分交给上层；</li>
+<li>最终，含有“极客时间”信息的数据包就到达了主机B的上层了</li>
+</ul>
+<h5 id="2-UDP：把数据包送达应用程序"><a href="#2-UDP：把数据包送达应用程序" class="headerlink" title="2.UDP：把数据包送达应用程序"></a>2.UDP：把数据包送达应用程序</h5><p>IP协议是非常底层的协议，只负责把数据包传送到对方电脑，但是对方电脑并不知道把数据包交给哪个程序。因此，需要基于IP上开发能和应用打交道的协议，最常见的是“<strong>用户数据包协议</strong>”（User Datagram Protocol），简称UDP。</p>
+<p>UDP中最重要的信息是端口号，端口号其实是一个数字，<strong>每个想访问网络的程序都需要绑定一个端口号</strong>，通过端口号，UDP就能将指定的数据包发送给指定的程序了，和IP头一样，端口号也会被装进UDP头里面。UDP再通过端口号把数据包分发给正确的程序。</p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/4.png" alt="64273693091"></p>
+<p>​                        <strong>UDP网络四层传输模型</strong></p>
+<ul>
+<li>上层将含有“极客时间”的数据包交给传输层；</li>
+<li>传输层会将UDP头附加在数据包上，将新数据包交给网络层；</li>
+<li>网络层将IP头附加在数据包上，将新数据包交给底层</li>
+<li>数据包被传输至主机B，网络层将数据包的IP头拆分，并将剩余数据送至传输层；</li>
+<li>传输层解开UDP头，并识别出端口，将剩余数据交给对应端口号的程序；</li>
+<li>对应应用程序获取数据，完成传输。</li>
+</ul>
 <blockquote>
-<p>这里手动实现一下instanceof的功能</p>
+<p>在使用UDP发送数据时，有各种因素会导致数据包出错，虽然UDP可以校验数据是否正确，但是对于错误的数据包，UDP并不提供重发机制，只是丢弃当前的包，而且UDP在发送之后也无法知道是否能达到目的地。</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function myInstanceof(obj, constructor)&#123;</span><br><span class="line">//不是对象数据类型则返回false，其没有原型</span><br><span class="line">    if(typeof obj !== &#x27;object&#x27; || typeof obj === null)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    //先拿到该对象的向上找的第一个原型对象</span><br><span class="line">    let proto = Object.getPrototypeOf(obj);</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(proto === constructor.prototype)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        if(proto === null)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        proto = Object.getPrototypeOf(proto);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(myInstanceof([], Array));   //true;</span><br><span class="line">console.log(myInstanceof(&#123;&#125;, Object));  //true;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>数据类型的转换</p>
-<p>类型转换只有三种：</p>
-<ul>
-<li>转换为数字</li>
-<li>转换为布尔值</li>
-<li>转换为字符串</li>
-</ul>
-<p><strong>转换为数字：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string ---&gt;  &#x27;1&#x27; =&gt; 1, &#x27;a&#x27; =&gt; NaN, &#x27;1a&#x27; =&gt; NaN</span><br><span class="line">数组 ----&gt;  空数组为0，存在一个元素且为数字转化为数字，其他情况为NaN</span><br><span class="line">null ----&gt;  0</span><br><span class="line">除了数组的引用类型 ----&gt;  NaN</span><br><span class="line">Symbol -----&gt; 报错</span><br></pre></td></tr></table></figure>
-
-<p><strong>转化为布尔值：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">number ----&gt; 除了0，-0，+0，NaN都为true</span><br><span class="line">string ----&gt; 除了空串都为true</span><br><span class="line">undefined,null ----&gt; false</span><br><span class="line">引用类型 ----&gt;  true</span><br></pre></td></tr></table></figure>
-
-<p><strong>转换为字符串：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">number ----&gt;  5 =&gt; &#x27;5&#x27;</span><br><span class="line">Boolean，函数，Symbol  ----&gt;  &#x27;true&#x27;</span><br><span class="line">数组 -----&gt;  [1,2] =&gt; &#x27;1,2&#x27;</span><br><span class="line">对象 ------&gt;  &#x27;[object,Object]&#x27;</span><br></pre></td></tr></table></figure></li>
-<li><p>===和==的区别</p>
-<p><strong>===判断类型是否相同，不相同直接返回false，而==涉及到一些类型转换</strong></p>
-<ul>
-<li>两边的类型相同，直接比较值的大小</li>
-<li>判断两边是否分别是null和undefined，是的话，直接返回true</li>
-<li>判断的类型是否是String和Number，是的话，把String类型转换成Number，再进行比较</li>
-<li>判断其中一方是否是Boolean，是的话就把Boolean转换成Number，再进行比较</li>
-<li>如果其中一方为Object，且另一方为String、Number或者Symbol，会将Object转换成字符串，再进行比较</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#125; == true //false，首先，&#123;&#125;转换为字符串（&quot;[object,Object]&quot;）,然后再转化为number（NaN），右边为1，所以为false</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>此处的Object转化为字符串，这涉及到每个Object中都有一个实例：valueOf()，其返回对象对应的字符串，数值或者布尔值，通常与toString()的返回值相同</p>
+<p>虽说UDP不能保证数据可靠性，但是传输速度却非常快，所以UDP会应用在一些关注速度、但不那么严格要求数据完整性的领域，如在线视频、互动游戏。</p>
+<h5 id="3-TCP：把数据完整地送达应用程序"><a href="#3-TCP：把数据完整地送达应用程序" class="headerlink" title="3.TCP：把数据完整地送达应用程序"></a>3.TCP：把数据完整地送达应用程序</h5><blockquote>
+<p>基于UDP传输存在地问题，我们引入了TCP，TCP（Transmission Control Protocol，传输控制协议）是一种面向连接地、可靠的、基于字节流地传输层通信协议。</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">常见的应用：a == 1 &amp;&amp; a == 2 //true</span><br><span class="line">const a = &#123;</span><br><span class="line">    value:1,</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        return this.value++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a == 1 &amp;&amp; a == 2);	//true</span><br></pre></td></tr></table></figure></li>
-</ul>
+<p>相对于UDP，TCP有以下两个特点：</p>
 <ul>
-<li><p>Object.is和===的区别</p>
-<p>主要体现在+0和-0，NaN和NaN的判断上，修复了===的一些失误</p>
-<p>在===中：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(+0 === -0);    //true</span><br><span class="line">console.log(NaN === NaN);  //false</span><br></pre></td></tr></table></figure>
-
-<p>在Object.is中：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Object.is(+0,-0));     //false;</span><br><span class="line">console.log(Object.is(NaN,NaN));   //true;</span><br></pre></td></tr></table></figure></li>
+<li>对于数据包丢失情况，TCP提供重传机制</li>
+<li>TCP引入了数据包排序机制，用来保证把乱序的数据包组合成一个完整地文件</li>
 </ul>
-<h3 id="第四章-变量、作用域与内存"><a href="#第四章-变量、作用域与内存" class="headerlink" title="第四章 变量、作用域与内存"></a>第四章 变量、作用域与内存</h3><h5 id="原始值与引用值"><a href="#原始值与引用值" class="headerlink" title="原始值与引用值"></a>原始值与引用值</h5><ul>
-<li><p>原始值是最简单的数据</p>
-<p>保存原始值的变量是按值访问的，因为我们操作的就是存储在变量中的实际值</p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/5.png" alt="64274830565"></p>
+<p>​                        <strong>TCP网络四层传输模型</strong></p>
+<p>一个完整地TCP连接的生命周期包括了“<strong>建立连接</strong>”，“<strong>传输数据</strong>”和“<strong>断开连接</strong>”三个阶段</p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/6.png" alt="64274838676"></p>
+<ul>
+<li>首先是连接阶段，这个阶段是通过“<strong>三次握手</strong>”来建立客户端和服务器之间的连接。TCP提供<strong>面向连接</strong>的通信传输。面向连接是指在数据通信开始前先做好两端之间的准备工作。三次握手指的是建立一个TCP连接时，客户端和服务器总共要发送三个数据包以确认连接的建立</li>
+<li>其次，传输数据阶段，在该阶段，<strong>接收端需要对每个数据包进行确认操作</strong>，也就是接收端在接收到数据包以后，需要发送确认数据包给发送端。也就是说，如果发送端在发送数据包后，在一定时间内没有接收到接收端反馈的反馈信息，则认为数据包丢失，并触发重发机制。</li>
+<li>最后，断开连接阶段，数据传输完毕之后，涉及到最后一个阶段的“<strong>四次挥手</strong>”，来保证双反都能断开连接。</li>
+</ul>
+<p>所以，TCP为了保证数据传输的可靠性，牺牲了数据包的传输速度，因为“三次握手”和“数据包传输校验机制”等，把传输过程中的数据包的数量增加了一倍。</p>
+<h4 id="03-HTTP请求流程：为什么很多站点第二次打开速度会很快"><a href="#03-HTTP请求流程：为什么很多站点第二次打开速度会很快" class="headerlink" title="03|HTTP请求流程：为什么很多站点第二次打开速度会很快"></a>03|HTTP请求流程：为什么很多站点第二次打开速度会很快</h4><p>HTTP协议是建立在TCP连接基础上的，是一种<strong>允许浏览器向服务器获取资源的协议</strong>，是Web的基础，通常由浏览器发起请求，用来获取不同类型的文件，例如HTML文件、CSS文件、JavaScript文件、图片、视频等等。</p>
+<h5 id="浏览器端发起HTTP请求流程"><a href="#浏览器端发起HTTP请求流程" class="headerlink" title="浏览器端发起HTTP请求流程"></a>浏览器端发起HTTP请求流程</h5><p>如果在浏览器地址栏里键入极客时间网站的地址：<a href="http://time.geekbang.org/index.html%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BC%9A%E5%AE%8C%E6%88%90%E5%93%AA%E4%BA%9B%E5%8A%A8%E4%BD%9C%E5%91%A2%EF%BC%9F">http://time.geekbang.org/index.html，浏览器会完成哪些动作呢？</a></p>
+<p><strong>1.构建请求</strong></p>
+<p>首先，浏览器构建请求行信息，构建好后，浏览器准备发起网络请求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /index.html HTTP.1</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2.查找缓存</strong></p>
+<p>在真正发起网络请求之前，浏览器会先在浏览器缓存中查询是否有要请求的文件。其中，<strong>浏览器缓存是一种在本地保存资源副本，以供下次请求时直接使用的技术。</strong></p>
+<p>当浏览器发现请求的资源已经在浏览器中存有副本，它会拦截请求，返回该资源的副本，而不会再去源服务器重新下载。这样做的好处有：</p>
+<ul>
+<li>缓解服务器端压力，提升性能</li>
+<li>对于网站来说，缓存是实现快速资源加载的重要组成部分</li>
+</ul>
+<p>当然，如果缓存查找失败，就会进入网络请求过程了</p>
+<p><strong>3.准备IP地址和端口</strong></p>
+<p>因为<strong>浏览器使用HTTP协议作为应用层协议</strong>，用来封装请求的文本信息；并使用TCP/IP作为传输层协议将它发到网络上，所以在HTTP工作之前，浏览器需要通过TCP与服务器建立连接。也就是说，<strong>HTTP的内容是通过TCP的传输数据阶段来实现的</strong></p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/7.png" alt="64283509147"></p>
+<p>​                        <strong>TCP和HTTP的关系</strong></p>
+<ul>
+<li>HTTP网络请求的第一步是做什么呢？结合上图看，是和服务器建立TCP连接。</li>
+<li>那建立连接的信息都有了吗？之前，我们讲到，建立TCP连接的第一步就是准备IP地址和端口号</li>
+<li>那如何获取IP地址和端口号呢？我们目前只有一个URL地址，我们是否可以利用URL地址来获取IP地址和端口号呢？</li>
+</ul>
+<p>由于网站的IP地址都很难记忆，所以都是使用域名（time.geekbang.org）来代替，在获取IP地址时，我们则需要使用<strong>DNS</strong>（域名系统）按照域名和IP地址的一一映射关系，得到相应的IP地址</p>
+<p>而如果URL没有特别指明端口号，那么HTTP协议默认是80端口</p>
+<p><strong>4.等待TCP队列</strong></p>
+<p>Chrome有个机制，同一个域名同时最多只能建立6个TCP连接，超过6个请求则会进入排队等待状态，当然，如果少于6，则直接进入下一步。</p>
+<p><strong>5.建立TCP连接</strong></p>
+<p>……</p>
+<p><strong>6.发送HTTP请求</strong></p>
+<p>一旦建立了TCP连接，浏览器就可以和服务器进行通信了。</p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/8.png" alt="64283593124"></p>
+<p>首先浏览器会向服务器发送请求行，它包括了请求方法、请求URI（Uniform Resource Identifier）和HTTP版本协议</p>
+<p>发送请求行，就是告诉服务器浏览器需要什么资源，最常用的请求方法是<strong>GET</strong>。另外一个常用的方法是<strong>POST</strong>，它用于发送一些数据给服务器，如果使用POST方法，那么浏览器还要准备数据给浏览器，这些数据通过请求体来发送。</p>
+<p>在浏览器发送请求行之后，还要以请求头形式发送一些其他的信息，把浏览器的一些基础信息告诉服务器。比如浏览器所使用的操作系统、浏览器内核、当前请求的域名信息、浏览器端的Cookie等等。</p>
+<h5 id="服务器端处理HTTP请求流程"><a href="#服务器端处理HTTP请求流程" class="headerlink" title="服务器端处理HTTP请求流程"></a>服务器端处理HTTP请求流程</h5><p><strong>1.返回请求</strong></p>
+<p>一旦服务器处理结束，便可以返回数据给浏览器了。</p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/9.png" alt="64283705741"></p>
+<p>首先服务器会返回<strong>响应行</strong>，包括协议版本和状态码。</p>
+<p>服务器会通过响应行的状态码来告诉浏览器它的处理结果。</p>
+<p>常见的状态码：</p>
+<ul>
+<li><p>1**：信息，服务器收到请求，需要请求者继续执行操作</p>
+<p><strong>100</strong>：Continue，继续，客户端应继续其请求</p>
+<p><strong>101</strong>：切换协议，服务器根据客户端的的请求切换协议，只能切换到更高级的协议，例如，切换到HTTP的新版本协议</p>
 </li>
-<li><p>引用值是由多个值构成的对象</p>
-<p>JavaScript不允许直接访问内存地址，因此不能直接操作对象所在的内存空间，在操作对象时，实际上操作的是对该对象的引用而非实际的对象本身。</p>
+<li><p>2**：成功，操作被成功接收并处理</p>
+<p><strong>200</strong>：请求成功</p>
+<p><strong>201</strong>：已创建，成功请求并创建了新的资源</p>
+<p><strong>202</strong>：已接受，但未完成处理</p>
+<p><strong>204</strong>：无内容，服务器成功处理，但未返回内容，也就是说服务器不需要返回信息，此状态代码的示例包括删除请求或请求是通过表单发送的</p>
 </li>
-<li><p>复制值</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num1 = 5;</span><br><span class="line">let num2 = num1;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>这里，num1包含数值5，当把num2初始化为num1时，num2也会得到数值5，这个值根存储在num1中的5是完全独立的，互不干扰</p>
-</blockquote>
+<li><p>3**：重定向，需要进一步操作以完成请求</p>
+<p><strong>301</strong>：永久重定向，请求的资源已被永久地移动到新URI，返回信息包括新                URI，浏览器会自动定向到新URI</p>
+<p><strong>302</strong>：临时重定向，与301类似，但是资源只是临时被移动，客户端应继续使用原有URI</p>
+<p><strong>304</strong>：未修改，所请求的资源未修改，服务器返回此状态码，不会返回任何资源</p>
+</li>
+<li><p>4**：客户端错误，请求包含语法错误或无法完成请求</p>
+<p><strong>400</strong>：客户端请求的语法错误，服务器无法理解</p>
+<p><strong>401</strong>：请求用户的身份认证</p>
+<p><strong>403</strong>：服务器理解请求客户端的请求，但是拒绝执行此操作</p>
+<p><strong>404</strong>：服务器无法根据客户端的请求找到资源</p>
+<p><strong>408</strong>：服务器等待客户端发送的时间过长，超时</p>
+<p><strong>409</strong>：当请求与资源的当前状态冲突时，发送状态码409，这通常是同时更新或版本相互冲突的问题，服务器完成客户端的PUT请求时可能返回此代码</p>
+<p><strong>410</strong>：请求的资源不可再用，并且将不再可用</p>
+</li>
+<li><p>5**：服务器错误，服务器在处理请求的过程中发生了错误</p>
+<p><strong>500</strong>：服务器内部错误，无法完成请求</p>
 </li>
 </ul>
-<p><img src="/2021/12/26/JavaScript_1/a.jpg" alt="1"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let obj1 = new Object();</span><br><span class="line">let obj2 = obj1;</span><br><span class="line">obj1.name = &quot;chj&quot;;</span><br><span class="line">console.log(obj2.name);		//&quot;chj&quot;</span><br></pre></td></tr></table></figure>
+<p>随后，服务器会返回<strong>响应头</strong>，响应头包括服务器自身的一些信息，比如浏览器生成返回数据的时间，返回的数据类型，以及服务器要在客户端保存的Cookie信息。</p>
+<p>发送完响应头之后，服务器就继续发送<strong>响应体</strong>，通常，响应体包含了HTML的实际内容。</p>
+<p><strong>2.断开连接</strong></p>
+<p>通常情况下，一旦服务器向客户端返回了请求数据，他就要关闭TCP连接。不过，如果浏览器或者服务器在其头信息中加入了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Connection:Keep-Alive</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/12/26/JavaScript_1/b.jpg" alt="2"></p>
-<ul>
-<li><p>传递参数</p>
-<p>所有的函数的参数都是按值传递的</p>
-<p><strong>参数为简单数据类型：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test(num)&#123;</span><br><span class="line">    num += 10;</span><br><span class="line">    return num;</span><br><span class="line">&#125;</span><br><span class="line">let count = 20;</span><br><span class="line">let result = test(count);</span><br><span class="line">console.log(count);		//20，没有变化</span><br><span class="line">console.log(result);	//30</span><br></pre></td></tr></table></figure>
-
-<p><strong>参数为引用数据类型：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test(obj)&#123;</span><br><span class="line">    obj.name = &quot;jun&quot;;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &quot;hui&quot;;</span><br><span class="line">&#125;</span><br><span class="line">let person = new Object();</span><br><span class="line">person.name = &quot;chen&quot;;</span><br><span class="line">test(person);</span><br><span class="line">console.log(person.name);	//&quot;jun&quot;</span><br><span class="line"></span><br><span class="line">这个函数内部，先是对obj的name属性进行操作，然后，将obj重新定义为一个有着不同name的新对象，如果person是按引用传递的，那么person的name属性将被改成“hui”，但是，我们再次访问name属性时，它的值为第一次操作的值。当obj在函数内部重写时，他变成了指向本地对象的指针，而那个对象在函数执行结束后就销毁了。</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h5 id="执行上下文（Context）与作用域-Scope"><a href="#执行上下文（Context）与作用域-Scope" class="headerlink" title="执行上下文（Context）与作用域(Scope)"></a>执行上下文（Context）与作用域(Scope)</h5><blockquote>
-<p>执行上下文的概念非常重要，但是也很难理解，函数的每次调用都有与之紧密相关的作用域和上下文。从根本上来说，作用域是基于函数的，而上下文是基于对象的。 换句话说，作用域涉及到所被调用函数中的变量访问，并且不同的调用场景是不一样的。上下文始终是<code>this</code>关键字的值， 它是拥有（控制）当前所执行代码的对象的引用.</p>
-</blockquote>
-<ul>
-<li><strong>变量或函数</strong>的执行上下文决定了它们可以访问哪些数据，以及它们的行为，每个上下文都有一个关联的<strong>变量对象</strong>，而这个上下文中定义的所有变量和函数都存在于这个对象上。</li>
-<li>全局上下文是最外层的上下文，在浏览器中，全局上下文就是我们常说的window对象</li>
-<li>每个函数调用都有自己的上下文，当代码执行流进入函数时，函数的上下文会被推到上下文栈上，函数执行完后，上下文栈会弹出该函数上下文（执行完函数，销毁其变量）</li>
-<li>上下文的代码在执行的时候，会创建变量对象的一个<strong>作用域链</strong>，这个作用域链决定了各级上下文的代码在访问变量和函数时的顺序。如果上下文是函数，则其<strong>活动对象</strong>用作变量对象，活动对象最初只有一个定义变量：arguments。（全局上下文中没有这个变量）</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &quot;blue&quot;;</span><br><span class="line"></span><br><span class="line">function changeColor()&#123;</span><br><span class="line">    let anotherColor = &quot;red&quot;;</span><br><span class="line">    </span><br><span class="line">    function swapColor()&#123;</span><br><span class="line">        let tempColor = anotherColor;</span><br><span class="line">        anotherColor = Color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">        </span><br><span class="line">    //这里可以访问color，anotherColor和tempColor</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //这里可以访问color，anotherColor</span><br><span class="line">    swapColor();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//这里只能访问Color</span><br><span class="line">changeColor();</span><br><span class="line"></span><br><span class="line">以上代码涉及到三个上下文：全局上下文，changeColor()的局部上下文和swapColor()的局部上下文</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/12/26/JavaScript_1/c.jpg" alt="3"></p>
+<p>那么TCP连接在发送后将仍然保持打开状态，这样浏览器就可以继续通过同一个TCP连接发送请求。<strong>保持TCP连接可以省去下次请求时需要建立连接的时间，提升资源加载速度。</strong></p>
+<p><strong>3.重定向</strong></p>
+<p>当你在浏览器中打开<strong>geekbang.org</strong>后，会发现最终打开的页面地址是<code>http://www.geekbang.org</code></p>
+<p>这两个URL之所以不一样，是因为涉及到了一个<strong>重定向操作</strong></p>
+<p>不过这种跳转并不是必然的，就比如说，如果你打开了<code>https://12306.cn</code>，你会发现这个站点是打不开的，这是因为12306的服务器并没有处理跳转，所以必须要手动输入完整的<code>https://www.12306.cn</code>才能打开页面。</p>
 <blockquote>
-<p>以上一图就很好地解释了：每个上下文都有一个关联的变量对象，上下文中定义的所有变量和函数都存在于这个对象上</p>
+<p>在了解了HTTP的请求流程后，我们来看两个问题</p>
 </blockquote>
-<h5 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h5><blockquote>
-<p>至于内存管理，涉及到v8引擎关于如何进行垃圾回收的原理，后续我会专门写一篇总结</p>
+<h5 id="1-为什么很多站点第二次打开速度会很快？"><a href="#1-为什么很多站点第二次打开速度会很快？" class="headerlink" title="1.为什么很多站点第二次打开速度会很快？"></a>1.为什么很多站点第二次打开速度会很快？</h5><p>第二次页面打开很快，主要原因是第一次加载页面过程中，缓存了一些耗时的数据。</p>
+<p>从上面的介绍可以发现，<strong>DNS缓存</strong>和<strong>页面资源缓存</strong>这两块数据是会被浏览器缓存的，其中DNS缓存比较简单，就是在浏览器本地将对应的IP和域名关联起来。</p>
+<p>下面来看看浏览器资源缓存：</p>
+<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/10.png" alt="64283823380"></p>
+<p>从上图的第一次请求可以看出，当服务器返回<strong>HTTP响应头</strong>给浏览器时，浏览器是通过响应头中的<strong>Cache-Control</strong>字段来设置是否缓存该资源。通常，我们需要为这个资源设置一个缓存过期时长：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Cache-Control:Max-age=2000  //单位为秒</span><br></pre></td></tr></table></figure>
+
+<p>这就意味着，在该缓存还未过期的情况下，如果再次请求该资源，就会直接返回缓存中的资源给浏览器。</p>
+<p>如果缓存过期了，浏览器则会继续发起网络请求，并且在HTTP请求头中带上：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">If-None-Match:&quot;4f80f-12n-1b1kl23na&quot;</span><br></pre></td></tr></table></figure>
+
+<p>服务器收到请求头之后，会根据If-None-Match的值来判断请求的资源是否有更新。</p>
+<ul>
+<li>如果没有更新，则返回304状态码，相当于告诉服务器：这个缓存可以继续使用。</li>
+<li>如果有更新，服务器就直接返回最新资源给浏览器</li>
+</ul>
+<blockquote>
+<p>简要来说，很多网站第二次访问能够秒开，是因为这些网站把资源都缓存在了本地，浏览器缓存直接使用本地副本来回应请求，而不会产生真实的网络请求，从而节省了时间，同时DNS数据也被浏览器缓存了。</p>
 </blockquote>
+<h5 id="2-登录状态是如何保持的？"><a href="#2-登录状态是如何保持的？" class="headerlink" title="2.登录状态是如何保持的？"></a>2.登录状态是如何保持的？</h5><ul>
+<li>用户调用POST方法提交用户登录信息给服务器</li>
+<li>服务器接收信息，验证用户登录信息是否正确，如果正确，会生成一段表示用户身份的字符串，并把该字符串<strong>种</strong>（在青训营，一个老师这么讲的，还挺生动的）到浏览器中（其实就是把该字符串写到响应头的Set-Cookie字段里，然后把响应头发送给浏览器）</li>
+<li>浏览器在接收到服务器的响应头后，开始解析响应头，如果遇到响应体里面有Set-Cookie字段，浏览器会把这个字段保存到本地。</li>
+<li>当用户再次访问时，浏览器发起请求之前，会读取之前保存的Cookie数据，并把数据写进请求头里的Cookie字段里，然后浏览器再讲请求头发送给服务器。</li>
+<li>服务器根据请求头的Cookie字段信息，判断该用户是否是已登录状态，并把生成的数据发送给浏览器</li>
+</ul>
+<h4 id="04-导航流程：从输入URL到页面展示，这中间发生了什么？"><a href="#04-导航流程：从输入URL到页面展示，这中间发生了什么？" class="headerlink" title="04|导航流程：从输入URL到页面展示，这中间发生了什么？"></a>04|导航流程：从输入URL到页面展示，这中间发生了什么？</h4><p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/11.png" alt="64290743745"></p>
+<p>​                        <strong>完整流程示意图</strong></p>
+<p>这个过程可以大致描述如下：</p>
+<ul>
+<li>首先，浏览器进程接收到用户输入的URL请求，浏览器进程便将该URL转发给网络进程</li>
+<li>然后，在网络中发起真正的URL请求</li>
+<li>接着网络进程接收到了响应头数据，便解析响应头数据，并将数据转发给浏览器进程</li>
+<li>浏览器进程接收到网络进程的响应头数据之后，发送“提交导航”消息到渲染进程</li>
+<li>渲染进程接收到“提交导航”消息之后，便开始准备接收HTML数据，接收数据的方式是直接和网络进程建立数据管道</li>
+<li>最后渲染进程会向浏览器进程“确认提交”，这是告诉浏览器进程：“已经准备好接受和解析页面数据了”</li>
+<li>浏览器进程接收到渲染进程“提交文档”的消息之后，便开始移除之前旧的文档，然后更新浏览器进程中的页面状态</li>
+</ul>
+<p>其中，用户发出URL请求到页面开始解析的这个过程，就叫做<strong>导航</strong></p>
+<p><strong>详细描述：</strong></p>
+<p><strong>1.用户输入</strong></p>
+<p>当用户在地址栏中输入一个查询关键字时，地址栏会判断<strong>输入的关键字</strong>是<strong>搜索内容</strong>，还是<strong>请求的URL</strong>：</p>
+<ul>
+<li>如果是搜索内容，地址栏会使用浏览器默认的搜索引擎，来合成新的带搜索关键字的URL</li>
+<li>如果判断输入内容符合URL规则，比如输入的是time.geekbang.org，那么地址栏会根据规则，把这段内容加上协议，合成为完整的URL，如<code>https://time.geekbang.org</code></li>
+</ul>
+<p>当用户输入关键字并键入回车之后，这意味着当前页面即将要被换成新的页面，不过在这个流程继续之前，浏览器还给了当前页面一次执行beforeunload事件的机会，beforeunload事件允许页面在退出之前执行一些数据清理操作，还可以询问用户是否要离开当前页面，比如当前页面可能有未提交完成的表单情况，因此用户可以通过beforeunload事件来取消导航，让浏览器不再执行后续工作</p>
+<p>如果当前页面没有监听beforeunload事件，或者同意了继续后续流程，那么浏览器会进入一个加载状态（也就是我们经常看到一个小圈在那里转），此时页面显示的依然是之前打开的页面，因为需要等待提交文档阶段，页面内容才会被替换</p>
+<p><strong>2.URL请求过程</strong></p>
+<p>接下来，便进入了页面资源请求过程，这时，浏览器进程会通过进程间通信（IPC）把URL请求发送至网络进程，网络进程接收到URL请求后，会在这里发起真正的URL请求流程</p>
+<p>首先，查看本地是否缓存了该资源，然后进行DNS解析，获取服务器IP地址，如果请求是HTTPS，那么还需要建立TLS连接</p>
+<p>接下来就是利用IP地址和服务器建立TCP连接。连接建立之后，浏览器端会构建请求行、请求头等信息，并把和该域名相关的cookie等数据附加到请求头中，然后向服务器发送构建的请求信息</p>
+<p>服务器接收到请求信息后，会根据请求信息生成响应数据（包括响应行、响应头和响应体），并发给网络进程。等网络进程接收了响应行和响应头之后，就开始解析响应头的内容了。</p>
+<p><strong>（1）重定向</strong></p>
+<p>在接收到服务器返回的响应头后，网络进程开始解析响应头，如果发现返回的状态码是301或者302，那么说明服务器需要浏览器重定向到其他URL。这时网络进程会从响应头的Location字段里面读取重定向地址。</p>
+<p><strong>（2）响应数据类型处理</strong></p>
+<p>在处理了跳转信息之后，浏览器是如何区分URL请求返回的数据类型的呢？</p>
+<p>答案是：Content-Type，Content-Type是HTTP头中一个非常重要的字段，它告诉浏览器服务器返回的响应体数据是什么类型，然后浏览器会根据Content-Type的值来决定如何显示响应体的内容。</p>
+<p>不同的Content-Type的后续处理流程也截然不同。如果是下载类型，那么该请求会被提交给浏览器的下载管理器，同时该URL请求的导航流程就此结束。但如果是HTML类型，那么浏览器会继续进行导航流程。</p>
+<p><strong>3.准备渲染流程</strong></p>
+<p>默认情况下，Chrome会为每个页面分配一个渲染进程，也就是说，每打开一个新页面都会配套创建一个新的渲染流程。但是，在某种情况下，浏览器也会让多个页面直接运行在同一个渲染流程中。</p>
+<p><strong>那么什么情况下多个页面会同时运行在一个渲染进程中呢？</strong></p>
+<p>要解决这个问题，我们需要先了解什么是同一站点（same-site）。具体地讲，我们讲“<strong>同一站点</strong>”定义为<strong>根域名</strong>加上<strong>协议</strong>，比如下面三个：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://time.geekbang.org</span><br><span class="line">https://www.geekbang.org</span><br><span class="line">https://www.geekbang.org:8000</span><br></pre></td></tr></table></figure>
+
+<p>它们都是属于<strong>同一站点</strong>，因为它们的协议都是HTTPS，而且根域名也都是geekbang.org。</p>
+<p>Chrome的默认策略是：每个标签对应一个渲染进程。但如果从一个页面打开了另一个新页面，而<strong>新页面和当前页面属于同一站点的话，那么新页面会复用父页面的渲染进程</strong>。相反，新页面和当前页面不属于同一站点，那么浏览器进程会为新页面创建一个新的渲染进程。</p>
+<p>渲染进程准备好之后，还不能立即进入文档解析状态，因为此时的文档数据还在网络进程中，所以下一步就进入了提交文档阶段。</p>
+<p><strong>4.提交文档</strong></p>
+<p>所谓提交文档，就是指浏览器进程将网络进程接收到的HTML数据提交给渲染进程，具体流程如下：</p>
+<ul>
+<li>首先当浏览器进程接收到网络进程的响应头数据之后，便向渲染进程发起“提交文档”的消息</li>
+<li>渲染进程接收到“提交文档”的消息后，会和网络进程建立传输数据的“管道”</li>
+<li>等文档数据传输完成之后，渲染进程会返回“确认提交”的消息给浏览器进程</li>
+<li>浏览器进程在收到“确认提交”的消息后，会更新浏览器界面状态</li>
+</ul>
+<p><strong>5.渲染阶段</strong></p>
+<p>一旦文档被提交，渲染进程便开始页面解析和子资源加载了，一个完整的页面就生成了。</p>
 ]]></content>
   </entry>
   <entry>
@@ -403,6 +573,168 @@
 ]]></content>
   </entry>
   <entry>
+    <title>JavaScript总结篇（1）</title>
+    <url>/2021/12/26/JavaScript_1/</url>
+    <content><![CDATA[<blockquote>
+<p>在第一遍看完《JavaScript高级程序设计》后，自己并没有太大的收获，究其原因就是，自己在看书的过程中，抱着看完一本书的目的，一目十行，并没有吸收里面的知识，这次，我结合他人博客，仔细的看了一遍一些重要的内容，收获很大，每看完一部分，我都会写一篇笔记来记录自己的收获。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>###第三章  语言基础</p>
+<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><p>1.var关键字</p>
+<ul>
+<li><p>声明作用域：</p>
+<p>使用var操作符定义的变量会成为包含它的函数的局部变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test()&#123;</span><br><span class="line">    var message = &#x27;hi&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line">console.log(messsage);	//报错</span><br></pre></td></tr></table></figure>
+
+<p>而在函数内部定义变量时，省略var操作符，会创建一个全局变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test()&#123;</span><br><span class="line">    message = &#x27;hi&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line">console.log(messsage);	//&quot;hi&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>声明提升：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo()&#123;</span><br><span class="line">    console.log(age);	</span><br><span class="line">    var age = 21;</span><br><span class="line">&#125;</span><br><span class="line">foo()	//undefined</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>2.let声明</p>
+<ul>
+<li><p>声明作用域：</p>
+<p>let声明的范围是块作用域，而var声明的范围是函数作用域</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    let age = 21;</span><br><span class="line">    console.log(age);	//21</span><br><span class="line">&#125;</span><br><span class="line">console.log(age)	//报错</span><br></pre></td></tr></table></figure></li>
+<li><p>在同一作用域中，不可重复声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let age = 21;</span><br><span class="line">let age = 20;	//报错：age已经声明过了</span><br></pre></td></tr></table></figure></li>
+<li><p>暂时性死区：</p>
+<p>let与var的另一个重要区别，就是let声明的变量不会在作用域中被提升</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(age);	//报错，age没有定义</span><br><span class="line">let age = 21;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在解析代码时，JavaScript引擎也会注意在块后面的let声明，只不过在此之前不能以任何方式来引用未声明的变量。在let声明之前的瞬间被称为“暂时性死区”，在此阶段引用任何后面才声明的变量都会抛出错误。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var age = 22;</span><br><span class="line">function test()&#123;</span><br><span class="line">    console.log(age);	//报错</span><br><span class="line">    let age = 22;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></li>
+<li><p>全局声明：</p>
+<p>与var关键字不同，使用let在全局作用域声明的变量不会成为window对象的属性</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var name = &quot;chj&quot;;</span><br><span class="line">console.log(window.name);	//&quot;chj&quot;</span><br><span class="line"></span><br><span class="line">let name = &quot;chj&quot;;</span><br><span class="line">console.log(window.name);	//undefined</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>3.const声明</p>
+<ul>
+<li><p>const的行为与let基本相同，唯一一个重要的区别就是用const声明时，必须同时初始化变量，且尝试修改const声明的变量会导致运行时报错</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const age = 21;</span><br><span class="line">age = 20;	//报错：给常量赋值</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>#####数据类型</p>
+<p>1.简单数据类型：</p>
+<p>undefined，Boolean，null，symbol，string，number，bigint（基本没用过，新出的）</p>
+<p>2.复杂数据类型：</p>
+<p>Object（包括普通对象Object，数组对象Array，正则对象RegExp，日期对象Date，数学函数Math，函数对象Function)</p>
+<p>判断数据类型</p>
+<ul>
+<li><p>对于基本数据类型来说，除了null都可以调用typeof显示正确的类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof 1      //&#x27;number&#x27;</span><br><span class="line">typeof &#x27;1&#x27;    //&#x27;string&#x27;</span><br><span class="line">typeof true   //&#x27;boolean&#x27;</span><br><span class="line">typeof undefined    //&#x27;undefined&#x27;</span><br><span class="line">typeod Symbol()     //&#x27;symbol&#x27;</span><br><span class="line">typeof null    //&#x27;object&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>对于复杂数据类型，除了函数之外，都会显示object</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof []  //&#x27;object&#x27;</span><br><span class="line">typeof &#123;&#125;  //&#x27;object&#x27;</span><br><span class="line">const test = function()&#123;</span><br><span class="line">    console.log(1);</span><br><span class="line">&#125;</span><br><span class="line">console.log(typeof test);  //&#x27;function&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里可以实现一下判断复杂对象数据类型：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const myTypeof(obj)&#123;</span><br><span class="line">    return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase;</span><br><span class="line">&#125;</span><br><span class="line">console.log(mytypeof([]));  //&#x27;array&#x27;</span><br><span class="line">console.log(mytypeof(&#123;&#125;));  //&#x27;object&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当然，这里也可以使用instanceof来判断复杂数据类型</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log([] instanceof Array);   //true</span><br><span class="line">console.log(&#123;&#125; instanceof Object);  //true</span><br><span class="line"></span><br><span class="line">//instanceof的原理就是顺着要判断的对象的原型链向上查找，若能找到对应构造函数的原型对象，则返回true，否则返回false</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里手动实现一下instanceof的功能</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function myInstanceof(obj, constructor)&#123;</span><br><span class="line">//不是对象数据类型则返回false，其没有原型</span><br><span class="line">    if(typeof obj !== &#x27;object&#x27; || typeof obj === null)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    //先拿到该对象的向上找的第一个原型对象</span><br><span class="line">    let proto = Object.getPrototypeOf(obj);</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(proto === constructor.prototype)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        if(proto === null)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        proto = Object.getPrototypeOf(proto);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(myInstanceof([], Array));   //true;</span><br><span class="line">console.log(myInstanceof(&#123;&#125;, Object));  //true;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>数据类型的转换</p>
+<p>类型转换只有三种：</p>
+<ul>
+<li>转换为数字</li>
+<li>转换为布尔值</li>
+<li>转换为字符串</li>
+</ul>
+<p><strong>转换为数字：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string ---&gt;  &#x27;1&#x27; =&gt; 1, &#x27;a&#x27; =&gt; NaN, &#x27;1a&#x27; =&gt; NaN</span><br><span class="line">数组 ----&gt;  空数组为0，存在一个元素且为数字转化为数字，其他情况为NaN</span><br><span class="line">null ----&gt;  0</span><br><span class="line">除了数组的引用类型 ----&gt;  NaN</span><br><span class="line">Symbol -----&gt; 报错</span><br></pre></td></tr></table></figure>
+
+<p><strong>转化为布尔值：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">number ----&gt; 除了0，-0，+0，NaN都为true</span><br><span class="line">string ----&gt; 除了空串都为true</span><br><span class="line">undefined,null ----&gt; false</span><br><span class="line">引用类型 ----&gt;  true</span><br></pre></td></tr></table></figure>
+
+<p><strong>转换为字符串：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">number ----&gt;  5 =&gt; &#x27;5&#x27;</span><br><span class="line">Boolean，函数，Symbol  ----&gt;  &#x27;true&#x27;</span><br><span class="line">数组 -----&gt;  [1,2] =&gt; &#x27;1,2&#x27;</span><br><span class="line">对象 ------&gt;  &#x27;[object,Object]&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>===和==的区别</p>
+<p><strong>===判断类型是否相同，不相同直接返回false，而==涉及到一些类型转换</strong></p>
+<ul>
+<li>两边的类型相同，直接比较值的大小</li>
+<li>判断两边是否分别是null和undefined，是的话，直接返回true</li>
+<li>判断的类型是否是String和Number，是的话，把String类型转换成Number，再进行比较</li>
+<li>判断其中一方是否是Boolean，是的话就把Boolean转换成Number，再进行比较</li>
+<li>如果其中一方为Object，且另一方为String、Number或者Symbol，会将Object转换成字符串，再进行比较</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#125; == true //false，首先，&#123;&#125;转换为字符串（&quot;[object,Object]&quot;）,然后再转化为number（NaN），右边为1，所以为false</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此处的Object转化为字符串，这涉及到每个Object中都有一个实例：valueOf()，其返回对象对应的字符串，数值或者布尔值，通常与toString()的返回值相同</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">常见的应用：a == 1 &amp;&amp; a == 2 //true</span><br><span class="line">const a = &#123;</span><br><span class="line">    value:1,</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        return this.value++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a == 1 &amp;&amp; a == 2);	//true</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>Object.is和===的区别</p>
+<p>主要体现在+0和-0，NaN和NaN的判断上，修复了===的一些失误</p>
+<p>在===中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(+0 === -0);    //true</span><br><span class="line">console.log(NaN === NaN);  //false</span><br></pre></td></tr></table></figure>
+
+<p>在Object.is中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Object.is(+0,-0));     //false;</span><br><span class="line">console.log(Object.is(NaN,NaN));   //true;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="第四章-变量、作用域与内存"><a href="#第四章-变量、作用域与内存" class="headerlink" title="第四章 变量、作用域与内存"></a>第四章 变量、作用域与内存</h3><h5 id="原始值与引用值"><a href="#原始值与引用值" class="headerlink" title="原始值与引用值"></a>原始值与引用值</h5><ul>
+<li><p>原始值是最简单的数据</p>
+<p>保存原始值的变量是按值访问的，因为我们操作的就是存储在变量中的实际值</p>
+</li>
+<li><p>引用值是由多个值构成的对象</p>
+<p>JavaScript不允许直接访问内存地址，因此不能直接操作对象所在的内存空间，在操作对象时，实际上操作的是对该对象的引用而非实际的对象本身。</p>
+</li>
+<li><p>复制值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num1 = 5;</span><br><span class="line">let num2 = num1;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里，num1包含数值5，当把num2初始化为num1时，num2也会得到数值5，这个值根存储在num1中的5是完全独立的，互不干扰</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="/2021/12/26/JavaScript_1/a.jpg" alt="1"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let obj1 = new Object();</span><br><span class="line">let obj2 = obj1;</span><br><span class="line">obj1.name = &quot;chj&quot;;</span><br><span class="line">console.log(obj2.name);		//&quot;chj&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/12/26/JavaScript_1/b.jpg" alt="2"></p>
+<ul>
+<li><p>传递参数</p>
+<p>所有的函数的参数都是按值传递的</p>
+<p><strong>参数为简单数据类型：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test(num)&#123;</span><br><span class="line">    num += 10;</span><br><span class="line">    return num;</span><br><span class="line">&#125;</span><br><span class="line">let count = 20;</span><br><span class="line">let result = test(count);</span><br><span class="line">console.log(count);		//20，没有变化</span><br><span class="line">console.log(result);	//30</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数为引用数据类型：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test(obj)&#123;</span><br><span class="line">    obj.name = &quot;jun&quot;;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &quot;hui&quot;;</span><br><span class="line">&#125;</span><br><span class="line">let person = new Object();</span><br><span class="line">person.name = &quot;chen&quot;;</span><br><span class="line">test(person);</span><br><span class="line">console.log(person.name);	//&quot;jun&quot;</span><br><span class="line"></span><br><span class="line">这个函数内部，先是对obj的name属性进行操作，然后，将obj重新定义为一个有着不同name的新对象，如果person是按引用传递的，那么person的name属性将被改成“hui”，但是，我们再次访问name属性时，它的值为第一次操作的值。当obj在函数内部重写时，他变成了指向本地对象的指针，而那个对象在函数执行结束后就销毁了。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="执行上下文（Context）与作用域-Scope"><a href="#执行上下文（Context）与作用域-Scope" class="headerlink" title="执行上下文（Context）与作用域(Scope)"></a>执行上下文（Context）与作用域(Scope)</h5><blockquote>
+<p>执行上下文的概念非常重要，但是也很难理解，函数的每次调用都有与之紧密相关的作用域和上下文。从根本上来说，作用域是基于函数的，而上下文是基于对象的。 换句话说，作用域涉及到所被调用函数中的变量访问，并且不同的调用场景是不一样的。上下文始终是<code>this</code>关键字的值， 它是拥有（控制）当前所执行代码的对象的引用.</p>
+</blockquote>
+<ul>
+<li><strong>变量或函数</strong>的执行上下文决定了它们可以访问哪些数据，以及它们的行为，每个上下文都有一个关联的<strong>变量对象</strong>，而这个上下文中定义的所有变量和函数都存在于这个对象上。</li>
+<li>全局上下文是最外层的上下文，在浏览器中，全局上下文就是我们常说的window对象</li>
+<li>每个函数调用都有自己的上下文，当代码执行流进入函数时，函数的上下文会被推到上下文栈上，函数执行完后，上下文栈会弹出该函数上下文（执行完函数，销毁其变量）</li>
+<li>上下文的代码在执行的时候，会创建变量对象的一个<strong>作用域链</strong>，这个作用域链决定了各级上下文的代码在访问变量和函数时的顺序。如果上下文是函数，则其<strong>活动对象</strong>用作变量对象，活动对象最初只有一个定义变量：arguments。（全局上下文中没有这个变量）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &quot;blue&quot;;</span><br><span class="line"></span><br><span class="line">function changeColor()&#123;</span><br><span class="line">    let anotherColor = &quot;red&quot;;</span><br><span class="line">    </span><br><span class="line">    function swapColor()&#123;</span><br><span class="line">        let tempColor = anotherColor;</span><br><span class="line">        anotherColor = Color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">        </span><br><span class="line">    //这里可以访问color，anotherColor和tempColor</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //这里可以访问color，anotherColor</span><br><span class="line">    swapColor();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//这里只能访问Color</span><br><span class="line">changeColor();</span><br><span class="line"></span><br><span class="line">以上代码涉及到三个上下文：全局上下文，changeColor()的局部上下文和swapColor()的局部上下文</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/12/26/JavaScript_1/c.jpg" alt="3"></p>
+<blockquote>
+<p>以上一图就很好地解释了：每个上下文都有一个关联的变量对象，上下文中定义的所有变量和函数都存在于这个对象上</p>
+</blockquote>
+<h5 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h5><blockquote>
+<p>至于内存管理，涉及到v8引擎关于如何进行垃圾回收的原理，后续我会专门写一篇总结</p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
     <title>了解Git的基本使用</title>
     <url>/2021/12/21/git/</url>
     <content><![CDATA[<blockquote>
@@ -543,243 +875,6 @@
 
 <h4 id="标签操作"><a href="#标签操作" class="headerlink" title="标签操作"></a>标签操作</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin &lt;tagname&gt;   推送一个本地标签</span><br><span class="line">git push origin --tags      推送全部未推送过的本地标签</span><br><span class="line">git tag -d &lt;tagname&gt;        删除一个本地标签</span><br><span class="line">git push origin :refs/tags/&lt;tagname&gt; 删除一个远程标签</span><br></pre></td></tr></table></figure>
 
-]]></content>
-  </entry>
-  <entry>
-    <title>浏览器基础篇</title>
-    <url>/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
-    <content><![CDATA[<p>最近突然想了解一下浏览器的工作原理，于是跑到极客时间上面找到李兵老师的课程进行学习，于是有了这篇笔记，做笔记过程中，并没有完整记下来，只记录了自己觉得陌生重要的部分，如果想深入了解一下，大家可以去极客时间上面找到李兵老师的课程<a href="http://gk.link/a/115Sf">浏览器工作原理<a>。</a></a></p>
-<span id="more"></span>
-
-
-
-<h3 id="浏览器工作原理"><a href="#浏览器工作原理" class="headerlink" title="浏览器工作原理"></a>浏览器工作原理</h3><h4 id="01-仅仅打开一个页面，为什么有多个进程"><a href="#01-仅仅打开一个页面，为什么有多个进程" class="headerlink" title="01|仅仅打开一个页面，为什么有多个进程"></a>01|仅仅打开一个页面，为什么有多个进程</h4><p>首先大家可以打开Chrome浏览器右上角的“选项”菜单，选择“更多工具”，点击“任务管理器”</p>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/1.png" alt="64273051510"></p>
-<p>大家可以看到，这里启动了多个进程，至于原因，大家需要先跟着了解一下进程的概念</p>
-<h5 id="什么是并行处理"><a href="#什么是并行处理" class="headerlink" title="什么是并行处理"></a>什么是并行处理</h5><p>计算机中的并行处理就是同一时刻处理多个任务，下面举个例子</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A = 1 + 2;</span><br><span class="line">B = 20 / 5;</span><br><span class="line">C = 7 * 8;</span><br></pre></td></tr></table></figure>
-
-<p>在编写代码的时候，我们可以把这个过程拆分为四个任务：</p>
-<p><strong>任务1</strong>是计算A = 1+2</p>
-<p><strong>任务2</strong>是计算B = 20/5</p>
-<p><strong>任务3</strong>是计算C = 7*8</p>
-<p><strong>任务4</strong>是显示最后的结果</p>
-<blockquote>
-<p>如果程序使用单线程来处理，那么这个程序需要分四步执行这四个任务</p>
-</blockquote>
-<blockquote>
-<p>但是，如果程序采用的是多线程，那么只需要两步就可以完成这四个任务：第一步使用三个线程完成前三个任务，第二步使用一个线程显示最后的结果</p>
-</blockquote>
-<p>通过对比分析，我们可以发现，使用并行处理可以大大提升性能</p>
-<h5 id="进程VS线程"><a href="#进程VS线程" class="headerlink" title="进程VS线程"></a>进程VS线程</h5><p>多线程可以并行处理程序，但是<strong>线程是不能单独存在的，它是由进程来启动和管理的</strong>，那进程又是什么呢？</p>
-<p><strong>一个进程就是一个程序的运行实例</strong>，详细解释就是：启动一个程序的时候，操作系统会为该程序创建一块内存，用来存放代码、运行中的数据和一个执行任务的主线程，我们把这样的一个<strong>运行环境</strong>叫<strong>进程</strong>。</p>
-<p><strong>线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率</strong></p>
-<p>总结来说，进程与线程的关系有以下四个特点：</p>
-<p><strong>1.进程中的任一线程出错，都会导致整个进程崩溃</strong></p>
-<p><strong>2.线程之间共享进程中的数据</strong></p>
-<p><strong>3.当一个进程关闭之后，操作系统会回收进程中所占用的内存</strong></p>
-<p><strong>4.进程之间的内容相互隔离</strong></p>
-<h5 id="目前多进程架构"><a href="#目前多进程架构" class="headerlink" title="目前多进程架构"></a>目前多进程架构</h5><p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/2.png" alt="64273183201"></p>
-<p>从图中可以看出，最新的Chrome浏览器包括：1个浏览器主进程，1个GPU进程，一个网络进程，多个插件进程，多个渲染进程</p>
-<p><strong>浏览器进程：</strong>主要负责页面展示，用户交互，子进程管理，同时提供存储等功能</p>
-<p><strong>渲染进程：</strong>核心任务是将HTML，CSS和JavaScript转换为可以与之交互的网页，排版引擎Blink和JavaScript引擎V8都是运行在该程序中。出于安全考虑，渲染进程都是运行在沙箱模式下。</p>
-<p><strong>GPU进程：</strong>其实，Chrome刚开始发布的时候是没有GPU进程的，而GPU进程的使用初衷是为了实现3DCSS的效果，只是随后网页、Chrome的UI界面都选择采用GPU来绘制，这使得GPU成为浏览器普遍的需求，最后，Chrome在其多进程架构上也引入了GPU进程。</p>
-<p><strong>网络进程：</strong>主要负责页面的网络资源加载</p>
-<p><strong>插件进程：</strong>主要是负责插件的运行，因为插件容易崩溃，所以需要通过插件进程来隔离，以保证插件进程崩溃不会对浏览器和页面造成影响。</p>
-<p>虽然多进程模型提升了浏览器的稳定性、流畅性和安全性，但同样带来了一些问题：</p>
-<p><strong>更高的资源占用：</strong>每个进程都包含公共基础结构的副本，这就意味着浏览器会消耗更多的内存资源</p>
-<p><strong>更复杂的体系结构：</strong>浏览器各模块之间的耦合度高，扩展性差，会导致现在的架构已经很难适应新的需求了</p>
-<h4 id="02-TCP协议：如何保证页面文件能被完整送达浏览器"><a href="#02-TCP协议：如何保证页面文件能被完整送达浏览器" class="headerlink" title="02|TCP协议：如何保证页面文件能被完整送达浏览器"></a>02|TCP协议：如何保证页面文件能被完整送达浏览器</h4><blockquote>
-<p>要想优化Web页面的加载速度，需要对网络有充分的了解。而理解网络的关键是对网络协议有深刻的认识，不管是使用HTTP还是WebSocket，他们都是基于TCP/IP的</p>
-</blockquote>
-<h5 id="一个数据包的“旅程”"><a href="#一个数据包的“旅程”" class="headerlink" title="一个数据包的“旅程”"></a>一个数据包的“旅程”</h5><p><strong>互联网，实际上是一套理念和协议组成的协议架构，</strong>其中，协议是一套众所周知的规则和标准，如果各方都同意使用，那么它们之间的通信将变得毫无障碍。</p>
-<p>互联网中的数据是通过<strong>数据包</strong>来传输的，如果发送的数据很大，那么该数据会被<strong>拆分为很多小数据包</strong>来传输。</p>
-<h5 id="1-IP：把数据包送达目的主机"><a href="#1-IP：把数据包送达目的主机" class="headerlink" title="1.IP：把数据包送达目的主机"></a>1.IP：把数据包送达目的主机</h5><p>数据包要在互联网上进行传输，就要符合<strong>网络协议</strong>（Internet Protocol，简称IP）标准，互联网上不同的在线设备都有唯一的地址，地址只是一个数字，这和大部分家庭收件地址类似，只要知道一个家庭的具体地址，就可以往这个地址发送包裹，物流系统也能把物品送到目的地。</p>
-<blockquote>
-<p>计算机的地址称为IP地址，访问任何网站，实际上就是你的计算机向另外一台计算机请求信息。</p>
-</blockquote>
-<p>那么如果想要把一个数据包从主机A发送给主机B，那么传输之前，数据包需要附加上主机B的IP地址信息，这样才能正确送达，另外，数据包还需要附加上主机A（也就是本机）的IP地址，有了这些信息，主机B才可以回复信息给主机A。这些<strong>附加的信息会被装进一个叫IP头的数据结构里</strong>。</p>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/3.png" alt="64273557786"></p>
-<p>​                                       <strong>简化的IP网络三层传输模型</strong></p>
-<ul>
-<li>上层将含有“极客时间”的数据包交给网络层；</li>
-<li>网络层再将IP头附在数据包上，组成新的IP数据包，并交给底层；</li>
-<li>底层通过物理网络将数据包传输给主机B；</li>
-<li>数据包被传输到主机B的网络层，在这里主机B拆开数据包的IP头信息，并将拆开来的数据部分交给上层；</li>
-<li>最终，含有“极客时间”信息的数据包就到达了主机B的上层了</li>
-</ul>
-<h5 id="2-UDP：把数据包送达应用程序"><a href="#2-UDP：把数据包送达应用程序" class="headerlink" title="2.UDP：把数据包送达应用程序"></a>2.UDP：把数据包送达应用程序</h5><p>IP协议是非常底层的协议，只负责把数据包传送到对方电脑，但是对方电脑并不知道把数据包交给哪个程序。因此，需要基于IP上开发能和应用打交道的协议，最常见的是“<strong>用户数据包协议</strong>”（User Datagram Protocol），简称UDP。</p>
-<p>UDP中最重要的信息是端口号，端口号其实是一个数字，<strong>每个想访问网络的程序都需要绑定一个端口号</strong>，通过端口号，UDP就能将指定的数据包发送给指定的程序了，和IP头一样，端口号也会被装进UDP头里面。UDP再通过端口号把数据包分发给正确的程序。</p>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/4.png" alt="64273693091"></p>
-<p>​                        <strong>UDP网络四层传输模型</strong></p>
-<ul>
-<li>上层将含有“极客时间”的数据包交给传输层；</li>
-<li>传输层会将UDP头附加在数据包上，将新数据包交给网络层；</li>
-<li>网络层将IP头附加在数据包上，将新数据包交给底层</li>
-<li>数据包被传输至主机B，网络层将数据包的IP头拆分，并将剩余数据送至传输层；</li>
-<li>传输层解开UDP头，并识别出端口，将剩余数据交给对应端口号的程序；</li>
-<li>对应应用程序获取数据，完成传输。</li>
-</ul>
-<blockquote>
-<p>在使用UDP发送数据时，有各种因素会导致数据包出错，虽然UDP可以校验数据是否正确，但是对于错误的数据包，UDP并不提供重发机制，只是丢弃当前的包，而且UDP在发送之后也无法知道是否能达到目的地。</p>
-</blockquote>
-<p>虽说UDP不能保证数据可靠性，但是传输速度却非常快，所以UDP会应用在一些关注速度、但不那么严格要求数据完整性的领域，如在线视频、互动游戏。</p>
-<h5 id="3-TCP：把数据完整地送达应用程序"><a href="#3-TCP：把数据完整地送达应用程序" class="headerlink" title="3.TCP：把数据完整地送达应用程序"></a>3.TCP：把数据完整地送达应用程序</h5><blockquote>
-<p>基于UDP传输存在地问题，我们引入了TCP，TCP（Transmission Control Protocol，传输控制协议）是一种面向连接地、可靠的、基于字节流地传输层通信协议。</p>
-</blockquote>
-<p>相对于UDP，TCP有以下两个特点：</p>
-<ul>
-<li>对于数据包丢失情况，TCP提供重传机制</li>
-<li>TCP引入了数据包排序机制，用来保证把乱序的数据包组合成一个完整地文件</li>
-</ul>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/5.png" alt="64274830565"></p>
-<p>​                        <strong>TCP网络四层传输模型</strong></p>
-<p>一个完整地TCP连接的生命周期包括了“<strong>建立连接</strong>”，“<strong>传输数据</strong>”和“<strong>断开连接</strong>”三个阶段</p>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/6.png" alt="64274838676"></p>
-<ul>
-<li>首先是连接阶段，这个阶段是通过“<strong>三次握手</strong>”来建立客户端和服务器之间的连接。TCP提供<strong>面向连接</strong>的通信传输。面向连接是指在数据通信开始前先做好两端之间的准备工作。三次握手指的是建立一个TCP连接时，客户端和服务器总共要发送三个数据包以确认连接的建立</li>
-<li>其次，传输数据阶段，在该阶段，<strong>接收端需要对每个数据包进行确认操作</strong>，也就是接收端在接收到数据包以后，需要发送确认数据包给发送端。也就是说，如果发送端在发送数据包后，在一定时间内没有接收到接收端反馈的反馈信息，则认为数据包丢失，并触发重发机制。</li>
-<li>最后，断开连接阶段，数据传输完毕之后，涉及到最后一个阶段的“<strong>四次挥手</strong>”，来保证双反都能断开连接。</li>
-</ul>
-<p>所以，TCP为了保证数据传输的可靠性，牺牲了数据包的传输速度，因为“三次握手”和“数据包传输校验机制”等，把传输过程中的数据包的数量增加了一倍。</p>
-<h4 id="03-HTTP请求流程：为什么很多站点第二次打开速度会很快"><a href="#03-HTTP请求流程：为什么很多站点第二次打开速度会很快" class="headerlink" title="03|HTTP请求流程：为什么很多站点第二次打开速度会很快"></a>03|HTTP请求流程：为什么很多站点第二次打开速度会很快</h4><p>HTTP协议是建立在TCP连接基础上的，是一种<strong>允许浏览器向服务器获取资源的协议</strong>，是Web的基础，通常由浏览器发起请求，用来获取不同类型的文件，例如HTML文件、CSS文件、JavaScript文件、图片、视频等等。</p>
-<h5 id="浏览器端发起HTTP请求流程"><a href="#浏览器端发起HTTP请求流程" class="headerlink" title="浏览器端发起HTTP请求流程"></a>浏览器端发起HTTP请求流程</h5><p>如果在浏览器地址栏里键入极客时间网站的地址：<a href="http://time.geekbang.org/index.html%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BC%9A%E5%AE%8C%E6%88%90%E5%93%AA%E4%BA%9B%E5%8A%A8%E4%BD%9C%E5%91%A2%EF%BC%9F">http://time.geekbang.org/index.html，浏览器会完成哪些动作呢？</a></p>
-<p><strong>1.构建请求</strong></p>
-<p>首先，浏览器构建请求行信息，构建好后，浏览器准备发起网络请求</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /index.html HTTP.1</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>2.查找缓存</strong></p>
-<p>在真正发起网络请求之前，浏览器会先在浏览器缓存中查询是否有要请求的文件。其中，<strong>浏览器缓存是一种在本地保存资源副本，以供下次请求时直接使用的技术。</strong></p>
-<p>当浏览器发现请求的资源已经在浏览器中存有副本，它会拦截请求，返回该资源的副本，而不会再去源服务器重新下载。这样做的好处有：</p>
-<ul>
-<li>缓解服务器端压力，提升性能</li>
-<li>对于网站来说，缓存是实现快速资源加载的重要组成部分</li>
-</ul>
-<p>当然，如果缓存查找失败，就会进入网络请求过程了</p>
-<p><strong>3.准备IP地址和端口</strong></p>
-<p>因为<strong>浏览器使用HTTP协议作为应用层协议</strong>，用来封装请求的文本信息；并使用TCP/IP作为传输层协议将它发到网络上，所以在HTTP工作之前，浏览器需要通过TCP与服务器建立连接。也就是说，<strong>HTTP的内容是通过TCP的传输数据阶段来实现的</strong></p>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/7.png" alt="64283509147"></p>
-<p>​                        <strong>TCP和HTTP的关系</strong></p>
-<ul>
-<li>HTTP网络请求的第一步是做什么呢？结合上图看，是和服务器建立TCP连接。</li>
-<li>那建立连接的信息都有了吗？之前，我们讲到，建立TCP连接的第一步就是准备IP地址和端口号</li>
-<li>那如何获取IP地址和端口号呢？我们目前只有一个URL地址，我们是否可以利用URL地址来获取IP地址和端口号呢？</li>
-</ul>
-<p>由于网站的IP地址都很难记忆，所以都是使用域名（time.geekbang.org）来代替，在获取IP地址时，我们则需要使用<strong>DNS</strong>（域名系统）按照域名和IP地址的一一映射关系，得到相应的IP地址</p>
-<p>而如果URL没有特别指明端口号，那么HTTP协议默认是80端口</p>
-<p><strong>4.等待TCP队列</strong></p>
-<p>Chrome有个机制，同一个域名同时最多只能建立6个TCP连接，超过6个请求则会进入排队等待状态，当然，如果少于6，则直接进入下一步。</p>
-<p><strong>5.建立TCP连接</strong></p>
-<p>……</p>
-<p><strong>6.发送HTTP请求</strong></p>
-<p>一旦建立了TCP连接，浏览器就可以和服务器进行通信了。</p>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/8.png" alt="64283593124"></p>
-<p>首先浏览器会向服务器发送请求行，它包括了请求方法、请求URI（Uniform Resource Identifier）和HTTP版本协议</p>
-<p>发送请求行，就是告诉服务器浏览器需要什么资源，最常用的请求方法是<strong>GET</strong>。另外一个常用的方法是<strong>POST</strong>，它用于发送一些数据给服务器，如果使用POST方法，那么浏览器还要准备数据给浏览器，这些数据通过请求体来发送。</p>
-<p>在浏览器发送请求行之后，还要以请求头形式发送一些其他的信息，把浏览器的一些基础信息告诉服务器。比如浏览器所使用的操作系统、浏览器内核、当前请求的域名信息、浏览器端的Cookie等等。</p>
-<h5 id="服务器端处理HTTP请求流程"><a href="#服务器端处理HTTP请求流程" class="headerlink" title="服务器端处理HTTP请求流程"></a>服务器端处理HTTP请求流程</h5><p><strong>1.返回请求</strong></p>
-<p>一旦服务器处理结束，便可以返回数据给浏览器了。</p>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/9.png" alt="64283705741"></p>
-<p>首先服务器会返回<strong>响应行</strong>，包括协议版本和状态码。</p>
-<p>服务器会通过响应行的状态码来告诉浏览器它的处理结果。</p>
-<p>常见的状态码：</p>
-<ul>
-<li>200：表示处理成功</li>
-</ul>
-<p>随后，服务器会返回<strong>响应头</strong>，响应头包括服务器自身的一些信息，比如故武器生成返回数据的时间，返回的数据类型，以及服务器要在客户端保存的Cookie信息。</p>
-<p>发送完响应头之后，服务器就继续发送<strong>响应体</strong>，通常，响应体包含了HTML的实际内容。</p>
-<p><strong>2.断开连接</strong></p>
-<p>通常情况下，一旦服务器向客户端返回了请求数据，他就要关闭TCP连接。不过，如果浏览器或者服务器在其头信息中加入了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Connection:Keep-Alive</span><br></pre></td></tr></table></figure>
-
-<p>那么TCP连接在发送后将仍然保持打开状态，这样浏览器就可以继续通过同一个TCP连接发送请求。<strong>保持TCP连接可以省去下次请求时需要建立连接的时间，提升资源加载速度。</strong></p>
-<p><strong>3.重定向</strong></p>
-<p>当你在浏览器中打开<strong>geekbang.org</strong>后，会发现最终打开的页面地址是<code>http://www.geekbang.org</code></p>
-<p>这两个URL之所以不一样，是因为涉及到了一个<strong>重定向操作</strong></p>
-<p>不过这种跳转并不是必然的，就比如说，如果你打开了<code>https://12306.cn</code>，你会发现这个站点是打不开的，这是因为12306的服务器并没有处理跳转，所以必须要手动输入完整的<code>https://www.12306.cn</code>才能打开页面。</p>
-<blockquote>
-<p>在了解了HTTP的请求流程后，我们来看两个问题</p>
-</blockquote>
-<h5 id="1-为什么很多站点第二次打开速度会很快？"><a href="#1-为什么很多站点第二次打开速度会很快？" class="headerlink" title="1.为什么很多站点第二次打开速度会很快？"></a>1.为什么很多站点第二次打开速度会很快？</h5><p>第二次页面打开很快，主要原因是第一次加载页面过程中，缓存了一些耗时的数据。</p>
-<p>从上面的介绍可以发现，<strong>DNS缓存</strong>和<strong>页面资源缓存</strong>这两块数据是会被浏览器缓存的，其中DNS缓存比较简单，就是在浏览器本地将对应的IP和域名关联起来。</p>
-<p>下面来看看浏览器资源缓存：</p>
-<p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/10.png" alt="64283823380"></p>
-<p>从上图的第一次请求可以看出，当服务器返回<strong>HTTP响应头</strong>给浏览器时，浏览器是通过响应头中的<strong>Cache-Control</strong>字段来设置是否缓存该资源。通常，我们需要为这个资源设置一个缓存过期时长：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Cache-Control:Max-age=2000  //单位为秒</span><br></pre></td></tr></table></figure>
-
-<p>这就意味着，在该缓存还未过期的情况下，如果再次请求该资源，就会直接返回缓存中的资源给浏览器。</p>
-<p>如果缓存过期了，浏览器则会继续发起网络请求，并且在HTTP请求头中带上：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">If-None-Match:&quot;4f80f-12n-1b1kl23na&quot;</span><br></pre></td></tr></table></figure>
-
-<p>服务器收到请求头之后，会根据If-None-Match的值来判断请求的资源是否有更新。</p>
-<ul>
-<li>如果没有更新，则返回304状态码，相当于告诉服务器：这个缓存可以继续使用。</li>
-<li>如果有更新，服务器就直接返回最新资源给浏览器</li>
-</ul>
-<blockquote>
-<p>简要来说，很多网站第二次访问能够秒开，是因为这些网站把资源都缓存在了本地，浏览器缓存直接使用本地副本来回应请求，而不会产生真实的网络请求，从而节省了时间，同时DNS数据也被浏览器缓存了。</p>
-</blockquote>
-<h5 id="2-登录状态是如何保持的？"><a href="#2-登录状态是如何保持的？" class="headerlink" title="2.登录状态是如何保持的？"></a>2.登录状态是如何保持的？</h5><ul>
-<li>用户调用POST方法提交用户登录信息给服务器</li>
-<li>服务器接收信息，验证用户登录信息是否正确，如果正确，会生成一段表示用户身份的字符串，并把该字符串<strong>种</strong>（在青训营，一个老师这么讲的，还挺生动的）到浏览器中（其实就是把该字符串写到响应头的Set-Cookie字段里，然后把响应头发送给浏览器）</li>
-<li>浏览器在接收到服务器的响应头后，开始解析响应头，如果遇到响应体里面有Set-Cookie字段，浏览器会把这个字段保存到本地。</li>
-<li>当用户再次访问时，浏览器发起请求之前，会读取之前保存的Cookie数据，并把数据写进请求头里的Cookie字段里，然后浏览器再讲请求头发送给服务器。</li>
-<li>服务器根据请求头的Cookie字段信息，判断该用户是否是已登录状态，并把生成的数据发送给浏览器</li>
-</ul>
-<h4 id="04-导航流程：从输入URL到页面展示，这中间发生了什么？"><a href="#04-导航流程：从输入URL到页面展示，这中间发生了什么？" class="headerlink" title="04|导航流程：从输入URL到页面展示，这中间发生了什么？"></a>04|导航流程：从输入URL到页面展示，这中间发生了什么？</h4><p><img src="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/11.png" alt="64290743745"></p>
-<p>​                        <strong>完整流程示意图</strong></p>
-<p>这个过程可以大致描述如下：</p>
-<ul>
-<li>首先，浏览器进程接收到用户输入的URL请求，浏览器进程便将该URL转发给网络进程</li>
-<li>然后，在网络中发起真正的URL请求</li>
-<li>接着网络进程接收到了响应头数据，便解析响应头数据，并将数据转发给浏览器进程</li>
-<li>浏览器进程接收到网络进程的响应头数据之后，发送“提交导航”消息到渲染进程</li>
-<li>渲染进程接收到“提交导航”消息之后，便开始准备接收HTML数据，接收数据的方式是直接和网络进程建立数据管道</li>
-<li>最后渲染进程会向浏览器进程“确认提交”，这是告诉浏览器进程：“已经准备好接受和解析页面数据了”</li>
-<li>浏览器进程接收到渲染进程“提交文档”的消息之后，便开始移除之前旧的文档，然后更新浏览器进程中的页面状态</li>
-</ul>
-<p>其中，用户发出URL请求到页面开始解析的这个过程，就叫做<strong>导航</strong></p>
-<p><strong>详细描述：</strong></p>
-<p><strong>1.用户输入</strong></p>
-<p>当用户在地址栏中输入一个查询关键字时，地址栏会判断<strong>输入的关键字</strong>是<strong>搜索内容</strong>，还是<strong>请求的URL</strong>：</p>
-<ul>
-<li>如果是搜索内容，地址栏会使用浏览器默认的搜索引擎，来合成新的带搜索关键字的URL</li>
-<li>如果判断输入内容符合URL规则，比如输入的是time.geekbang.org，那么地址栏会根据规则，把这段内容加上协议，合成为完整的URL，如<code>https://time.geekbang.org</code></li>
-</ul>
-<p>当用户输入关键字并键入回车之后，这意味着当前页面即将要被换成新的页面，不过在这个流程继续之前，浏览器还给了当前页面一次执行beforeunload事件的机会，beforeunload事件允许页面在退出之前执行一些数据清理操作，还可以询问用户是否要离开当前页面，比如当前页面可能有未提交完成的表单情况，因此用户可以通过beforeunload事件来取消导航，让浏览器不再执行后续工作</p>
-<p>如果当前页面没有监听beforeunload事件，或者同意了继续后续流程，那么浏览器会进入一个加载状态（也就是我们经常看到一个小圈在那里转），此时页面显示的依然是之前打开的页面，因为需要等待提交文档阶段，页面内容才会被替换</p>
-<p><strong>2.URL请求过程</strong></p>
-<p>接下来，便进入了页面资源请求过程，这时，浏览器进程会通过进程间通信（IPC）把URL请求发送至网络进程，网络进程接收到URL请求后，会在这里发起真正的URL请求流程</p>
-<p>首先，查看本地是否缓存了该资源，然后进行DNS解析，获取服务器IP地址，如果请求是HTTPS，那么还需要建立TLS连接</p>
-<p>接下来就是利用IP地址和服务器建立TCP连接。连接建立之后，浏览器端会构建请求行、请求头等信息，并把和该域名相关的cookie等数据附加到请求头中，然后向服务器发送构建的请求信息</p>
-<p>服务器接收到请求信息后，会根据请求信息生成响应数据（包括响应行、响应头和响应体），并发给网络进程。等网络进程接收了响应行和响应头之后，就开始解析响应头的内容了。</p>
-<p><strong>（1）重定向</strong></p>
-<p>在接收到服务器返回的响应头后，网络进程开始解析响应头，如果发现返回的状态码是301或者302，那么说明服务器需要浏览器重定向到其他URL。这时网络进程会从响应头的Location字段里面读取重定向地址。</p>
-<p><strong>（2）响应数据类型处理</strong></p>
-<p>在处理了跳转信息之后，浏览器是如何区分URL请求返回的数据类型的呢？</p>
-<p>答案是：Content-Type，Content-Type是HTTP头中一个非常重要的字段，它告诉浏览器服务器返回的响应体数据是什么类型，然后浏览器会根据Content-Type的值来决定如何显示响应体的内容。</p>
-<p>不同的Content-Type的后续处理流程也截然不同。如果是下载类型，那么该请求会被提交给浏览器的下载管理器，同时该URL请求的导航流程就此结束。但如果是HTML类型，那么浏览器会继续进行导航流程。</p>
-<p><strong>3.准备渲染流程</strong></p>
-<p>默认情况下，Chrome会为每个页面分配一个渲染进程，也就是说，每打开一个新页面都会配套创建一个新的渲染流程。但是，在某种情况下，浏览器也会让多个页面直接运行在同一个渲染流程中。</p>
-<p><strong>那么什么情况下多个页面会同时运行在一个渲染进程中呢？</strong></p>
-<p>要解决这个问题，我们需要先了解什么是同一站点（same-site）。具体地讲，我们讲“<strong>同一站点</strong>”定义为<strong>根域名</strong>加上<strong>协议</strong>，比如下面三个：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://time.geekbang.org</span><br><span class="line">https://www.geekbang.org</span><br><span class="line">https://www.geekbang.org:8000</span><br></pre></td></tr></table></figure>
-
-<p>它们都是属于<strong>同一站点</strong>，因为它们的协议都是HTTPS，而且根域名也都是geekbang.org。</p>
-<p>Chrome的默认策略是：每个标签对应一个渲染进程。但如果从一个页面打开了另一个新页面，而<strong>新页面和当前页面属于同一站点的话，那么新页面会复用父页面的渲染进程</strong>。相反，新页面和当前页面不属于同一站点，那么浏览器进程会为新页面创建一个新的渲染进程。</p>
-<p>渲染进程准备好之后，还不能立即进入文档解析状态，因为此时的文档数据还在网络进程中，所以下一步就进入了提交文档阶段。</p>
-<p><strong>4.提交文档</strong></p>
-<p>所谓提交文档，就是指浏览器进程将网络进程接收到的HTML数据提交给渲染进程，具体流程如下：</p>
-<ul>
-<li>首先当浏览器进程接收到网络进程的响应头数据之后，便向渲染进程发起“提交文档”的消息</li>
-<li>渲染进程接收到“提交文档”的消息后，会和网络进程建立传输数据的“管道”</li>
-<li>等文档数据传输完成之后，渲染进程会返回“确认提交”的消息给浏览器进程</li>
-<li>浏览器进程在收到“确认提交”的消息后，会更新浏览器界面状态</li>
-</ul>
-<p><strong>5.渲染阶段</strong></p>
-<p>一旦文档被提交，渲染进程便开始页面解析和子资源加载了，一个完整的页面就生成了。</p>
 ]]></content>
   </entry>
 </search>

@@ -20,30 +20,40 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CHJ &amp; HD">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="计算机网络第一章：计算机网络和因特网什么是协议 要理解计算机网络协议这一概念的一个最容易的办法就是：将其与人类的活动进行类比。上图就是一个典型的交互过程。当你想要向某人询问时间时，你首先得和他打招呼：“你好”，然后，根据此人根据情况进行回应：如果他热情地回复：“你好”，说明他愿意继续跟你聊下去，也就是愿意接受你接下来的提问，反之，如果他回复的是：“不要烦我”，那么他应该是不愿意跟你聊下去了，你们此">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
 <meta property="og:site_name" content="CHJ &amp; HD">
-<meta property="og:description" content="Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!">
+<meta property="og:description" content="计算机网络第一章：计算机网络和因特网什么是协议 要理解计算机网络协议这一概念的一个最容易的办法就是：将其与人类的活动进行类比。上图就是一个典型的交互过程。当你想要向某人询问时间时，你首先得和他打招呼：“你好”，然后，根据此人根据情况进行回应：如果他热情地回复：“你好”，说明他愿意继续跟你聊下去，也就是愿意接受你接下来的提问，反之，如果他回复的是：“不要烦我”，那么他应该是不愿意跟你聊下去了，你们此">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C1.png">
+<meta property="og:image" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C2.png">
+<meta property="og:image" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C3.png">
+<meta property="og:image" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C4.png">
+<meta property="og:image" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C5.png">
+<meta property="og:image" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C6.png">
+<meta property="og:image" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C7.png">
+<meta property="article:published_time" content="2022-02-08T00:07:33.000Z">
+<meta property="article:modified_time" content="2022-02-11T02:26:07.892Z">
 <meta property="article:author" content="CHJ">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C1.png">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>CHJ & HD</title>
+  <title>计算机网络 | CHJ & HD</title>
   
 
 
@@ -181,9 +191,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -199,10 +210,9 @@
       <meta itemprop="name" content="CHJ & HD">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">计算机网络</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -232,7 +242,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><h4 id="第一章：计算机网络和因特网"><a href="#第一章：计算机网络和因特网" class="headerlink" title="第一章：计算机网络和因特网"></a>第一章：计算机网络和因特网</h4><h5 id="什么是协议"><a href="#什么是协议" class="headerlink" title="什么是协议"></a>什么是协议</h5><p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C1.png" alt="64427891989"></p>
+        <h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><h4 id="第一章：计算机网络和因特网"><a href="#第一章：计算机网络和因特网" class="headerlink" title="第一章：计算机网络和因特网"></a>第一章：计算机网络和因特网</h4><h5 id="什么是协议"><a href="#什么是协议" class="headerlink" title="什么是协议"></a>什么是协议</h5><p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C1.png" alt="64427891989"></p>
 <p>要理解计算机网络协议这一概念的一个最容易的办法就是：将其与人类的活动进行类比。上图就是一个典型的交互过程。当你想要向某人询问时间时，你首先得和他打招呼：“你好”，然后，根据此人根据情况进行回应：如果他热情地回复：“你好”，说明他愿意继续跟你聊下去，也就是愿意接受你接下来的提问，反之，如果他回复的是：“不要烦我”，那么他应该是不愿意跟你聊下去了，你们此次的对话也就结束了。</p>
 <h5 id="协议层次及其服务模型"><a href="#协议层次及其服务模型" class="headerlink" title="协议层次及其服务模型"></a>协议层次及其服务模型</h5><blockquote>
 <p>为了给网络协议的设计提供一个结构，网络设计者以分层的方式组织协议以及实现这些协议的网络硬件和软件，每个协议属于这些层次之一</p>
@@ -297,371 +307,35 @@
 <li>第三次握手：客户端收到后，检查ack number是否正确，即值为第一次发送的seq number + 1，ACK是否为1，若正确，客户端处于ESTABLISHED客户端再发送ack number（服务端的seq number + 1），ACK = 1，服务端收到ack number以及ACK的值，确认无误后建立连接，服务端也处于ESTABLISHED状态。双方就建立了连接。</li>
 </ul>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="CHJ">
-      <meta itemprop="description" content="Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHJ & HD">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-title-link" itemprop="url">浏览器基础篇</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-23 15:49:56" itemprop="dateCreated datePublished" datetime="2022-01-23T15:49:56+08:00">2022-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-10 13:37:45" itemprop="dateModified" datetime="2022-02-10T13:37:45+08:00">2022-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近突然想了解一下浏览器的工作原理，于是跑到极客时间上面找到李兵老师的课程进行学习，于是有了这篇笔记，做笔记过程中，并没有完整记下来，只记录了自己觉得陌生重要的部分，如果想深入了解一下，大家可以去极客时间上面找到李兵老师的课程<a target="_blank" rel="noopener" href="http://gk.link/a/115Sf">浏览器工作原理<a>。</a></a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
     </div>
+  </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/14/JavaScript_2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="CHJ">
-      <meta itemprop="description" content="Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHJ & HD">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/14/JavaScript_2/" class="post-title-link" itemprop="url">JavaScript总结篇（2）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-01-14 11:38:56 / Modified: 12:06:50" itemprop="dateCreated datePublished" datetime="2022-01-14T11:38:56+08:00">2022-01-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>考试周加上放假，耽误了一段时间，加上这章内容也比较多，看了挺久的，也花了点时间消化，总的来说，这章内容还是挺重要的，当然，这里只是简单介绍了这两章的一些比较重要的知识点，以及一些容易忽视的地方</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/14/JavaScript_2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9F%BA%E7%A1%80%E7%AF%87/" rel="prev" title="浏览器基础篇">
+      <i class="fa fa-chevron-left"></i> 浏览器基础篇
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/01/My2021/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="CHJ">
-      <meta itemprop="description" content="Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHJ & HD">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/01/My2021/" class="post-title-link" itemprop="url">我与前端的2021</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-01-01 20:09:36 / Modified: 21:01:38" itemprop="dateCreated datePublished" datetime="2022-01-01T20:09:36+08:00">2022-01-01</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>第一次写这么长的文章（当然，除了语文作文），总的来说，自己学习前端的这几个月身心疲惫，不过痛并快乐着，自己的收获也很大，每天为了自己的目标努力，加油！</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/01/My2021/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/26/JavaScript_1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="CHJ">
-      <meta itemprop="description" content="Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHJ & HD">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/26/JavaScript_1/" class="post-title-link" itemprop="url">JavaScript总结篇（1）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-26 20:27:39" itemprop="dateCreated datePublished" datetime="2021-12-26T20:27:39+08:00">2021-12-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-14 11:40:04" itemprop="dateModified" datetime="2022-01-14T11:40:04+08:00">2022-01-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在第一遍看完《JavaScript高级程序设计》后，自己并没有太大的收获，究其原因就是，自己在看书的过程中，抱着看完一本书的目的，一目十行，并没有吸收里面的知识，这次，我结合他人博客，仔细的看了一遍一些重要的内容，收获很大，每看完一部分，我都会写一篇笔记来记录自己的收获。</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/26/JavaScript_1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/21/git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="CHJ">
-      <meta itemprop="description" content="Hello，大家好，欢迎大家来到我的博客网站，本人是一名前端学习者，也是一名前端爱好者，同时也是篮球球星哈登的粉丝，如果你有着跟我相同的爱好，或者你也喜欢哈登，希望能和你成为朋友，一起讨论共同的爱好，下面是我学习前端路上的一些笔记，希望对大家有帮助，同时，如果有错误，还望大家指出!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHJ & HD">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/21/git/" class="post-title-link" itemprop="url">了解Git的基本使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-21 15:23:52 / Modified: 20:44:10" itemprop="dateCreated datePublished" datetime="2021-12-21T15:23:52+08:00">2021-12-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>这两天，学习了一下Git的使用，其中，主要是看了廖雪峰老师的Git学习教程，下面的笔记也是我在学习过程中的一些记录，以及一些自己的理解，如有错误，还望小伙伴们指出！</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/21/git/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -714,6 +388,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="nav-number">1.1.</span> <span class="nav-text">第一章：计算机网络和因特网</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%B1%82%E6%AC%A1%E5%8F%8A%E5%85%B6%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">协议层次及其服务模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.3.</span> <span class="nav-text">OSI七层模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9A%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">第二章：应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-number">1.2.1.</span> <span class="nav-text">进程通信</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP%EF%BC%88P82%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">HTTP（P82）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9A%E8%BF%90%E8%BE%93%E5%B1%82"><span class="nav-number">1.3.</span> <span class="nav-text">第三章：运输层</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E8%BF%9E%E6%8E%A5%E8%BF%90%E8%BE%93%EF%BC%9AUDP"><span class="nav-number">1.3.1.</span> <span class="nav-text">无连接运输：UDP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%BF%90%E8%BE%93%EF%BC%9ATCP"><span class="nav-number">1.3.2.</span> <span class="nav-text">面向连接的运输：TCP</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
