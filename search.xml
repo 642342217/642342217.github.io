@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端性能篇</title>
+    <url>/2022/02/19/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%AF%87/</url>
+    <content><![CDATA[<h3 id="前端性能篇"><a href="#前端性能篇" class="headerlink" title="前端性能篇"></a>前端性能篇</h3><p>最近一个多月做了一个仿网易云项目，这也算是自己的真正意义上的第一个项目，也算是快要完成了，针对存在一些存在的问题，想进行一些关于性能方面的优化</p>
+<span id="more"></span>
+
+<h4 id="防抖与节流"><a href="#防抖与节流" class="headerlink" title="防抖与节流"></a>防抖与节流</h4><p>函数防抖与函数节流：优化高频率执行代码的一种手段，js中的一些事件，如浏览器的resize，scroll，鼠标的mousemove，mouseover，input输入框的keypress事件在触发时，会不断调用对应的回调函数，极大地浪费资源，同时可能造成卡顿，降低用户体验，为了优化体验，需要对这类事件进行调用次数地限制。</p>
+<h5 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h5><blockquote>
+<p>核心思想：每次事件触发时，删除原来的定时器，建立新的定时器，重新计时，跟王者荣耀里面的回城功能类似。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="built_in">this</span>;</span><br><span class="line">        <span class="keyword">if</span>(timer) <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">        timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h5><blockquote>
+<p>核心思想：按照一定的频率执行回调函数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, interval</span>) </span>&#123;</span><br><span class="line"> 	<span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="built_in">this</span>;</span><br><span class="line">        <span class="keyword">if</span>(timer) <span class="keyword">return</span>;</span><br><span class="line">        timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">            timer = <span class="literal">null</span>;</span><br><span class="line">        &#125;, interval);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>前端性能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机网络</title>
     <url>/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><h4 id="第一章：计算机网络和因特网"><a href="#第一章：计算机网络和因特网" class="headerlink" title="第一章：计算机网络和因特网"></a>第一章：计算机网络和因特网</h4><h5 id="什么是协议"><a href="#什么是协议" class="headerlink" title="什么是协议"></a>什么是协议</h5><p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C1.png" alt="64427891989"></p>
+    <content><![CDATA[<p>计算机网络学习<span id="more"></span></p>
+<h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><h4 id="第一章：计算机网络和因特网"><a href="#第一章：计算机网络和因特网" class="headerlink" title="第一章：计算机网络和因特网"></a>第一章：计算机网络和因特网</h4><h5 id="什么是协议"><a href="#什么是协议" class="headerlink" title="什么是协议"></a>什么是协议</h5><p><img src="/2022/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/.%5C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%5C1.png" alt="64427891989"></p>
 <p>要理解计算机网络协议这一概念的一个最容易的办法就是：将其与人类的活动进行类比。上图就是一个典型的交互过程。当你想要向某人询问时间时，你首先得和他打招呼：“你好”，然后，根据此人根据情况进行回应：如果他热情地回复：“你好”，说明他愿意继续跟你聊下去，也就是愿意接受你接下来的提问，反之，如果他回复的是：“不要烦我”，那么他应该是不愿意跟你聊下去了，你们此次的对话也就结束了。</p>
 <h5 id="协议层次及其服务模型"><a href="#协议层次及其服务模型" class="headerlink" title="协议层次及其服务模型"></a>协议层次及其服务模型</h5><blockquote>
 <p>为了给网络协议的设计提供一个结构，网络设计者以分层的方式组织协议以及实现这些协议的网络硬件和软件，每个协议属于这些层次之一</p>
