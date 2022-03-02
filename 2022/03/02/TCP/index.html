@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="CHJ &amp; HD">
 <meta property="og:description" content="过去一段时间投了一些实习，也看了一些面试总结，发现计网知识考察的频率还是很高的，自己也打算逐步自学部分比较重要的计网知识，这部分知识相当枯燥，因为没办法去实践，只能看一些事例以及相关理论知识点，自己也通过看一些博客以及相关文档，做了些笔记。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/03/02/TCP/1.jpg">
-<meta property="og:image" content="http://example.com/2022/03/02/TCP/2.jpg">
-<meta property="og:image" content="http://example.com/2022/03/02/TCP/3.jpg">
-<meta property="og:image" content="http://example.com/2022/03/02/TCP/4.jpg">
-<meta property="og:image" content="http://example.com/2022/03/02/TCP/5.jpg">
-<meta property="og:image" content="http://example.com/2022/03/02/TCP/6.jpg">
+<meta property="og:image" content="http://example.com/2022/03/02/TCP/a.jpg">
+<meta property="og:image" content="http://example.com/2022/03/02/TCP/b.jpg">
+<meta property="og:image" content="http://example.com/2022/03/02/TCP/c.jpg">
+<meta property="og:image" content="http://example.com/2022/03/02/TCP/d.jpg">
+<meta property="og:image" content="http://example.com/2022/03/02/TCP/e.jpg">
+<meta property="og:image" content="http://example.com/2022/03/02/TCP/f.jpg">
 <meta property="article:published_time" content="2022-03-02T03:35:46.000Z">
-<meta property="article:modified_time" content="2022-03-02T03:45:55.188Z">
+<meta property="article:modified_time" content="2022-03-02T05:50:23.132Z">
 <meta property="article:author" content="CHJ">
 <meta property="article:tag" content="计网总结">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/03/02/TCP/1.jpg">
+<meta name="twitter:image" content="http://example.com/2022/03/02/TCP/a.jpg">
 
 <link rel="canonical" href="http://example.com/2022/03/02/TCP/">
 
@@ -222,7 +222,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-03-02 11:35:46 / Modified: 11:45:55" itemprop="dateCreated datePublished" datetime="2022-03-02T11:35:46+08:00">2022-03-02</time>
+              <time title="Created: 2022-03-02 11:35:46 / Modified: 13:50:23" itemprop="dateCreated datePublished" datetime="2022-03-02T11:35:46+08:00">2022-03-02</time>
             </span>
 
           
@@ -252,7 +252,7 @@
 </li>
 </ul>
 <h5 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h5><p>TCP的三次握手，目的就是为了确保客户端和服务端双方的两样能力：<strong>发送的能力</strong>和<strong>接收的能力</strong></p>
-<p><img src="/2022/03/02/TCP/1.jpg" alt="img"></p>
+<p><img src="/2022/03/02/TCP/a.jpg" alt="img"></p>
 <blockquote>
 <p>对照上面这张图，我们来分析一下整个过程</p>
 </blockquote>
@@ -279,7 +279,7 @@
 <p><strong>三次握手过程中可以携带数据吗？</strong></p>
 <p>第三次握手的时候可以携带，前面两次不可以。</p>
 <p>如果前两次握手能够携带数据，那么一旦有人想攻击服务器，那么他只需要在第一次握手中的<code>SYN</code>报文中放大量数据，那么服务器势必会消耗更多的<strong>时间</strong>和<strong>内存空间</strong>去处理这些数据，增大了服务器被攻击的风险。</p>
-<h5 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h5><p><img src="/2022/03/02/TCP/2.jpg" alt="img"></p>
+<h5 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h5><p><img src="/2022/03/02/TCP/b.jpg" alt="img"></p>
 <p>下面分析一下整个过程</p>
 <ul>
 <li>刚开始，双方都处于ESTABLISHED状态</li>
@@ -300,7 +300,7 @@
 <p>因为服务端在接收到<code>FIN</code>, 往往不会立即返回<code>FIN</code>, 必须等到服务端所有的报文都发送完毕了，才能发<code>FIN</code>。因此先发一个<code>ACK</code>表示已经收到客户端的<code>FIN</code>，延迟一段时间才发<code>FIN</code>。这就造成了四次挥手。</p>
 <p>如果是三次挥手会有什么问题？</p>
 <p>等于说服务端将<code>ACK</code>和<code>FIN</code>的发送合并为一次挥手，这个时候长时间的延迟可能会导致客户端误以为<code>FIN</code>没有到达客户端，从而让客户端不断的重发<code>FIN</code>。</p>
-<h5 id="TCP报文头部的字段介绍"><a href="#TCP报文头部的字段介绍" class="headerlink" title="TCP报文头部的字段介绍"></a>TCP报文头部的字段介绍</h5><p><img src="/2022/03/02/TCP/3.jpg" alt="img"></p>
+<h5 id="TCP报文头部的字段介绍"><a href="#TCP报文头部的字段介绍" class="headerlink" title="TCP报文头部的字段介绍"></a>TCP报文头部的字段介绍</h5><p><img src="/2022/03/02/TCP/c.jpg" alt="img"></p>
 <p>如何识别一个连接呢？答案是TCP连接的四元组：源IP，源端口，目标IP，目标端口。由于IP在IP层就已经得到了处理，所以TCP只需要记录端口。</p>
 <p>（1）请求序号：seq，占32位，用来标识TCP源端向目的端发送的字节流，发起方发送数据时对此进行标记，保证数据包按序安装。</p>
 <p>（2）确认序号：ack，占32位，只有ACK标志位为1时，确认序号字段才有效，ack=seq（接收到的请求序号）+1。</p>
@@ -318,7 +318,7 @@
 <p>要具体了解流量控制，首先需要了解滑动窗口的概念。</p>
 <p><strong>TCP滑动窗口</strong></p>
 <p><strong>发送窗口</strong>：</p>
-<p><img src="/2022/03/02/TCP/4.jpg" alt="img"></p>
+<p><img src="/2022/03/02/TCP/d.jpg" alt="img"></p>
 <p>其中包含四个部分：</p>
 <ul>
 <li>已发送且确认</li>
@@ -326,10 +326,10 @@
 <li>未发送但可以发送</li>
 <li>未发送且不可以发送</li>
 </ul>
-<p><img src="/2022/03/02/TCP/5.jpg" alt="img"></p>
+<p><img src="/2022/03/02/TCP/e.jpg" alt="img"></p>
 <p>发送窗口就是图中被框住的位置</p>
 <p><strong>接收窗口</strong>：</p>
-<p><img src="/2022/03/02/TCP/6.jpg" alt="img"></p>
+<p><img src="/2022/03/02/TCP/f.jpg" alt="img"></p>
 <p><strong>流量控制过程：</strong></p>
 <p>首先双方进行三次握手，初始化各自的窗口大小，假设均为200字节</p>
 <p>假设当前发送端给接收端发送100个字节，那么对于发送端而言，可用窗口要减少100个字节。</p>

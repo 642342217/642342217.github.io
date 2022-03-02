@@ -1,6 +1,417 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>JavaScript总结篇（1）</title>
+    <url>/2021/12/26/JavaScript_1/</url>
+    <content><![CDATA[<blockquote>
+<p>在第一遍看完《JavaScript高级程序设计》后，自己并没有太大的收获，究其原因就是，自己在看书的过程中，抱着看完一本书的目的，一目十行，并没有吸收里面的知识，这次，我结合他人博客，仔细的看了一遍一些重要的内容，收获很大，每看完一部分，我都会写一篇笔记来记录自己的收获。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>###第三章  语言基础</p>
+<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><p>1.var关键字</p>
+<ul>
+<li><p>声明作用域：</p>
+<p>使用var操作符定义的变量会成为包含它的函数的局部变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test()&#123;</span><br><span class="line">    var message = &#x27;hi&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line">console.log(messsage);	//报错</span><br></pre></td></tr></table></figure>
+
+<p>而在函数内部定义变量时，省略var操作符，会创建一个全局变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test()&#123;</span><br><span class="line">    message = &#x27;hi&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line">console.log(messsage);	//&quot;hi&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>声明提升：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo()&#123;</span><br><span class="line">    console.log(age);	</span><br><span class="line">    var age = 21;</span><br><span class="line">&#125;</span><br><span class="line">foo()	//undefined</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>2.let声明</p>
+<ul>
+<li><p>声明作用域：</p>
+<p>let声明的范围是块作用域，而var声明的范围是函数作用域</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    let age = 21;</span><br><span class="line">    console.log(age);	//21</span><br><span class="line">&#125;</span><br><span class="line">console.log(age)	//报错</span><br></pre></td></tr></table></figure></li>
+<li><p>在同一作用域中，不可重复声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let age = 21;</span><br><span class="line">let age = 20;	//报错：age已经声明过了</span><br></pre></td></tr></table></figure></li>
+<li><p>暂时性死区：</p>
+<p>let与var的另一个重要区别，就是let声明的变量不会在作用域中被提升</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(age);	//报错，age没有定义</span><br><span class="line">let age = 21;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在解析代码时，JavaScript引擎也会注意在块后面的let声明，只不过在此之前不能以任何方式来引用未声明的变量。在let声明之前的瞬间被称为“暂时性死区”，在此阶段引用任何后面才声明的变量都会抛出错误。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var age = 22;</span><br><span class="line">function test()&#123;</span><br><span class="line">    console.log(age);	//报错</span><br><span class="line">    let age = 22;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></li>
+<li><p>全局声明：</p>
+<p>与var关键字不同，使用let在全局作用域声明的变量不会成为window对象的属性</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var name = &quot;chj&quot;;</span><br><span class="line">console.log(window.name);	//&quot;chj&quot;</span><br><span class="line"></span><br><span class="line">let name = &quot;chj&quot;;</span><br><span class="line">console.log(window.name);	//undefined</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>3.const声明</p>
+<ul>
+<li><p>const的行为与let基本相同，唯一一个重要的区别就是用const声明时，必须同时初始化变量，且尝试修改const声明的变量会导致运行时报错</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const age = 21;</span><br><span class="line">age = 20;	//报错：给常量赋值</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>#####数据类型</p>
+<p>1.简单数据类型：</p>
+<p>undefined，Boolean，null，symbol，string，number，bigint（基本没用过，新出的）</p>
+<p>2.复杂数据类型：</p>
+<p>Object（包括普通对象Object，数组对象Array，正则对象RegExp，日期对象Date，数学函数Math，函数对象Function)</p>
+<p>判断数据类型</p>
+<ul>
+<li><p>对于基本数据类型来说，除了null都可以调用typeof显示正确的类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof 1      //&#x27;number&#x27;</span><br><span class="line">typeof &#x27;1&#x27;    //&#x27;string&#x27;</span><br><span class="line">typeof true   //&#x27;boolean&#x27;</span><br><span class="line">typeof undefined    //&#x27;undefined&#x27;</span><br><span class="line">typeod Symbol()     //&#x27;symbol&#x27;</span><br><span class="line">typeof null    //&#x27;object&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>对于复杂数据类型，除了函数之外，都会显示object</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof []  //&#x27;object&#x27;</span><br><span class="line">typeof &#123;&#125;  //&#x27;object&#x27;</span><br><span class="line">const test = function()&#123;</span><br><span class="line">    console.log(1);</span><br><span class="line">&#125;</span><br><span class="line">console.log(typeof test);  //&#x27;function&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里可以实现一下判断复杂对象数据类型：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const myTypeof(obj)&#123;</span><br><span class="line">    return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase;</span><br><span class="line">&#125;</span><br><span class="line">console.log(mytypeof([]));  //&#x27;array&#x27;</span><br><span class="line">console.log(mytypeof(&#123;&#125;));  //&#x27;object&#x27;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当然，这里也可以使用instanceof来判断复杂数据类型</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log([] instanceof Array);   //true</span><br><span class="line">console.log(&#123;&#125; instanceof Object);  //true</span><br><span class="line"></span><br><span class="line">//instanceof的原理就是顺着要判断的对象的原型链向上查找，若能找到对应构造函数的原型对象，则返回true，否则返回false</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里手动实现一下instanceof的功能</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function myInstanceof(obj, constructor)&#123;</span><br><span class="line">//不是对象数据类型则返回false，其没有原型</span><br><span class="line">    if(typeof obj !== &#x27;object&#x27; || typeof obj === null)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    //先拿到该对象的向上找的第一个原型对象</span><br><span class="line">    let proto = Object.getPrototypeOf(obj);</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(proto === constructor.prototype)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        if(proto === null)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        proto = Object.getPrototypeOf(proto);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(myInstanceof([], Array));   //true;</span><br><span class="line">console.log(myInstanceof(&#123;&#125;, Object));  //true;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>数据类型的转换</p>
+<p>类型转换只有三种：</p>
+<ul>
+<li>转换为数字</li>
+<li>转换为布尔值</li>
+<li>转换为字符串</li>
+</ul>
+<p><strong>转换为数字：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string ---&gt;  &#x27;1&#x27; =&gt; 1, &#x27;a&#x27; =&gt; NaN, &#x27;1a&#x27; =&gt; NaN</span><br><span class="line">数组 ----&gt;  空数组为0，存在一个元素且为数字转化为数字，其他情况为NaN</span><br><span class="line">null ----&gt;  0</span><br><span class="line">除了数组的引用类型 ----&gt;  NaN</span><br><span class="line">Symbol -----&gt; 报错</span><br></pre></td></tr></table></figure>
+
+<p><strong>转化为布尔值：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">number ----&gt; 除了0，-0，+0，NaN都为true</span><br><span class="line">string ----&gt; 除了空串都为true</span><br><span class="line">undefined,null ----&gt; false</span><br><span class="line">引用类型 ----&gt;  true</span><br></pre></td></tr></table></figure>
+
+<p><strong>转换为字符串：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">number ----&gt;  5 =&gt; &#x27;5&#x27;</span><br><span class="line">Boolean，函数，Symbol  ----&gt;  &#x27;true&#x27;</span><br><span class="line">数组 -----&gt;  [1,2] =&gt; &#x27;1,2&#x27;</span><br><span class="line">对象 ------&gt;  &#x27;[object,Object]&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>===和==的区别</p>
+<p><strong>===判断类型是否相同，不相同直接返回false，而==涉及到一些类型转换</strong></p>
+<ul>
+<li>两边的类型相同，直接比较值的大小</li>
+<li>判断两边是否分别是null和undefined，是的话，直接返回true</li>
+<li>判断的类型是否是String和Number，是的话，把String类型转换成Number，再进行比较</li>
+<li>判断其中一方是否是Boolean，是的话就把Boolean转换成Number，再进行比较</li>
+<li>如果其中一方为Object，且另一方为String、Number或者Symbol，会将Object转换成字符串，再进行比较</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#125; == true //false，首先，&#123;&#125;转换为字符串（&quot;[object,Object]&quot;）,然后再转化为number（NaN），右边为1，所以为false</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此处的Object转化为字符串，这涉及到每个Object中都有一个实例：valueOf()，其返回对象对应的字符串，数值或者布尔值，通常与toString()的返回值相同</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">常见的应用：a == 1 &amp;&amp; a == 2 //true</span><br><span class="line">const a = &#123;</span><br><span class="line">    value:1,</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        return this.value++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a == 1 &amp;&amp; a == 2);	//true</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>Object.is和===的区别</p>
+<p>主要体现在+0和-0，NaN和NaN的判断上，修复了===的一些失误</p>
+<p>在===中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(+0 === -0);    //true</span><br><span class="line">console.log(NaN === NaN);  //false</span><br></pre></td></tr></table></figure>
+
+<p>在Object.is中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Object.is(+0,-0));     //false;</span><br><span class="line">console.log(Object.is(NaN,NaN));   //true;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="第四章-变量、作用域与内存"><a href="#第四章-变量、作用域与内存" class="headerlink" title="第四章 变量、作用域与内存"></a>第四章 变量、作用域与内存</h3><h5 id="原始值与引用值"><a href="#原始值与引用值" class="headerlink" title="原始值与引用值"></a>原始值与引用值</h5><ul>
+<li><p>原始值是最简单的数据</p>
+<p>保存原始值的变量是按值访问的，因为我们操作的就是存储在变量中的实际值</p>
+</li>
+<li><p>引用值是由多个值构成的对象</p>
+<p>JavaScript不允许直接访问内存地址，因此不能直接操作对象所在的内存空间，在操作对象时，实际上操作的是对该对象的引用而非实际的对象本身。</p>
+</li>
+<li><p>复制值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num1 = 5;</span><br><span class="line">let num2 = num1;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里，num1包含数值5，当把num2初始化为num1时，num2也会得到数值5，这个值根存储在num1中的5是完全独立的，互不干扰</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="/2021/12/26/JavaScript_1/a.jpg" alt="1"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let obj1 = new Object();</span><br><span class="line">let obj2 = obj1;</span><br><span class="line">obj1.name = &quot;chj&quot;;</span><br><span class="line">console.log(obj2.name);		//&quot;chj&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/12/26/JavaScript_1/b.jpg" alt="2"></p>
+<ul>
+<li><p>传递参数</p>
+<p>所有的函数的参数都是按值传递的</p>
+<p><strong>参数为简单数据类型：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test(num)&#123;</span><br><span class="line">    num += 10;</span><br><span class="line">    return num;</span><br><span class="line">&#125;</span><br><span class="line">let count = 20;</span><br><span class="line">let result = test(count);</span><br><span class="line">console.log(count);		//20，没有变化</span><br><span class="line">console.log(result);	//30</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数为引用数据类型：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test(obj)&#123;</span><br><span class="line">    obj.name = &quot;jun&quot;;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &quot;hui&quot;;</span><br><span class="line">&#125;</span><br><span class="line">let person = new Object();</span><br><span class="line">person.name = &quot;chen&quot;;</span><br><span class="line">test(person);</span><br><span class="line">console.log(person.name);	//&quot;jun&quot;</span><br><span class="line"></span><br><span class="line">这个函数内部，先是对obj的name属性进行操作，然后，将obj重新定义为一个有着不同name的新对象，如果person是按引用传递的，那么person的name属性将被改成“hui”，但是，我们再次访问name属性时，它的值为第一次操作的值。当obj在函数内部重写时，他变成了指向本地对象的指针，而那个对象在函数执行结束后就销毁了。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="执行上下文（Context）与作用域-Scope"><a href="#执行上下文（Context）与作用域-Scope" class="headerlink" title="执行上下文（Context）与作用域(Scope)"></a>执行上下文（Context）与作用域(Scope)</h5><blockquote>
+<p>执行上下文的概念非常重要，但是也很难理解，函数的每次调用都有与之紧密相关的作用域和上下文。从根本上来说，作用域是基于函数的，而上下文是基于对象的。 换句话说，作用域涉及到所被调用函数中的变量访问，并且不同的调用场景是不一样的。上下文始终是<code>this</code>关键字的值， 它是拥有（控制）当前所执行代码的对象的引用.</p>
+</blockquote>
+<ul>
+<li><strong>变量或函数</strong>的执行上下文决定了它们可以访问哪些数据，以及它们的行为，每个上下文都有一个关联的<strong>变量对象</strong>，而这个上下文中定义的所有变量和函数都存在于这个对象上。</li>
+<li>全局上下文是最外层的上下文，在浏览器中，全局上下文就是我们常说的window对象</li>
+<li>每个函数调用都有自己的上下文，当代码执行流进入函数时，函数的上下文会被推到上下文栈上，函数执行完后，上下文栈会弹出该函数上下文（执行完函数，销毁其变量）</li>
+<li>上下文的代码在执行的时候，会创建变量对象的一个<strong>作用域链</strong>，这个作用域链决定了各级上下文的代码在访问变量和函数时的顺序。如果上下文是函数，则其<strong>活动对象</strong>用作变量对象，活动对象最初只有一个定义变量：arguments。（全局上下文中没有这个变量）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &quot;blue&quot;;</span><br><span class="line"></span><br><span class="line">function changeColor()&#123;</span><br><span class="line">    let anotherColor = &quot;red&quot;;</span><br><span class="line">    </span><br><span class="line">    function swapColor()&#123;</span><br><span class="line">        let tempColor = anotherColor;</span><br><span class="line">        anotherColor = Color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">        </span><br><span class="line">    //这里可以访问color，anotherColor和tempColor</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //这里可以访问color，anotherColor</span><br><span class="line">    swapColor();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//这里只能访问Color</span><br><span class="line">changeColor();</span><br><span class="line"></span><br><span class="line">以上代码涉及到三个上下文：全局上下文，changeColor()的局部上下文和swapColor()的局部上下文</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/12/26/JavaScript_1/c.jpg" alt="3"></p>
+<blockquote>
+<p>以上一图就很好地解释了：每个上下文都有一个关联的变量对象，上下文中定义的所有变量和函数都存在于这个对象上</p>
+</blockquote>
+<h5 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h5><blockquote>
+<p>至于内存管理，涉及到v8引擎关于如何进行垃圾回收的原理，后续我会专门写一篇总结</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript总结篇（2）</title>
+    <url>/2022/01/14/JavaScript_2/</url>
+    <content><![CDATA[<blockquote>
+<p>考试周加上放假，耽误了一段时间，加上这章内容也比较多，看了挺久的，也花了点时间消化，总的来说，这章内容还是挺重要的，当然，这里只是简单介绍了这两章的一些比较重要的知识点，以及一些容易忽视的地方</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="第五章-基本引用类型"><a href="#第五章-基本引用类型" class="headerlink" title="第五章 基本引用类型"></a>第五章 基本引用类型</h3><h4 id="1-Date"><a href="#1-Date" class="headerlink" title="1.Date"></a>1.Date</h4><blockquote>
+<p>此处只介绍Date类型常见的一些API，以及一些容易犯错的地方</p>
+</blockquote>
+<p><strong>getTime()</strong>:返回日期的毫秒表示</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let date = new Date();</span><br><span class="line">console.log(date.getTime());   //1641859833554</span><br></pre></td></tr></table></figure>
+
+<p><strong>getFullYear()</strong>:返回4位数年</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(date.getFullYear());  //2022</span><br></pre></td></tr></table></figure>
+
+<p><strong>getMonth()</strong>:返回日期的月</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(date.getMonth())    //0</span><br></pre></td></tr></table></figure>
+
+<p><strong>此处getMonth返回的月是从0开始的（即代表一月）</strong></p>
+<p><strong>getDate()</strong>:返回日期的日</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(date.getDate());    //11</span><br></pre></td></tr></table></figure>
+
+<p><strong>getDay()</strong>:返回日期中表示星期几的数值</p>
+<blockquote>
+<p>此处的数值，0表示周日，6表示周六，国外都把周日当作一周的第一天</p>
+</blockquote>
+<p>后面的getHours()，getMinutes()，getSeconds()就不一一介绍了</p>
+<h4 id="2-RegExp"><a href="#2-RegExp" class="headerlink" title="2.RegExp"></a>2.RegExp</h4><blockquote>
+<p>创建正则表达式：</p>
+</blockquote>
+<p><strong>let re = /pattern/flags;</strong></p>
+<blockquote>
+<p>这个正则表达式的pattern可以是任何简单或复杂的正则表达式；每个正则表达式可以带0个或者多个flags，用于控制正则表达式的行为。</p>
+</blockquote>
+<p><strong>let re = new RegExp(“pattern”,”flags”)</strong></p>
+<p>下面是flags的取值以及作用</p>
+<blockquote>
+<p>g：全局模式，表示查找字符串的全部内容，而不是找到第一个匹配的内容就结束</p>
+<p>i：不区分大小写</p>
+<p>m：多行模式，表示查找到一行文本末尾时会继续查找</p>
+</blockquote>
+<p><strong>与其他语言中的正则表达式类似，所有元字符在模式中也必须转义，包括：</strong></p>
+<p>（ ）{ } [ ] \ ^ $ |? * + .</p>
+<p><strong>RegExp实例方法</strong></p>
+<p><strong>exec：</strong>一个在字符串中执行查找匹配的RegExp方法，它返回一个数组（未匹配到则返回 null）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var myRe = /db+d/g;</span><br><span class="line">var myArray = myRe.exec(&quot;cdbbd dbbdz&quot;);   //[ &#x27;dbbd&#x27;, index: 1, input: &#x27;cdbbd dbbdz&#x27;, groups: undefined ]</span><br></pre></td></tr></table></figure>
+
+<p><strong>test：</strong>一个在字符串中测试是否匹配的RegExp方法，它返回 true 或 false</p>
+<p><strong>match：</strong>一个在字符串中执行查找匹配的String方法，它返回一个数组，在未匹配到时会返回 null    </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var myRe = /db+d/g;</span><br><span class="line">var test = &quot;cdbbddbdz&quot;.match(myRe);   //[ &#x27;dbbd&#x27;, &#x27;dbd&#x27; ]</span><br></pre></td></tr></table></figure>
+
+<p><strong>replace：</strong>一个在字符串中执行查找匹配的String方法，并且使用替换字符串替换掉匹配到的子字符串</p>
+<blockquote>
+<p>正则表达式要是真要很熟练还是挺难的，平时只要能看懂我觉得就差不多了，要用到的时候再去查一下</p>
+</blockquote>
+<h4 id="3-原始值包装类型"><a href="#3-原始值包装类型" class="headerlink" title="3.原始值包装类型"></a>3.原始值包装类型</h4><blockquote>
+<p>为了方便操作原始值，ECMAScript提供了三种特殊的引用类型：Boolean，Number和String</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let s1 = &quot;some text&quot;;</span><br><span class="line">let s2 = s1.substring(2);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在这里，s1是一个包含字符串的变量，并且是一个原始值。第二行紧接着在s1上调用了substring()方法，我们知道，原始值并不是对象，因此逻辑上不应该有方法，而实际上这个例子却按照预期执行了，这是因为后台进行了处理</p>
+</blockquote>
+<p>后台会执行以下三步：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let s1= new String(&quot;some text&quot;);	//创建一个String类型实例</span><br><span class="line">let s2 = s1.substring(2);		    //调用实例上的方法</span><br><span class="line">s1 = null;						   //销毁实例</span><br></pre></td></tr></table></figure>
+
+<p>这种行为让原始值拥有对象的行为。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let value = &quot;123&quot;;</span><br><span class="line">let number = Number(value);</span><br><span class="line">console.log(typeof number);	  //number</span><br><span class="line">let obj = new Number(value);</span><br><span class="line">console.log(typeof obj);      //object</span><br><span class="line">注意区分构造函数和转型函数的调用</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>下面是一些经常犯错的点，虽然可能和本章没什么关系，但是，在总结时想到了这类问题</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1toString()    //报错，语法错误</span><br><span class="line">1.toString()   //报错，JS引擎无法确定这里的`.`是什么意思，是点运算符（对象方法）还是浮点数？</span><br><span class="line">1..toString()    //成功，运算结果&quot;1&quot; 解析: 第二个点被视为点运算符，前面的是浮点数。</span><br><span class="line">1.0.toString()   //成功，运算结果&quot;1&quot; 解析: 第二个点被视为点运算符，前面的是浮点数。</span><br><span class="line">1 .toString()    //成功，运算结果&quot;1&quot; 解析: 用空格和后面的.toString()隔开, 把前面的当成运算式处理</span><br><span class="line">1+2.toString() //报错，JS引擎无法确定这里的`.`是什么意思，是点运算符（对象方法）还是浮点数？</span><br><span class="line">1+2 .toString() //成功，运算结果&quot;12&quot; 解析: 用空格和后面的.toString()隔开, 把前面的当成运算式处理</span><br><span class="line">(1+2).toString() //成功，运算结果&quot;3&quot; 解析: 括号内部的先进行算法运算，在进行类型转换</span><br><span class="line">(1)+(2).toString() //运算结果&quot;12&quot; 解析: 括号内部进行类型修改并将数字n转换为字符串“n “，在进行拼接，然后再应用toString方法。</span><br><span class="line">(1)+(2)+0 .toString() //成功，运算结果&quot;30&quot; 解析: 如果有多个`+`号，且不包含中括号与&quot;&quot;的情况下，则把最后一个加号之前的进行数学运算(不管他有没有被括号包住)，最后一个加号留作拼接作用。</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1Boolean"><a href="#3-1Boolean" class="headerlink" title="3.1Boolean"></a>3.1Boolean</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let falseObject = new Boolean(false);</span><br><span class="line">let result = falseObject &amp;&amp; true;</span><br><span class="line">console.log(result);    //true;</span><br><span class="line"></span><br><span class="line">在这段代码中，我们创建了一个值为false的Boolean对象，在布尔运算中，false &amp;&amp; true 应该为false，但是这里，falseObject并不是false，它是一个对象，前面一个章节讲过，在进行布尔运算时，所有的对象都会转换为true，因此此处为 true &amp;&amp; true</span><br><span class="line"></span><br><span class="line">let falseValue = false;</span><br><span class="line">console.log(typeof falseObject);  //object</span><br><span class="line">console.log(typeof falseValue);   //boolean</span><br><span class="line">console.log(falseObject instanceof Boolean);  //true</span><br><span class="line">console.log(falseValue instanceof Boolean);   //false;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="3-2Number"><a href="#3-2Number" class="headerlink" title="3.2Number"></a>3.2Number</h5><p><strong>toString()</strong>:可选地接收一个表示基数的参数，并返回相应基数形式的数值字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num = 10;</span><br><span class="line">console.log(num.toString());      //&quot;10&quot;</span><br><span class="line">console.log(num.toString(2));     //&quot;1010&quot;</span><br><span class="line">console.log(num.toString(8));     //&quot;12&quot;</span><br><span class="line">console.log(num.toString(16));    //&quot;a&quot;</span><br></pre></td></tr></table></figure>
+
+<p>**toFixed():**返回包含指定小数点的数值字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num = 10;</span><br><span class="line">console.log(num.toFixed(2));  //&quot;10.00&quot;</span><br></pre></td></tr></table></figure>
+
+<p>**isInteger():**ES6新增了Number.isInteger()方法，用于辨别一个数值是否是整数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Number.isInteger(1));    //true</span><br><span class="line">console.log(Number.isInteger(1.00)); //true</span><br><span class="line">console.log(Number.isInteger(1.01)); //false</span><br><span class="line"></span><br><span class="line">当然也可以使用其他方法判断一个数值是否是整数</span><br><span class="line">console.log(number % 1 === 0);  //为true则为整数，否则不为整数</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>整数的范围：Number.MIN_SAFE_INTEGER(-2的53次方+1) 到Number.MAX_SAFE_INTEGER(2的53次方-1)</p>
+</blockquote>
+<h5 id="3-3String"><a href="#3-3String" class="headerlink" title="3.3String"></a>3.3String</h5><p><strong>slice，substring 和 substr 的区别：</strong></p>
+<blockquote>
+<p>当参数都是正数时</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let str = &quot;hello world&quot;;</span><br><span class="line">console.log(str.slice(3));         //&quot;lo world&quot;</span><br><span class="line">console.log(str.substring(3));     //&quot;lo world&quot;</span><br><span class="line">console.log(str.substr(3));        //&quot;lo world&quot;</span><br><span class="line">console.log(str.slice(3, 7));      //&quot;lo w&quot;</span><br><span class="line">console.log(str.substring(3, 7));  //&quot;lo w&quot;</span><br><span class="line">console.log(str.substr(3, 7));     //&quot;lo worl&quot;,此处的7代表的是截取的长度</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当参数中有负数时</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let str = &quot;hello world&quot;;</span><br><span class="line">console.log(str.slice(-3));        //&quot;rld&quot;，截取开始位置=length+负数</span><br><span class="line">console.log(str.substring(-3));    //&quot;hello world&quot;，只要碰到负数，就转换为0</span><br><span class="line">console.log(str.slice(-3));        //&quot;rld&quot;，截取开始位置=length+负数</span><br><span class="line">console.log(str.substring(3, -4)); //&quot;lo w&quot;，只要碰到负数，就转换为length+负数</span><br><span class="line">console.log(str.substr(3, -4));    //&quot;&quot;，空字符串，截取长度不能为负数</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ES6新增方法：startsWith()  endsWith()  includes()</p>
+<p>startsWith()和includes()接收两个参数，第一个表示搜索的字符串，第二个表示开始搜索的位置，默认为0</p>
+<p>endsWith()也接收两个参数，第一个表示搜索的字符串，第二个表示搜索的末尾位置</p>
+</blockquote>
+<h4 id="4-单例内置对象"><a href="#4-单例内置对象" class="headerlink" title="4.单例内置对象"></a>4.单例内置对象</h4><blockquote>
+<p>这里有Global和Math，这两个平时用的也比较多，这里就不详细介绍了，稍微总结Math的舍入方法</p>
+</blockquote>
+<p>**Math.ceil():**始终向上舍入为最接近的整数</p>
+<p>**Math.floor():**始终向下舍入为最接近的整数</p>
+<p>**Math.round():**执行四舍五入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Math.ceil(26.1));       //27</span><br><span class="line">console.log(Math.ceil(-26.1));      //-26</span><br><span class="line">console.log(Math.floor(26.9));      //26</span><br><span class="line">console.log(Math.floor(-26.1));     //-27</span><br><span class="line">console.log(Math.round(26.4));      //26</span><br><span class="line">console.log(Math.round(-26.4));     //-26</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="第六章-集合引用类型"><a href="#第六章-集合引用类型" class="headerlink" title="第六章 集合引用类型"></a>第六章 集合引用类型</h3><h4 id="1-Object（对象）"><a href="#1-Object（对象）" class="headerlink" title="1.Object（对象）"></a>1.Object（对象）</h4><blockquote>
+<p>显式地创建Object实例有两种方式</p>
+</blockquote>
+<p>第一种是使用new操作符和Object构造函数创建</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let person = new Object();</span><br><span class="line">person.name = &quot;chj&quot;;</span><br><span class="line">person.age = 21;</span><br></pre></td></tr></table></figure>
+
+<p>第二种是使用<strong>对象字面量</strong>表示法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let person = &#123;</span><br><span class="line">    name: &quot;chj&quot;,</span><br><span class="line">    age: 21</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在对象字面量表示法中，属性名可以是字符串或者数值，如果是数值，会自动转换为字符串</p>
+<p>Object类型是无序的，因此不可迭代</p>
+</blockquote>
+<h4 id="2-Array"><a href="#2-Array" class="headerlink" title="2.Array"></a>2.Array</h4><blockquote>
+<p>两个ES6新增的用于创建数组的静态方法：Array.from()和Array.of()</p>
+</blockquote>
+<p><strong>Array.from():<strong>第一个参数为</strong>类数组对象</strong>，即任何可迭代的结构，或者有一个length属性和可索引的元素的结构</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Array.from(&quot;Matt));	   //[&quot;M&quot;, &quot;a&quot;, &quot;t&quot;, &quot;t&quot;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const m = new Map().set(1, 2)</span><br><span class="line">			      .set(3, 4);</span><br><span class="line">console.log(Array.from(m));     //[[1, 2], [3, 4]]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//Array.from()对现有数组进行浅复制</span><br><span class="line">const a1 = [1, 2, 3, 4];</span><br><span class="line">const a2 = Array.from(a1);</span><br><span class="line">console.log(a2);      //[1, 2, 3, 4]</span><br><span class="line">console.log(a1 === a2)  //false</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>数组的length并不是只读的，可以通过修改length的值对数组进行操作</p>
+</blockquote>
+<p><strong>检测数组：</strong></p>
+<blockquote>
+<p>使用instanceof会存在问题，如果网页里面有多个框架，则可能涉及两个不同的全局执行上下文，因此会有两个不同版本的Array构造函数，为了解决这个问题，这里有个更好的方法用来判断数组：Array.isArray()</p>
+</blockquote>
+<p><strong>迭代器方法：</strong></p>
+<blockquote>
+<p>在ES6中，Array的原型上暴露了3个用于检索数组内容的方法：keys()  values()  和  entries()</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const a = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;];</span><br><span class="line"></span><br><span class="line">//因为这些方法返回的都是迭代器，所以需要将他们通过Array.from()转换为数组</span><br><span class="line">const aKeys = Array.from(a.keys());</span><br><span class="line">const aValues = Array.from(a.values());</span><br><span class="line">const aEntries = Array.from(a.entries());</span><br><span class="line"></span><br><span class="line">console.log(aKeys);			//[0, 1, 2, 3]</span><br><span class="line">console.log(aValues);		//[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]</span><br><span class="line">console.log(aEntries);		//[[0,&quot;a&quot;], [1,&quot;b&quot;], [2,&quot;c&quot;], [3,&quot;d&quot;]]</span><br><span class="line"></span><br><span class="line">//可以使用ES6的解构在循环中，拆分aEntries的键值对</span><br><span class="line">for(let [index, value] of a.Entries())&#123;//....&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>填充方法：fill()</p>
+<p>栈方法：push()  pop()</p>
+<p>队列方法：unshift()  shift()  push()</p>
+<p>排序方法：sort()  reverse()    都会改变原数组</p>
+</blockquote>
+<p><strong>迭代方法：</strong>（都不会改变原数组，进行操作之后，返回新数组）</p>
+<blockquote>
+<p>**every():**对数组每一项都运行传入的函数，如果每一项都返回true，则这个方法返回为true</p>
+<p>**some():**对数组每一项都运行传入的函数，如果有一项返回为true，则这个方法返回为true</p>
+<p>**filter():**对数组每一项都运行传入的函数，函数返回为true的项会组成新数组进行返回</p>
+<p>**forEach():**对数组每一项都运行传入的函数，没有返回值，且不可停止遍历</p>
+<p>**map():**对数组每一项都运行传入的函数，返回由每次函数调用的返回结果组成的新数组</p>
+</blockquote>
+<h4 id="3-Map"><a href="#3-Map" class="headerlink" title="3.Map"></a>3.Map</h4><blockquote>
+<p>ECMAScript6之前，在JavaScript中实现键值对形式存储可以使用Object来完成，作为ES6的新增特性，Map是一种新的集合类型，为这门语言带来了真正的键值对存储机制，Map的大多数特性都可以通过Object类型实现，但二者还是存在一些细微的差异。</p>
+</blockquote>
+<p>使用new关键字和Map构造函数创建一个空映射</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const map = new Map()</span><br></pre></td></tr></table></figure>
+
+<p>可以在初始化时传入一个可迭代对象，可迭代对象的每个键值对都会按照迭代顺序插入新的映射实例（即新的Map对象）中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const m1 = new Map([</span><br><span class="line">    [&quot;key1&quot;, &quot;val1&quot;],</span><br><span class="line">    [&quot;key2&quot;, &quot;val2&quot;],</span><br><span class="line">    [&quot;key3&quot;, &quot;&quot;val3&quot;]</span><br><span class="line">]);</span><br><span class="line">alert(m1.size);       //3，size为映射实例对象的属性，获取键值对的个数</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例对象的方法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let map = new Map();</span><br><span class="line">map.set(key, value);	//插入键值对</span><br><span class="line">map.get(key);			//获取对应键的映射</span><br><span class="line">map.has(key);			//查询实例对象中是否有该键</span><br><span class="line">map.delete(key);		//删除指定的键值对</span><br><span class="line">map.clear();			//删除所有的键值对</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>与Object只能使用数值、字符串或者符号作为键不同，Map可以使用任何JavaScript数据类型作为键</p>
+</blockquote>
+<p><strong>顺序与迭代</strong></p>
+<blockquote>
+<p>与Object类型的一个主要差异是，Map实例会维护键值对的插入顺序，因此可根据插入顺序执行迭代操作，</p>
+<p>映射实例可以提供一个迭代器（Iterator），能以插入顺序生成[key，value]形式的数组，可以通过entries方法或者[Symbol.iterator]属性获得这个迭代器</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const map = new Map([</span><br><span class="line">    [&quot;key1&quot;, &quot;val1&quot;],</span><br><span class="line">    [&quot;key2&quot;, &quot;val2&quot;],</span><br><span class="line">    [&quot;key3&quot;, &quot;&quot;val3&quot;]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">alert(map.entries() === map[Symbol.iterator]);	//true</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-WeakMap"><a href="#4-WeakMap" class="headerlink" title="4.WeakMap"></a>4.WeakMap</h4><blockquote>
+<p>ES6新增的“弱映射”是一种新的集合类型，WeakMap中的“weak（弱）”，描述的是JavaScript垃圾回收程序对待“弱映射”中键的方式，其API是Map的子集</p>
+</blockquote>
+<p><strong>弱映射中的键只能是Object类型或者继承自Object的类型</strong></p>
+<blockquote>
+<p>Map存在两个很大的缺点：</p>
+<p>1.首先赋值和搜索操作都是O（n）的时间复杂度（n是键值对的个数），因为这两个操作都需要遍历整个数组来进行匹配。</p>
+<p>2.另外一个缺点就是可能会导致内存泄漏，因为数组会一直引用着每个键和值，这种引用使得垃圾回收算法不能回收处理他们，即使没有任何其他引用存在了</p>
+</blockquote>
+<blockquote>
+<p>相比之下，原生的WeakMap持有的是每个键对象的“弱引用”，这意味着没有其他引用存在时，垃圾回收能正确进行。原生WeakMap的结构是特殊且有效的，其用于key只有在没有被回收时才是有效的</p>
+</blockquote>
+<p><strong>正是由于这样的弱引用，WeakMap的key是不可枚举的</strong>（没有方法能给出所有的key）</p>
+<h4 id="5-Set和WeakSet"><a href="#5-Set和WeakSet" class="headerlink" title="5.Set和WeakSet"></a>5.Set和WeakSet</h4><blockquote>
+<p>ES6新增的Set是一种新集合类型，为这门语言带来集合数据结构，Set在很多方面都像是加强的Map，因为他们的大多数API和行为都是共有的</p>
+</blockquote>
+<p>这里不介绍这两个集合类型了，和Map非常相似</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我与前端的2021</title>
+    <url>/2022/01/01/My2021/</url>
+    <content><![CDATA[<blockquote>
+<p>第一次写这么长的文章（当然，除了语文作文），总的来说，自己学习前端的这几个月身心疲惫，不过痛并快乐着，自己的收获也很大，每天为了自己的目标努力，加油！</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="2021总结"><a href="#2021总结" class="headerlink" title="2021总结"></a>2021总结</h3><h5 id="谁的青春不迷茫"><a href="#谁的青春不迷茫" class="headerlink" title="谁的青春不迷茫"></a>谁的青春不迷茫</h5><p>在我们开学的一次年级周会上，两个学长为我们传授一些就业经验（两位大佬，据我所知，一个阿里淘系，一个蚂蚁金服），里面还有位学长我大一就认识了，我这里就用D学长来称呼他吧。</p>
+<p>在这之前，我一直在考虑自己究竟是要<strong>考研</strong>，还是<strong>就业</strong>，甚至失眠了好几个晚上，逛了无数论坛，看了数不清的分析帖子，但是自己却越来越<strong>迷茫</strong>，然后我想起了D学长。</p>
+<p><img src="/2022/01/01/My2021/1.png" alt="64103621308"></p>
+<p>D学长给了我一周时间，让我好好回答上面问题（灵魂之问）</p>
+<p><img src="/2022/01/01/My2021/2.png" alt="64103669909"></p>
+<p>  我当时在主观意识上还是不知道自己究竟要干什么，所以一些问题上，也显露出<strong>不够坚定</strong>的想法</p>
+<p><img src="/2022/01/01/My2021/3.png" alt="64103697151"></p>
+<p>这句话深深触动了我，<strong>如果不行动的话，永远都是迷茫的</strong></p>
+<h5 id="开启前端学习之路"><a href="#开启前端学习之路" class="headerlink" title="开启前端学习之路"></a>开启前端学习之路</h5><p>我依然记得我决定学习前端的那天，距离2021年结束还有<strong>80天</strong>，有个学长给我们推荐了一个入门的视频，是腾讯课堂上面的渡一教育的课程，老师幽默的讲课风格深深地吸引了我。每天保持6个小时的时间学习前端（后面在X学长的push下，全天学习前端），我一个多月便结束了基础三件套（<strong>HTML，CSS，JavaScript</strong>）的学习，在这时，我觉得自己的基础并不是很牢固，于是便买了一本<strong>《JavaScript高级语言程序设计》</strong>（俗称“红宝石书”），在读书的同时，我也开始学习<strong>Vue</strong>，学习过程中，做笔记，写demo，每次写出一个小demo都很有成就感，发现自己对前端越来越感兴趣了。</p>
+<h5 id="坚定自己的前端之路"><a href="#坚定自己的前端之路" class="headerlink" title="坚定自己的前端之路"></a>坚定自己的前端之路</h5><p>在学习的同时，我开始静下心来，想想自己到底是不是要决定就业，这时，我刷到了我的一个同校学长的博客（三元大佬），看了他学习前端的过程，我深感：<strong>越优秀的人越努力</strong>，同时这时我也慢慢坚定了自己的想法，坚持在前端学习这条路走下去，在这期间，看到一些文章散播就业的压力，我自己也倍感焦虑，同时随着一些知识点的深入了解，自己的兴趣也没之前那么浓厚了，不过三元大佬的一篇文章中的一句话深深触动了我：<strong>一个真正厉害的人，不是“爱一行，干一行”，而是“干一行，爱一行”的人。</strong>最初因为喜欢才去干一件事，可能这种喜欢是出于本能，或者是一时兴起，但当自己真正深入了解之后，慢慢喜欢上这件事情，这可能就是真正的喜欢了。</p>
+<p>当然，期间我看到了一篇文章《学习前端九个月拿下大厂offer》，当时也是很好奇，所以点进去看了一下，居然发现他好像就是比我大一届的W学长，于是我通过某种途径（这里还是有点搞笑的）找到了他，虽然我们只聊了一会，但是这对我来说也是莫大的鼓舞（就类似于追星成功那种心情），同时，我看了W学长的个人博客，深深感受到：<strong>成功并不是偶然的。</strong>W学长的个人博客全是他的总结笔记，并且质量还很高，能长时间坚持总结学习并记录下来并非是一件易事，于是我也开始总结自己的学习，并按时输出，搭建了自己的第一个个人博客，把自己的写的总结都放了上去，同时发现，学完了一个知识点并不代表你真正地掌握了它，但当你能用你的语言讲出来，并能让别人听懂，就代表你真正地掌握了它（后面也希望通过写总结，锻炼自己的语言组织能力）。</p>
+<h5 id="不畏失败，努力前行"><a href="#不畏失败，努力前行" class="headerlink" title="不畏失败，努力前行"></a>不畏失败，努力前行</h5><p>在12月底，自己投了几个简历，人人网，旷视科技，金山办公软件，想积累点面试经验，可是连回应都没有（此刻想哭），自己分析了一下原因，可能是自己简历上的东西太少了，而且写得不够详细，没有展示出自己的特点，那段时间也是挺难过的，连面试的机会都没有，不过自己慢慢也调整了心态，既然我不够优秀，那就继续学吧，用X学长对我说的一句话来表示我此刻的想法（赶紧点学吧，不然可能会被卷死）。</p>
+<h3 id="充满希望的2022"><a href="#充满希望的2022" class="headerlink" title="充满希望的2022"></a>充满希望的2022</h3><h5 id="保持学习，保持心态"><a href="#保持学习，保持心态" class="headerlink" title="保持学习，保持心态"></a>保持学习，保持心态</h5><p>马上放假了，决定利用这个不长不短的50天假期，弥补自己知识上的短板，同时巩固自己的基础，好好备战春招，同时，自己也会继续投简历，积累面试经验，从哪里跌倒，就从哪里站起来。</p>
+]]></content>
+      <tags>
+        <tag>个人感悟</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TCP</title>
     <url>/2022/03/02/TCP/</url>
     <content><![CDATA[<p>过去一段时间投了一些实习，也看了一些面试总结，发现计网知识考察的频率还是很高的，自己也打算逐步自学部分比较重要的计网知识，这部分知识相当枯燥，因为没办法去实践，只能看一些事例以及相关理论知识点，自己也通过看一些博客以及相关文档，做了些笔记。<span id="more"></span></p>
@@ -19,7 +430,7 @@
 </li>
 </ul>
 <h5 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h5><p>TCP的三次握手，目的就是为了确保客户端和服务端双方的两样能力：<strong>发送的能力</strong>和<strong>接收的能力</strong></p>
-<p><img src="/2022/03/02/TCP/1.jpg" alt="img"></p>
+<p><img src="/2022/03/02/TCP/a.jpg" alt="img"></p>
 <blockquote>
 <p>对照上面这张图，我们来分析一下整个过程</p>
 </blockquote>
@@ -46,7 +457,7 @@
 <p><strong>三次握手过程中可以携带数据吗？</strong></p>
 <p>第三次握手的时候可以携带，前面两次不可以。</p>
 <p>如果前两次握手能够携带数据，那么一旦有人想攻击服务器，那么他只需要在第一次握手中的<code>SYN</code>报文中放大量数据，那么服务器势必会消耗更多的<strong>时间</strong>和<strong>内存空间</strong>去处理这些数据，增大了服务器被攻击的风险。</p>
-<h5 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h5><p><img src="/2022/03/02/TCP/2.jpg" alt="img"></p>
+<h5 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h5><p><img src="/2022/03/02/TCP/b.jpg" alt="img"></p>
 <p>下面分析一下整个过程</p>
 <ul>
 <li>刚开始，双方都处于ESTABLISHED状态</li>
@@ -67,7 +478,7 @@
 <p>因为服务端在接收到<code>FIN</code>, 往往不会立即返回<code>FIN</code>, 必须等到服务端所有的报文都发送完毕了，才能发<code>FIN</code>。因此先发一个<code>ACK</code>表示已经收到客户端的<code>FIN</code>，延迟一段时间才发<code>FIN</code>。这就造成了四次挥手。</p>
 <p>如果是三次挥手会有什么问题？</p>
 <p>等于说服务端将<code>ACK</code>和<code>FIN</code>的发送合并为一次挥手，这个时候长时间的延迟可能会导致客户端误以为<code>FIN</code>没有到达客户端，从而让客户端不断的重发<code>FIN</code>。</p>
-<h5 id="TCP报文头部的字段介绍"><a href="#TCP报文头部的字段介绍" class="headerlink" title="TCP报文头部的字段介绍"></a>TCP报文头部的字段介绍</h5><p><img src="/2022/03/02/TCP/3.jpg" alt="img"></p>
+<h5 id="TCP报文头部的字段介绍"><a href="#TCP报文头部的字段介绍" class="headerlink" title="TCP报文头部的字段介绍"></a>TCP报文头部的字段介绍</h5><p><img src="/2022/03/02/TCP/c.jpg" alt="img"></p>
 <p>如何识别一个连接呢？答案是TCP连接的四元组：源IP，源端口，目标IP，目标端口。由于IP在IP层就已经得到了处理，所以TCP只需要记录端口。</p>
 <p>（1）请求序号：seq，占32位，用来标识TCP源端向目的端发送的字节流，发起方发送数据时对此进行标记，保证数据包按序安装。</p>
 <p>（2）确认序号：ack，占32位，只有ACK标志位为1时，确认序号字段才有效，ack=seq（接收到的请求序号）+1。</p>
@@ -85,7 +496,7 @@
 <p>要具体了解流量控制，首先需要了解滑动窗口的概念。</p>
 <p><strong>TCP滑动窗口</strong></p>
 <p><strong>发送窗口</strong>：</p>
-<p><img src="/2022/03/02/TCP/4.jpg" alt="img"></p>
+<p><img src="/2022/03/02/TCP/d.jpg" alt="img"></p>
 <p>其中包含四个部分：</p>
 <ul>
 <li>已发送且确认</li>
@@ -93,10 +504,10 @@
 <li>未发送但可以发送</li>
 <li>未发送且不可以发送</li>
 </ul>
-<p><img src="/2022/03/02/TCP/5.jpg" alt="img"></p>
+<p><img src="/2022/03/02/TCP/e.jpg" alt="img"></p>
 <p>发送窗口就是图中被框住的位置</p>
 <p><strong>接收窗口</strong>：</p>
-<p><img src="/2022/03/02/TCP/6.jpg" alt="img"></p>
+<p><img src="/2022/03/02/TCP/f.jpg" alt="img"></p>
 <p><strong>流量控制过程：</strong></p>
 <p>首先双方进行三次握手，初始化各自的窗口大小，假设均为200字节</p>
 <p>假设当前发送端给接收端发送100个字节，那么对于发送端而言，可用窗口要减少100个字节。</p>
@@ -171,25 +582,10 @@
       </tags>
   </entry>
   <entry>
-    <title>寒假总结</title>
-    <url>/2022/02/25/%E5%AF%92%E5%81%87%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>转眼间，就结束了差不多50天的寒假生活……<span id="more"></span></p>
-<p>在这个不长也不短的寒假，不能说自己到底有多大的收获，但是也不能说自己没学到什么。</p>
-<h5 id="不要害怕失败，大胆地去尝试"><a href="#不要害怕失败，大胆地去尝试" class="headerlink" title="不要害怕失败，大胆地去尝试"></a>不要害怕失败，大胆地去尝试</h5><p>在刚放假那几天，看到字节的青训营开始报名了，当时觉得自己才学前端没多久，应该是过不了的，但是还记得一个学长说过的话，<strong>不要害怕失败，大胆地去尝试</strong>，于是毅然地报了进阶班，笔试的时候运气真的很好，一道简单题，一道中等题，而那道中等题恰巧是自己刚做完总结的，自己顺利通过了笔试，收到通知的时候真的很开心，<strong>努力真的不会欺骗人</strong>，在1.15-1.26这十多天，每天都有老师给我们讲课，由于自己只学了基础三件套+Vue，很多课程都听不懂，甚至在听了关于基础三件套的课程后，感觉自己等于没学（：，老师讲的确实很好，而且还是相关方面的大佬，比如红宝石书的翻译作者：李松峰老师，月影老师等等，月影老师的JavaScript课程真的印象深刻，提出了高阶函数，讲了一些关于代码质量方面的问题，自己看着自己写的代码，忍不住地笑了，以及HTML，CSS，JavaScript各司其责，充分发挥自己的作用。</p>
-<p>在后面一段期间，是留给学生们自由组队做项目，这是一段悲伤的故事，这里就不提了。</p>
-<h5 id="万事开头难"><a href="#万事开头难" class="headerlink" title="万事开头难"></a>万事开头难</h5><p>同时，因为自己一直都没个独立完成的项目，想找个对于自己来说具有挑战性的项目，于是去GitHub上面找，发现了一个开源的网易云接口，刚开始入手的时候是一点思路都没有，由于自己基础都不是很扎实，问题一个接着一个，代码质量也不高，当时真的就是谷歌随时都是打开着的，官方文档，各种解决问题的网站，这里推荐一下StackOverflow，这是个国外网站，不过你把报的看不懂的错误，往上面一放，基本都能得到解决，不过就是全英文的。自己的代码质量也有了一步步的提升（虽然看起来还是屎山），对Vue的理解也更加深刻了，自己也去了解了一些Vue的设计原理，看了一部分的核心源码，自己也对一些原理有了更深层的理解。</p>
-<h5 id="继续向前！"><a href="#继续向前！" class="headerlink" title="继续向前！"></a>继续向前！</h5><p>在寒假快要结束了，自己也开始投递简历，到牛客上面找了几个实习岗投递，不论通过与否，都希望自己能在笔试面试过程中找到自己的不足，更希望自己能够进入公司实习，学到更多技术，开拓自己的眼界，在接下来的几个月里，自己也将更加努力地去学习新技术，同时去精进自己的技术，写出高质量的代码。</p>
-<p>当然，希望在秋招中，自己也能拿下一个满意的offer！</p>
-]]></content>
-      <tags>
-        <tag>个人感悟</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue原理分析篇</title>
     <url>/2022/02/19/Vue%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E7%AF%87(1)/</url>
     <content><![CDATA[<p>Vue的原理分析<span id="more"></span></p>
-<h4 id="Object的变化侦测"><a href="#Object的变化侦测" class="headerlink" title="Object的变化侦测"></a>Object的变化侦测</h4><p><img src="/2022/02/19/Vue%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E7%AF%87(1)/1.png" alt="64480655300"></p>
+<h4 id="Object的变化侦测"><a href="#Object的变化侦测" class="headerlink" title="Object的变化侦测"></a>Object的变化侦测</h4><p><img src="/2022/02/19/Vue%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E7%AF%87(1)/a.png" alt="64480655300"></p>
 <p>在vue2中，采用的是<code>Object.defineProperty</code>方法来对数据进行变化侦测</p>
 <p>首先，定义一个数据对象：car</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> car = &#123;</span><br><span class="line">    <span class="attr">brand</span>: <span class="string">&#x27;BMW&#x27;</span>,</span><br><span class="line">    <span class="attr">price</span>: <span class="number">3000</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -262,6 +658,149 @@
       </tags>
   </entry>
   <entry>
+    <title>了解Git的基本使用</title>
+    <url>/2021/12/21/git/</url>
+    <content><![CDATA[<blockquote>
+<p>这两天，学习了一下Git的使用，其中，主要是看了廖雪峰老师的Git学习教程，下面的笔记也是我在学习过程中的一些记录，以及一些自己的理解，如有错误，还望小伙伴们指出！</p>
+</blockquote>
+<span id="more"></span>
+
+<h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>1.在合适的地方创建目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir learngit(目录名)</span><br></pre></td></tr></table></figure>
+
+<p>2.创建仓库：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="将文件添加至仓库"><a href="#将文件添加至仓库" class="headerlink" title="将文件添加至仓库"></a>将文件添加至仓库</h4><p>1.首先要在<strong>learngit</strong>目录下创建文件，例如readme.txt</p>
+<p>2.将readme.txt文件添加至仓库中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>3.将文件提交至仓库中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;add a file&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>-m后面的内容为提交提交文件时的说明，可以为任意内容，但是最好有语义，能够让自己以及读者看懂此次提交是干什么</p>
+</blockquote>
+<h4 id="修改文件内容"><a href="#修改文件内容" class="headerlink" title="修改文件内容"></a>修改文件内容</h4><p>1.首先在文件中，修改要修改的内容</p>
+<p>2.再次使用add和commit命令，达到修改的目的</p>
+<p><strong>可以使用git status查看仓库状态</strong></p>
+<p><strong>使用git diff查看修改内容</strong></p>
+<h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><p>1.HEAD指向的版本就是当前的版本，我们可以使用git reset –hard  commit_id(版本号的id)回退到指定版本</p>
+<p>2.可以使用指令回到原来的版本：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset --hard HEAD^        //回退到上一个版本</span><br><span class="line"></span><br><span class="line">git reset --hard HEAD^^      //回退到上上个版本</span><br><span class="line"></span><br><span class="line">git reset --hard HEAD~100    //回退到前100个版本</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>穿梭前，可以使用<strong>git log</strong>查看提交历史，以便确定要回退到哪个版本</p>
+<p>要重返未来，可以使用<strong>git reflog</strong>产看命令历史，以便确定要回到未来的哪个版本</p>
+</blockquote>
+<h4 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h4><blockquote>
+<p>工作区：我们所有在文件上的操作都相当于在仓库的工作区中操作</p>
+</blockquote>
+<blockquote>
+<p>暂存区：当我们完成部分代码后，我们需要将新的版本往Git版本库中添加，这时，我们其实是分两部进行的，首先，使用 <strong>git add</strong> 将文件添加进去，实际上就是把文件添加到暂存区；然后，我们使用<strong>git  commit</strong> 提交修改，实际上就是把暂存区的所有内容提交到当前分支（因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支），所以现在也是在master分支上提交修改</p>
+</blockquote>
+<h4 id="管理修改"><a href="#管理修改" class="headerlink" title="管理修改"></a>管理修改</h4><p>一句话概括：如果不用git add将文件添加至暂存区，是不会加入到commit中的，即不会提交到当前分支</p>
+<h4 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h4><p>1.当文件修改目前是在工作区中时，撤销修改可以使用以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git restore readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>2.当文件已经add到暂存区中，则需要使用两次restore命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">首先   git restore --staged readme.txt</span><br><span class="line"></span><br><span class="line">然后再次执行一次restore命令     git restore readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>3.当文件已经commit到版本库中，则使用版本回退指令</p>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><p>1.通常直接在文件管理器中把没用的文件删除，或者使用rm命令删除</p>
+<p>2.如果之前已经提交到版本库中，则此时版本库还保存着之前的文件，如果确实要从版本库中删除改文件，就用<code>git rm test.txt</code>删除，并且git commit</p>
+<p>3.如果是不小心删错了，分为两种情况，第一种是只删除了文件管理器（工作区）中的文件，暂存区中还保存着文件，则使用<code>git restore test.txt</code>即可恢复，另外一种情况是暂存区中的文件也没删除，则执行两次restore命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git restore --staged test.txt</span><br><span class="line"></span><br><span class="line">git restore test.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="添加远程库（github）"><a href="#添加远程库（github）" class="headerlink" title="添加远程库（github）"></a>添加远程库（github）</h4><p>1.首先在GitHub上面右上角找到“Create a new repo..”，创建一个新的仓库，并未仓库名命名，其他保持默认设置</p>
+<p>2.在本地仓库中运行以下命令，使本地仓库与远程GitHub仓库关联：</p>
+<h4 id><a href="#" class="headerlink" title></a><img src="/2021/12/21/git/a.png" alt="63997055497"></h4><blockquote>
+<p>其中，远程库的名字就是origin，这是Git默认的叫法，其中642342217是我自己的GitHub账号，gitlearn为我的远程仓库名</p>
+</blockquote>
+<p>关联后，如果是第一次，则使用以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<p>此后，每次本地提交后，可以使用以下命令，将修改后的文件提交至远程仓库：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="远程克隆"><a href="#远程克隆" class="headerlink" title="远程克隆"></a>远程克隆</h4><p>只需要一个命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:642342217/gitskills.git            //642342217为GitHub账号，gitskills为仓库名</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h4><p>在版本回退里，每次提交，Git都把他们串成一条时间线，这条时间线就是一个分支，截止到目前，我们只使用过master分支，每次提交，<code>master</code>分支都会向前移动一步，随着不断提交，<code>master</code>分支的线也越来越长；</p>
+<p>当我们创建新的分支时，例如<code>dev</code>，Git会新建一个指针叫<code>dev</code>,指向<code>master</code>相同的提交（此处我目前的理解是，就是拷贝一份一模一样的文件给dev分支），再把<code>HEAD</code>指向<code>dev</code>，表示当前分支在<code>dev</code>上；（用自己的话来概括就是，HEAD总是指向当前所在的分支）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch        		    //查看仓库中的分支</span><br><span class="line">git branch &lt;branchName&gt;     //创建分支</span><br><span class="line">git checkout &lt;name&gt;         //切换分支   或者   git switch &lt;name&gt;</span><br><span class="line">git checkout -b &lt;name&gt;      //创建并切换到该分支上</span><br><span class="line">git merge &lt;name&gt;            //合并某分支到当前分支</span><br><span class="line">git branch -d &lt;name&gt;        //删除分支</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="处理冲突"><a href="#处理冲突" class="headerlink" title="处理冲突"></a>处理冲突</h4><p>当在新分支（dev）上修改并提交后，返回<code>master</code>分支后，如果在<code>master</code>分支上继续修改，在合并分支时会造成冲突，此时必须手动解决冲突后在提交。<code>git status</code>会告诉我们冲突的文件，我们也可以直接查看<code>readme.txt</code>的内容，会标记出不同分支中的内容，修改文件中的冲突内容后，再次提交即可，最后，删除<code>dev</code>分支</p>
+<h4 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h4><p>通常，合并分支时，如果可能，Git会用<code>Fast forward</code>模式，但这种模式下，删除分支后，会丢掉分支信息</p>
+<p>使用Fast forward模式：</p>
+<p><img src="/2021/12/21/git/b.png" alt="63998871417"></p>
+<p>不使用Fast forward模式：</p>
+<p><img src="/2021/12/21/git/c.png" alt="63998879035"></p>
+<p>合并分支时，加上<code>--no--ff</code>参数就可以使用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而<code>fast forward</code>合并就看不出来曾经做过合并</p>
+<h4 id="Bug分支"><a href="#Bug分支" class="headerlink" title="Bug分支"></a>Bug分支</h4><p>当我们正在一个分支上进行开发时，此时街道一个修复bug的任务，但是当前正在<code>dev</code>上进行的工作还没有提交，工作时间还需要一天，但是必须在两小时内修复bug，此时，Git提供一个<code>stash</code>功能，可以把当前工作现场储藏起来，等 以后恢复现场后继续工作：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
+
+<p>此时，可以放心的创建分支来修复bug：</p>
+<p>1.首先确定要在哪个分支上修复bug，假设<code>master</code>分支上，就从master分支上创建临时分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b issue-101</span><br></pre></td></tr></table></figure>
+
+<p>2.修复bug后，提交文件，修复完成后，切换到<code>master</code>分支，并完成合并，最后删除<code>issue-101</code>分支</p>
+<p>3.接着回到<code>dev</code>分支上，接着干活，通过以下命令查看工作现场：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure>
+
+<p>恢复工作现场：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git stash apply       //恢复后，stash内容并不删除，需要使用                       //git stash drop 来删除</span><br><span class="line">git stash pop         //恢复的同时把stash内容也删除了</span><br></pre></td></tr></table></figure>
+
+<p>在master分支上修复bug后，其实这个bug在当前dev分支上也是存在的，此时我们只需要把之前提交所做的修改复制到dev分支，为此Git专门提供了一个<code>cherry-pick</code>命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git cherry-pick 4c805e2       //每次提交后都有对应的id</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Feature分支"><a href="#Feature分支" class="headerlink" title="Feature分支"></a>Feature分支</h4><p>每次开发新功能，都要新建分支，当新的需求不需要此功能时，需要删除该功能，当该分支还没有合并到master分支上时，可以强行删除</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -D &lt;分支名&gt;    //注意，此处的D为大写</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h4><p>多人协作工作模式：</p>
+<p>1.首先，可以试图用<code>git push origin &lt;branch -name&gt;推送自己的修改</code></p>
+<p>2.如果推送失败，则因为远程分支比你的本地更新（也就是小伙伴已经修改并推送过了），需要先用<code>git pull</code>尝试合并；</p>
+<p>3.如果合并有冲突，则解决冲突，并在本地提交</p>
+<p>4.如果没有冲突或者已经解决冲突后，再用<code>git push origin &lt;branch-name&gt;</code>推送就能成功。</p>
+<blockquote>
+<p>如果<code>git pull</code>提示<code>no tracking information</code>，则说明本地分支和远程分支的链接关系没有创建，用命令<code>git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code>；</p>
+</blockquote>
+<p>查看远程库信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>在本地创建和远程分支对应的分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -b branch-name origin/branch-name</span><br></pre></td></tr></table></figure>
+
+<p>建立本地分支和远程分支的关联：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream branch-name origin/branch-name</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h4><p>rebase操作可以把本地未push的分叉提交历史整理成直线</p>
+<p>rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比</p>
+<h4 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag &lt;tagname&gt;     用于新建一个标签，默认未HEAD,也可以指                         定一个commit id</span><br><span class="line">git tag -a &lt;tagname&gt; -m &quot;blablabla..&quot;可以指定标签信息</span><br><span class="line">git tag               查看所有标签</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="标签操作"><a href="#标签操作" class="headerlink" title="标签操作"></a>标签操作</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin &lt;tagname&gt;   推送一个本地标签</span><br><span class="line">git push origin --tags      推送全部未推送过的本地标签</span><br><span class="line">git tag -d &lt;tagname&gt;        删除一个本地标签</span><br><span class="line">git push origin :refs/tags/&lt;tagname&gt; 删除一个远程标签</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
     <title>前端性能篇</title>
     <url>/2022/02/19/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%AF%87/</url>
     <content><![CDATA[<h3 id="前端性能篇"><a href="#前端性能篇" class="headerlink" title="前端性能篇"></a>前端性能篇</h3><p>最近一个多月做了一个仿网易云项目，这也算是自己的真正意义上的第一个项目，也算是快要完成了，针对存在一些存在的问题，想进行一些关于性能方面的优化</p>
@@ -281,6 +820,21 @@
 ]]></content>
       <tags>
         <tag>前端性能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>寒假总结</title>
+    <url>/2022/02/25/%E5%AF%92%E5%81%87%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>转眼间，就结束了差不多50天的寒假生活……<span id="more"></span></p>
+<p>在这个不长也不短的寒假，不能说自己到底有多大的收获，但是也不能说自己没学到什么。</p>
+<h5 id="不要害怕失败，大胆地去尝试"><a href="#不要害怕失败，大胆地去尝试" class="headerlink" title="不要害怕失败，大胆地去尝试"></a>不要害怕失败，大胆地去尝试</h5><p>在刚放假那几天，看到字节的青训营开始报名了，当时觉得自己才学前端没多久，应该是过不了的，但是还记得一个学长说过的话，<strong>不要害怕失败，大胆地去尝试</strong>，于是毅然地报了进阶班，笔试的时候运气真的很好，一道简单题，一道中等题，而那道中等题恰巧是自己刚做完总结的，自己顺利通过了笔试，收到通知的时候真的很开心，<strong>努力真的不会欺骗人</strong>，在1.15-1.26这十多天，每天都有老师给我们讲课，由于自己只学了基础三件套+Vue，很多课程都听不懂，甚至在听了关于基础三件套的课程后，感觉自己等于没学（：，老师讲的确实很好，而且还是相关方面的大佬，比如红宝石书的翻译作者：李松峰老师，月影老师等等，月影老师的JavaScript课程真的印象深刻，提出了高阶函数，讲了一些关于代码质量方面的问题，自己看着自己写的代码，忍不住地笑了，以及HTML，CSS，JavaScript各司其责，充分发挥自己的作用。</p>
+<p>在后面一段期间，是留给学生们自由组队做项目，这是一段悲伤的故事，这里就不提了。</p>
+<h5 id="万事开头难"><a href="#万事开头难" class="headerlink" title="万事开头难"></a>万事开头难</h5><p>同时，因为自己一直都没个独立完成的项目，想找个对于自己来说具有挑战性的项目，于是去GitHub上面找，发现了一个开源的网易云接口，刚开始入手的时候是一点思路都没有，由于自己基础都不是很扎实，问题一个接着一个，代码质量也不高，当时真的就是谷歌随时都是打开着的，官方文档，各种解决问题的网站，这里推荐一下StackOverflow，这是个国外网站，不过你把报的看不懂的错误，往上面一放，基本都能得到解决，不过就是全英文的。自己的代码质量也有了一步步的提升（虽然看起来还是屎山），对Vue的理解也更加深刻了，自己也去了解了一些Vue的设计原理，看了一部分的核心源码，自己也对一些原理有了更深层的理解。</p>
+<h5 id="继续向前！"><a href="#继续向前！" class="headerlink" title="继续向前！"></a>继续向前！</h5><p>在寒假快要结束了，自己也开始投递简历，到牛客上面找了几个实习岗投递，不论通过与否，都希望自己能在笔试面试过程中找到自己的不足，更希望自己能够进入公司实习，学到更多技术，开拓自己的眼界，在接下来的几个月里，自己也将更加努力地去学习新技术，同时去精进自己的技术，写出高质量的代码。</p>
+<p>当然，希望在秋招中，自己也能拿下一个满意的offer！</p>
+]]></content>
+      <tags>
+        <tag>个人感悟</tag>
       </tags>
   </entry>
   <entry>
@@ -544,560 +1098,6 @@
 </ul>
 <p><strong>5.渲染阶段</strong></p>
 <p>一旦文档被提交，渲染进程便开始页面解析和子资源加载了，一个完整的页面就生成了。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>JavaScript总结篇（2）</title>
-    <url>/2022/01/14/JavaScript_2/</url>
-    <content><![CDATA[<blockquote>
-<p>考试周加上放假，耽误了一段时间，加上这章内容也比较多，看了挺久的，也花了点时间消化，总的来说，这章内容还是挺重要的，当然，这里只是简单介绍了这两章的一些比较重要的知识点，以及一些容易忽视的地方</p>
-</blockquote>
-<span id="more"></span>
-
-<h3 id="第五章-基本引用类型"><a href="#第五章-基本引用类型" class="headerlink" title="第五章 基本引用类型"></a>第五章 基本引用类型</h3><h4 id="1-Date"><a href="#1-Date" class="headerlink" title="1.Date"></a>1.Date</h4><blockquote>
-<p>此处只介绍Date类型常见的一些API，以及一些容易犯错的地方</p>
-</blockquote>
-<p><strong>getTime()</strong>:返回日期的毫秒表示</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let date = new Date();</span><br><span class="line">console.log(date.getTime());   //1641859833554</span><br></pre></td></tr></table></figure>
-
-<p><strong>getFullYear()</strong>:返回4位数年</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(date.getFullYear());  //2022</span><br></pre></td></tr></table></figure>
-
-<p><strong>getMonth()</strong>:返回日期的月</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(date.getMonth())    //0</span><br></pre></td></tr></table></figure>
-
-<p><strong>此处getMonth返回的月是从0开始的（即代表一月）</strong></p>
-<p><strong>getDate()</strong>:返回日期的日</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(date.getDate());    //11</span><br></pre></td></tr></table></figure>
-
-<p><strong>getDay()</strong>:返回日期中表示星期几的数值</p>
-<blockquote>
-<p>此处的数值，0表示周日，6表示周六，国外都把周日当作一周的第一天</p>
-</blockquote>
-<p>后面的getHours()，getMinutes()，getSeconds()就不一一介绍了</p>
-<h4 id="2-RegExp"><a href="#2-RegExp" class="headerlink" title="2.RegExp"></a>2.RegExp</h4><blockquote>
-<p>创建正则表达式：</p>
-</blockquote>
-<p><strong>let re = /pattern/flags;</strong></p>
-<blockquote>
-<p>这个正则表达式的pattern可以是任何简单或复杂的正则表达式；每个正则表达式可以带0个或者多个flags，用于控制正则表达式的行为。</p>
-</blockquote>
-<p><strong>let re = new RegExp(“pattern”,”flags”)</strong></p>
-<p>下面是flags的取值以及作用</p>
-<blockquote>
-<p>g：全局模式，表示查找字符串的全部内容，而不是找到第一个匹配的内容就结束</p>
-<p>i：不区分大小写</p>
-<p>m：多行模式，表示查找到一行文本末尾时会继续查找</p>
-</blockquote>
-<p><strong>与其他语言中的正则表达式类似，所有元字符在模式中也必须转义，包括：</strong></p>
-<p>（ ）{ } [ ] \ ^ $ |? * + .</p>
-<p><strong>RegExp实例方法</strong></p>
-<p><strong>exec：</strong>一个在字符串中执行查找匹配的RegExp方法，它返回一个数组（未匹配到则返回 null）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var myRe = /db+d/g;</span><br><span class="line">var myArray = myRe.exec(&quot;cdbbd dbbdz&quot;);   //[ &#x27;dbbd&#x27;, index: 1, input: &#x27;cdbbd dbbdz&#x27;, groups: undefined ]</span><br></pre></td></tr></table></figure>
-
-<p><strong>test：</strong>一个在字符串中测试是否匹配的RegExp方法，它返回 true 或 false</p>
-<p><strong>match：</strong>一个在字符串中执行查找匹配的String方法，它返回一个数组，在未匹配到时会返回 null    </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var myRe = /db+d/g;</span><br><span class="line">var test = &quot;cdbbddbdz&quot;.match(myRe);   //[ &#x27;dbbd&#x27;, &#x27;dbd&#x27; ]</span><br></pre></td></tr></table></figure>
-
-<p><strong>replace：</strong>一个在字符串中执行查找匹配的String方法，并且使用替换字符串替换掉匹配到的子字符串</p>
-<blockquote>
-<p>正则表达式要是真要很熟练还是挺难的，平时只要能看懂我觉得就差不多了，要用到的时候再去查一下</p>
-</blockquote>
-<h4 id="3-原始值包装类型"><a href="#3-原始值包装类型" class="headerlink" title="3.原始值包装类型"></a>3.原始值包装类型</h4><blockquote>
-<p>为了方便操作原始值，ECMAScript提供了三种特殊的引用类型：Boolean，Number和String</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let s1 = &quot;some text&quot;;</span><br><span class="line">let s2 = s1.substring(2);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>在这里，s1是一个包含字符串的变量，并且是一个原始值。第二行紧接着在s1上调用了substring()方法，我们知道，原始值并不是对象，因此逻辑上不应该有方法，而实际上这个例子却按照预期执行了，这是因为后台进行了处理</p>
-</blockquote>
-<p>后台会执行以下三步：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let s1= new String(&quot;some text&quot;);	//创建一个String类型实例</span><br><span class="line">let s2 = s1.substring(2);		    //调用实例上的方法</span><br><span class="line">s1 = null;						   //销毁实例</span><br></pre></td></tr></table></figure>
-
-<p>这种行为让原始值拥有对象的行为。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let value = &quot;123&quot;;</span><br><span class="line">let number = Number(value);</span><br><span class="line">console.log(typeof number);	  //number</span><br><span class="line">let obj = new Number(value);</span><br><span class="line">console.log(typeof obj);      //object</span><br><span class="line">注意区分构造函数和转型函数的调用</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>下面是一些经常犯错的点，虽然可能和本章没什么关系，但是，在总结时想到了这类问题</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1toString()    //报错，语法错误</span><br><span class="line">1.toString()   //报错，JS引擎无法确定这里的`.`是什么意思，是点运算符（对象方法）还是浮点数？</span><br><span class="line">1..toString()    //成功，运算结果&quot;1&quot; 解析: 第二个点被视为点运算符，前面的是浮点数。</span><br><span class="line">1.0.toString()   //成功，运算结果&quot;1&quot; 解析: 第二个点被视为点运算符，前面的是浮点数。</span><br><span class="line">1 .toString()    //成功，运算结果&quot;1&quot; 解析: 用空格和后面的.toString()隔开, 把前面的当成运算式处理</span><br><span class="line">1+2.toString() //报错，JS引擎无法确定这里的`.`是什么意思，是点运算符（对象方法）还是浮点数？</span><br><span class="line">1+2 .toString() //成功，运算结果&quot;12&quot; 解析: 用空格和后面的.toString()隔开, 把前面的当成运算式处理</span><br><span class="line">(1+2).toString() //成功，运算结果&quot;3&quot; 解析: 括号内部的先进行算法运算，在进行类型转换</span><br><span class="line">(1)+(2).toString() //运算结果&quot;12&quot; 解析: 括号内部进行类型修改并将数字n转换为字符串“n “，在进行拼接，然后再应用toString方法。</span><br><span class="line">(1)+(2)+0 .toString() //成功，运算结果&quot;30&quot; 解析: 如果有多个`+`号，且不包含中括号与&quot;&quot;的情况下，则把最后一个加号之前的进行数学运算(不管他有没有被括号包住)，最后一个加号留作拼接作用。</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-1Boolean"><a href="#3-1Boolean" class="headerlink" title="3.1Boolean"></a>3.1Boolean</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let falseObject = new Boolean(false);</span><br><span class="line">let result = falseObject &amp;&amp; true;</span><br><span class="line">console.log(result);    //true;</span><br><span class="line"></span><br><span class="line">在这段代码中，我们创建了一个值为false的Boolean对象，在布尔运算中，false &amp;&amp; true 应该为false，但是这里，falseObject并不是false，它是一个对象，前面一个章节讲过，在进行布尔运算时，所有的对象都会转换为true，因此此处为 true &amp;&amp; true</span><br><span class="line"></span><br><span class="line">let falseValue = false;</span><br><span class="line">console.log(typeof falseObject);  //object</span><br><span class="line">console.log(typeof falseValue);   //boolean</span><br><span class="line">console.log(falseObject instanceof Boolean);  //true</span><br><span class="line">console.log(falseValue instanceof Boolean);   //false;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="3-2Number"><a href="#3-2Number" class="headerlink" title="3.2Number"></a>3.2Number</h5><p><strong>toString()</strong>:可选地接收一个表示基数的参数，并返回相应基数形式的数值字符串</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num = 10;</span><br><span class="line">console.log(num.toString());      //&quot;10&quot;</span><br><span class="line">console.log(num.toString(2));     //&quot;1010&quot;</span><br><span class="line">console.log(num.toString(8));     //&quot;12&quot;</span><br><span class="line">console.log(num.toString(16));    //&quot;a&quot;</span><br></pre></td></tr></table></figure>
-
-<p>**toFixed():**返回包含指定小数点的数值字符串</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num = 10;</span><br><span class="line">console.log(num.toFixed(2));  //&quot;10.00&quot;</span><br></pre></td></tr></table></figure>
-
-<p>**isInteger():**ES6新增了Number.isInteger()方法，用于辨别一个数值是否是整数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Number.isInteger(1));    //true</span><br><span class="line">console.log(Number.isInteger(1.00)); //true</span><br><span class="line">console.log(Number.isInteger(1.01)); //false</span><br><span class="line"></span><br><span class="line">当然也可以使用其他方法判断一个数值是否是整数</span><br><span class="line">console.log(number % 1 === 0);  //为true则为整数，否则不为整数</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>整数的范围：Number.MIN_SAFE_INTEGER(-2的53次方+1) 到Number.MAX_SAFE_INTEGER(2的53次方-1)</p>
-</blockquote>
-<h5 id="3-3String"><a href="#3-3String" class="headerlink" title="3.3String"></a>3.3String</h5><p><strong>slice，substring 和 substr 的区别：</strong></p>
-<blockquote>
-<p>当参数都是正数时</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let str = &quot;hello world&quot;;</span><br><span class="line">console.log(str.slice(3));         //&quot;lo world&quot;</span><br><span class="line">console.log(str.substring(3));     //&quot;lo world&quot;</span><br><span class="line">console.log(str.substr(3));        //&quot;lo world&quot;</span><br><span class="line">console.log(str.slice(3, 7));      //&quot;lo w&quot;</span><br><span class="line">console.log(str.substring(3, 7));  //&quot;lo w&quot;</span><br><span class="line">console.log(str.substr(3, 7));     //&quot;lo worl&quot;,此处的7代表的是截取的长度</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>当参数中有负数时</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let str = &quot;hello world&quot;;</span><br><span class="line">console.log(str.slice(-3));        //&quot;rld&quot;，截取开始位置=length+负数</span><br><span class="line">console.log(str.substring(-3));    //&quot;hello world&quot;，只要碰到负数，就转换为0</span><br><span class="line">console.log(str.slice(-3));        //&quot;rld&quot;，截取开始位置=length+负数</span><br><span class="line">console.log(str.substring(3, -4)); //&quot;lo w&quot;，只要碰到负数，就转换为length+负数</span><br><span class="line">console.log(str.substr(3, -4));    //&quot;&quot;，空字符串，截取长度不能为负数</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>ES6新增方法：startsWith()  endsWith()  includes()</p>
-<p>startsWith()和includes()接收两个参数，第一个表示搜索的字符串，第二个表示开始搜索的位置，默认为0</p>
-<p>endsWith()也接收两个参数，第一个表示搜索的字符串，第二个表示搜索的末尾位置</p>
-</blockquote>
-<h4 id="4-单例内置对象"><a href="#4-单例内置对象" class="headerlink" title="4.单例内置对象"></a>4.单例内置对象</h4><blockquote>
-<p>这里有Global和Math，这两个平时用的也比较多，这里就不详细介绍了，稍微总结Math的舍入方法</p>
-</blockquote>
-<p>**Math.ceil():**始终向上舍入为最接近的整数</p>
-<p>**Math.floor():**始终向下舍入为最接近的整数</p>
-<p>**Math.round():**执行四舍五入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Math.ceil(26.1));       //27</span><br><span class="line">console.log(Math.ceil(-26.1));      //-26</span><br><span class="line">console.log(Math.floor(26.9));      //26</span><br><span class="line">console.log(Math.floor(-26.1));     //-27</span><br><span class="line">console.log(Math.round(26.4));      //26</span><br><span class="line">console.log(Math.round(-26.4));     //-26</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="第六章-集合引用类型"><a href="#第六章-集合引用类型" class="headerlink" title="第六章 集合引用类型"></a>第六章 集合引用类型</h3><h4 id="1-Object（对象）"><a href="#1-Object（对象）" class="headerlink" title="1.Object（对象）"></a>1.Object（对象）</h4><blockquote>
-<p>显式地创建Object实例有两种方式</p>
-</blockquote>
-<p>第一种是使用new操作符和Object构造函数创建</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let person = new Object();</span><br><span class="line">person.name = &quot;chj&quot;;</span><br><span class="line">person.age = 21;</span><br></pre></td></tr></table></figure>
-
-<p>第二种是使用<strong>对象字面量</strong>表示法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let person = &#123;</span><br><span class="line">    name: &quot;chj&quot;,</span><br><span class="line">    age: 21</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>在对象字面量表示法中，属性名可以是字符串或者数值，如果是数值，会自动转换为字符串</p>
-<p>Object类型是无序的，因此不可迭代</p>
-</blockquote>
-<h4 id="2-Array"><a href="#2-Array" class="headerlink" title="2.Array"></a>2.Array</h4><blockquote>
-<p>两个ES6新增的用于创建数组的静态方法：Array.from()和Array.of()</p>
-</blockquote>
-<p><strong>Array.from():<strong>第一个参数为</strong>类数组对象</strong>，即任何可迭代的结构，或者有一个length属性和可索引的元素的结构</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Array.from(&quot;Matt));	   //[&quot;M&quot;, &quot;a&quot;, &quot;t&quot;, &quot;t&quot;]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const m = new Map().set(1, 2)</span><br><span class="line">			      .set(3, 4);</span><br><span class="line">console.log(Array.from(m));     //[[1, 2], [3, 4]]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//Array.from()对现有数组进行浅复制</span><br><span class="line">const a1 = [1, 2, 3, 4];</span><br><span class="line">const a2 = Array.from(a1);</span><br><span class="line">console.log(a2);      //[1, 2, 3, 4]</span><br><span class="line">console.log(a1 === a2)  //false</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>数组的length并不是只读的，可以通过修改length的值对数组进行操作</p>
-</blockquote>
-<p><strong>检测数组：</strong></p>
-<blockquote>
-<p>使用instanceof会存在问题，如果网页里面有多个框架，则可能涉及两个不同的全局执行上下文，因此会有两个不同版本的Array构造函数，为了解决这个问题，这里有个更好的方法用来判断数组：Array.isArray()</p>
-</blockquote>
-<p><strong>迭代器方法：</strong></p>
-<blockquote>
-<p>在ES6中，Array的原型上暴露了3个用于检索数组内容的方法：keys()  values()  和  entries()</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const a = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;];</span><br><span class="line"></span><br><span class="line">//因为这些方法返回的都是迭代器，所以需要将他们通过Array.from()转换为数组</span><br><span class="line">const aKeys = Array.from(a.keys());</span><br><span class="line">const aValues = Array.from(a.values());</span><br><span class="line">const aEntries = Array.from(a.entries());</span><br><span class="line"></span><br><span class="line">console.log(aKeys);			//[0, 1, 2, 3]</span><br><span class="line">console.log(aValues);		//[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]</span><br><span class="line">console.log(aEntries);		//[[0,&quot;a&quot;], [1,&quot;b&quot;], [2,&quot;c&quot;], [3,&quot;d&quot;]]</span><br><span class="line"></span><br><span class="line">//可以使用ES6的解构在循环中，拆分aEntries的键值对</span><br><span class="line">for(let [index, value] of a.Entries())&#123;//....&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>填充方法：fill()</p>
-<p>栈方法：push()  pop()</p>
-<p>队列方法：unshift()  shift()  push()</p>
-<p>排序方法：sort()  reverse()    都会改变原数组</p>
-</blockquote>
-<p><strong>迭代方法：</strong>（都不会改变原数组，进行操作之后，返回新数组）</p>
-<blockquote>
-<p>**every():**对数组每一项都运行传入的函数，如果每一项都返回true，则这个方法返回为true</p>
-<p>**some():**对数组每一项都运行传入的函数，如果有一项返回为true，则这个方法返回为true</p>
-<p>**filter():**对数组每一项都运行传入的函数，函数返回为true的项会组成新数组进行返回</p>
-<p>**forEach():**对数组每一项都运行传入的函数，没有返回值，且不可停止遍历</p>
-<p>**map():**对数组每一项都运行传入的函数，返回由每次函数调用的返回结果组成的新数组</p>
-</blockquote>
-<h4 id="3-Map"><a href="#3-Map" class="headerlink" title="3.Map"></a>3.Map</h4><blockquote>
-<p>ECMAScript6之前，在JavaScript中实现键值对形式存储可以使用Object来完成，作为ES6的新增特性，Map是一种新的集合类型，为这门语言带来了真正的键值对存储机制，Map的大多数特性都可以通过Object类型实现，但二者还是存在一些细微的差异。</p>
-</blockquote>
-<p>使用new关键字和Map构造函数创建一个空映射</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const map = new Map()</span><br></pre></td></tr></table></figure>
-
-<p>可以在初始化时传入一个可迭代对象，可迭代对象的每个键值对都会按照迭代顺序插入新的映射实例（即新的Map对象）中</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const m1 = new Map([</span><br><span class="line">    [&quot;key1&quot;, &quot;val1&quot;],</span><br><span class="line">    [&quot;key2&quot;, &quot;val2&quot;],</span><br><span class="line">    [&quot;key3&quot;, &quot;&quot;val3&quot;]</span><br><span class="line">]);</span><br><span class="line">alert(m1.size);       //3，size为映射实例对象的属性，获取键值对的个数</span><br></pre></td></tr></table></figure>
-
-<p><strong>实例对象的方法</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let map = new Map();</span><br><span class="line">map.set(key, value);	//插入键值对</span><br><span class="line">map.get(key);			//获取对应键的映射</span><br><span class="line">map.has(key);			//查询实例对象中是否有该键</span><br><span class="line">map.delete(key);		//删除指定的键值对</span><br><span class="line">map.clear();			//删除所有的键值对</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>与Object只能使用数值、字符串或者符号作为键不同，Map可以使用任何JavaScript数据类型作为键</p>
-</blockquote>
-<p><strong>顺序与迭代</strong></p>
-<blockquote>
-<p>与Object类型的一个主要差异是，Map实例会维护键值对的插入顺序，因此可根据插入顺序执行迭代操作，</p>
-<p>映射实例可以提供一个迭代器（Iterator），能以插入顺序生成[key，value]形式的数组，可以通过entries方法或者[Symbol.iterator]属性获得这个迭代器</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const map = new Map([</span><br><span class="line">    [&quot;key1&quot;, &quot;val1&quot;],</span><br><span class="line">    [&quot;key2&quot;, &quot;val2&quot;],</span><br><span class="line">    [&quot;key3&quot;, &quot;&quot;val3&quot;]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">alert(map.entries() === map[Symbol.iterator]);	//true</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="4-WeakMap"><a href="#4-WeakMap" class="headerlink" title="4.WeakMap"></a>4.WeakMap</h4><blockquote>
-<p>ES6新增的“弱映射”是一种新的集合类型，WeakMap中的“weak（弱）”，描述的是JavaScript垃圾回收程序对待“弱映射”中键的方式，其API是Map的子集</p>
-</blockquote>
-<p><strong>弱映射中的键只能是Object类型或者继承自Object的类型</strong></p>
-<blockquote>
-<p>Map存在两个很大的缺点：</p>
-<p>1.首先赋值和搜索操作都是O（n）的时间复杂度（n是键值对的个数），因为这两个操作都需要遍历整个数组来进行匹配。</p>
-<p>2.另外一个缺点就是可能会导致内存泄漏，因为数组会一直引用着每个键和值，这种引用使得垃圾回收算法不能回收处理他们，即使没有任何其他引用存在了</p>
-</blockquote>
-<blockquote>
-<p>相比之下，原生的WeakMap持有的是每个键对象的“弱引用”，这意味着没有其他引用存在时，垃圾回收能正确进行。原生WeakMap的结构是特殊且有效的，其用于key只有在没有被回收时才是有效的</p>
-</blockquote>
-<p><strong>正是由于这样的弱引用，WeakMap的key是不可枚举的</strong>（没有方法能给出所有的key）</p>
-<h4 id="5-Set和WeakSet"><a href="#5-Set和WeakSet" class="headerlink" title="5.Set和WeakSet"></a>5.Set和WeakSet</h4><blockquote>
-<p>ES6新增的Set是一种新集合类型，为这门语言带来集合数据结构，Set在很多方面都像是加强的Map，因为他们的大多数API和行为都是共有的</p>
-</blockquote>
-<p>这里不介绍这两个集合类型了，和Map非常相似</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我与前端的2021</title>
-    <url>/2022/01/01/My2021/</url>
-    <content><![CDATA[<blockquote>
-<p>第一次写这么长的文章（当然，除了语文作文），总的来说，自己学习前端的这几个月身心疲惫，不过痛并快乐着，自己的收获也很大，每天为了自己的目标努力，加油！</p>
-</blockquote>
-<span id="more"></span>
-
-<h3 id="2021总结"><a href="#2021总结" class="headerlink" title="2021总结"></a>2021总结</h3><h5 id="谁的青春不迷茫"><a href="#谁的青春不迷茫" class="headerlink" title="谁的青春不迷茫"></a>谁的青春不迷茫</h5><p>在我们开学的一次年级周会上，两个学长为我们传授一些就业经验（两位大佬，据我所知，一个阿里淘系，一个蚂蚁金服），里面还有位学长我大一就认识了，我这里就用D学长来称呼他吧。</p>
-<p>在这之前，我一直在考虑自己究竟是要<strong>考研</strong>，还是<strong>就业</strong>，甚至失眠了好几个晚上，逛了无数论坛，看了数不清的分析帖子，但是自己却越来越<strong>迷茫</strong>，然后我想起了D学长。</p>
-<p><img src="/2022/01/01/My2021/1.png" alt="64103621308"></p>
-<p>D学长给了我一周时间，让我好好回答上面问题（灵魂之问）</p>
-<p><img src="/2022/01/01/My2021/2.png" alt="64103669909"></p>
-<p>  我当时在主观意识上还是不知道自己究竟要干什么，所以一些问题上，也显露出<strong>不够坚定</strong>的想法</p>
-<p><img src="/2022/01/01/My2021/3.png" alt="64103697151"></p>
-<p>这句话深深触动了我，<strong>如果不行动的话，永远都是迷茫的</strong></p>
-<h5 id="开启前端学习之路"><a href="#开启前端学习之路" class="headerlink" title="开启前端学习之路"></a>开启前端学习之路</h5><p>我依然记得我决定学习前端的那天，距离2021年结束还有<strong>80天</strong>，有个学长给我们推荐了一个入门的视频，是腾讯课堂上面的渡一教育的课程，老师幽默的讲课风格深深地吸引了我。每天保持6个小时的时间学习前端（后面在X学长的push下，全天学习前端），我一个多月便结束了基础三件套（<strong>HTML，CSS，JavaScript</strong>）的学习，在这时，我觉得自己的基础并不是很牢固，于是便买了一本<strong>《JavaScript高级语言程序设计》</strong>（俗称“红宝石书”），在读书的同时，我也开始学习<strong>Vue</strong>，学习过程中，做笔记，写demo，每次写出一个小demo都很有成就感，发现自己对前端越来越感兴趣了。</p>
-<h5 id="坚定自己的前端之路"><a href="#坚定自己的前端之路" class="headerlink" title="坚定自己的前端之路"></a>坚定自己的前端之路</h5><p>在学习的同时，我开始静下心来，想想自己到底是不是要决定就业，这时，我刷到了我的一个同校学长的博客（三元大佬），看了他学习前端的过程，我深感：<strong>越优秀的人越努力</strong>，同时这时我也慢慢坚定了自己的想法，坚持在前端学习这条路走下去，在这期间，看到一些文章散播就业的压力，我自己也倍感焦虑，同时随着一些知识点的深入了解，自己的兴趣也没之前那么浓厚了，不过三元大佬的一篇文章中的一句话深深触动了我：<strong>一个真正厉害的人，不是“爱一行，干一行”，而是“干一行，爱一行”的人。</strong>最初因为喜欢才去干一件事，可能这种喜欢是出于本能，或者是一时兴起，但当自己真正深入了解之后，慢慢喜欢上这件事情，这可能就是真正的喜欢了。</p>
-<p>当然，期间我看到了一篇文章《学习前端九个月拿下大厂offer》，当时也是很好奇，所以点进去看了一下，居然发现他好像就是比我大一届的W学长，于是我通过某种途径（这里还是有点搞笑的）找到了他，虽然我们只聊了一会，但是这对我来说也是莫大的鼓舞（就类似于追星成功那种心情），同时，我看了W学长的个人博客，深深感受到：<strong>成功并不是偶然的。</strong>W学长的个人博客全是他的总结笔记，并且质量还很高，能长时间坚持总结学习并记录下来并非是一件易事，于是我也开始总结自己的学习，并按时输出，搭建了自己的第一个个人博客，把自己的写的总结都放了上去，同时发现，学完了一个知识点并不代表你真正地掌握了它，但当你能用你的语言讲出来，并能让别人听懂，就代表你真正地掌握了它（后面也希望通过写总结，锻炼自己的语言组织能力）。</p>
-<h5 id="不畏失败，努力前行"><a href="#不畏失败，努力前行" class="headerlink" title="不畏失败，努力前行"></a>不畏失败，努力前行</h5><p>在12月底，自己投了几个简历，人人网，旷视科技，金山办公软件，想积累点面试经验，可是连回应都没有（此刻想哭），自己分析了一下原因，可能是自己简历上的东西太少了，而且写得不够详细，没有展示出自己的特点，那段时间也是挺难过的，连面试的机会都没有，不过自己慢慢也调整了心态，既然我不够优秀，那就继续学吧，用X学长对我说的一句话来表示我此刻的想法（赶紧点学吧，不然可能会被卷死）。</p>
-<h3 id="充满希望的2022"><a href="#充满希望的2022" class="headerlink" title="充满希望的2022"></a>充满希望的2022</h3><h5 id="保持学习，保持心态"><a href="#保持学习，保持心态" class="headerlink" title="保持学习，保持心态"></a>保持学习，保持心态</h5><p>马上放假了，决定利用这个不长不短的50天假期，弥补自己知识上的短板，同时巩固自己的基础，好好备战春招，同时，自己也会继续投简历，积累面试经验，从哪里跌倒，就从哪里站起来。</p>
-]]></content>
-      <tags>
-        <tag>个人感悟</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaScript总结篇（1）</title>
-    <url>/2021/12/26/JavaScript_1/</url>
-    <content><![CDATA[<blockquote>
-<p>在第一遍看完《JavaScript高级程序设计》后，自己并没有太大的收获，究其原因就是，自己在看书的过程中，抱着看完一本书的目的，一目十行，并没有吸收里面的知识，这次，我结合他人博客，仔细的看了一遍一些重要的内容，收获很大，每看完一部分，我都会写一篇笔记来记录自己的收获。</p>
-</blockquote>
-<span id="more"></span>
-
-<p>###第三章  语言基础</p>
-<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><p>1.var关键字</p>
-<ul>
-<li><p>声明作用域：</p>
-<p>使用var操作符定义的变量会成为包含它的函数的局部变量：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test()&#123;</span><br><span class="line">    var message = &#x27;hi&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line">console.log(messsage);	//报错</span><br></pre></td></tr></table></figure>
-
-<p>而在函数内部定义变量时，省略var操作符，会创建一个全局变量：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test()&#123;</span><br><span class="line">    message = &#x27;hi&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line">console.log(messsage);	//&quot;hi&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p>声明提升：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo()&#123;</span><br><span class="line">    console.log(age);	</span><br><span class="line">    var age = 21;</span><br><span class="line">&#125;</span><br><span class="line">foo()	//undefined</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>2.let声明</p>
-<ul>
-<li><p>声明作用域：</p>
-<p>let声明的范围是块作用域，而var声明的范围是函数作用域</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    let age = 21;</span><br><span class="line">    console.log(age);	//21</span><br><span class="line">&#125;</span><br><span class="line">console.log(age)	//报错</span><br></pre></td></tr></table></figure></li>
-<li><p>在同一作用域中，不可重复声明：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let age = 21;</span><br><span class="line">let age = 20;	//报错：age已经声明过了</span><br></pre></td></tr></table></figure></li>
-<li><p>暂时性死区：</p>
-<p>let与var的另一个重要区别，就是let声明的变量不会在作用域中被提升</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(age);	//报错，age没有定义</span><br><span class="line">let age = 21;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>在解析代码时，JavaScript引擎也会注意在块后面的let声明，只不过在此之前不能以任何方式来引用未声明的变量。在let声明之前的瞬间被称为“暂时性死区”，在此阶段引用任何后面才声明的变量都会抛出错误。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var age = 22;</span><br><span class="line">function test()&#123;</span><br><span class="line">    console.log(age);	//报错</span><br><span class="line">    let age = 22;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></li>
-<li><p>全局声明：</p>
-<p>与var关键字不同，使用let在全局作用域声明的变量不会成为window对象的属性</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var name = &quot;chj&quot;;</span><br><span class="line">console.log(window.name);	//&quot;chj&quot;</span><br><span class="line"></span><br><span class="line">let name = &quot;chj&quot;;</span><br><span class="line">console.log(window.name);	//undefined</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>3.const声明</p>
-<ul>
-<li><p>const的行为与let基本相同，唯一一个重要的区别就是用const声明时，必须同时初始化变量，且尝试修改const声明的变量会导致运行时报错</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const age = 21;</span><br><span class="line">age = 20;	//报错：给常量赋值</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>#####数据类型</p>
-<p>1.简单数据类型：</p>
-<p>undefined，Boolean，null，symbol，string，number，bigint（基本没用过，新出的）</p>
-<p>2.复杂数据类型：</p>
-<p>Object（包括普通对象Object，数组对象Array，正则对象RegExp，日期对象Date，数学函数Math，函数对象Function)</p>
-<p>判断数据类型</p>
-<ul>
-<li><p>对于基本数据类型来说，除了null都可以调用typeof显示正确的类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof 1      //&#x27;number&#x27;</span><br><span class="line">typeof &#x27;1&#x27;    //&#x27;string&#x27;</span><br><span class="line">typeof true   //&#x27;boolean&#x27;</span><br><span class="line">typeof undefined    //&#x27;undefined&#x27;</span><br><span class="line">typeod Symbol()     //&#x27;symbol&#x27;</span><br><span class="line">typeof null    //&#x27;object&#x27;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>对于复杂数据类型，除了函数之外，都会显示object</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof []  //&#x27;object&#x27;</span><br><span class="line">typeof &#123;&#125;  //&#x27;object&#x27;</span><br><span class="line">const test = function()&#123;</span><br><span class="line">    console.log(1);</span><br><span class="line">&#125;</span><br><span class="line">console.log(typeof test);  //&#x27;function&#x27;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>这里可以实现一下判断复杂对象数据类型：</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const myTypeof(obj)&#123;</span><br><span class="line">    return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase;</span><br><span class="line">&#125;</span><br><span class="line">console.log(mytypeof([]));  //&#x27;array&#x27;</span><br><span class="line">console.log(mytypeof(&#123;&#125;));  //&#x27;object&#x27;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>当然，这里也可以使用instanceof来判断复杂数据类型</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log([] instanceof Array);   //true</span><br><span class="line">console.log(&#123;&#125; instanceof Object);  //true</span><br><span class="line"></span><br><span class="line">//instanceof的原理就是顺着要判断的对象的原型链向上查找，若能找到对应构造函数的原型对象，则返回true，否则返回false</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>这里手动实现一下instanceof的功能</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function myInstanceof(obj, constructor)&#123;</span><br><span class="line">//不是对象数据类型则返回false，其没有原型</span><br><span class="line">    if(typeof obj !== &#x27;object&#x27; || typeof obj === null)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    //先拿到该对象的向上找的第一个原型对象</span><br><span class="line">    let proto = Object.getPrototypeOf(obj);</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(proto === constructor.prototype)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        if(proto === null)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        proto = Object.getPrototypeOf(proto);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(myInstanceof([], Array));   //true;</span><br><span class="line">console.log(myInstanceof(&#123;&#125;, Object));  //true;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>数据类型的转换</p>
-<p>类型转换只有三种：</p>
-<ul>
-<li>转换为数字</li>
-<li>转换为布尔值</li>
-<li>转换为字符串</li>
-</ul>
-<p><strong>转换为数字：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string ---&gt;  &#x27;1&#x27; =&gt; 1, &#x27;a&#x27; =&gt; NaN, &#x27;1a&#x27; =&gt; NaN</span><br><span class="line">数组 ----&gt;  空数组为0，存在一个元素且为数字转化为数字，其他情况为NaN</span><br><span class="line">null ----&gt;  0</span><br><span class="line">除了数组的引用类型 ----&gt;  NaN</span><br><span class="line">Symbol -----&gt; 报错</span><br></pre></td></tr></table></figure>
-
-<p><strong>转化为布尔值：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">number ----&gt; 除了0，-0，+0，NaN都为true</span><br><span class="line">string ----&gt; 除了空串都为true</span><br><span class="line">undefined,null ----&gt; false</span><br><span class="line">引用类型 ----&gt;  true</span><br></pre></td></tr></table></figure>
-
-<p><strong>转换为字符串：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">number ----&gt;  5 =&gt; &#x27;5&#x27;</span><br><span class="line">Boolean，函数，Symbol  ----&gt;  &#x27;true&#x27;</span><br><span class="line">数组 -----&gt;  [1,2] =&gt; &#x27;1,2&#x27;</span><br><span class="line">对象 ------&gt;  &#x27;[object,Object]&#x27;</span><br></pre></td></tr></table></figure></li>
-<li><p>===和==的区别</p>
-<p><strong>===判断类型是否相同，不相同直接返回false，而==涉及到一些类型转换</strong></p>
-<ul>
-<li>两边的类型相同，直接比较值的大小</li>
-<li>判断两边是否分别是null和undefined，是的话，直接返回true</li>
-<li>判断的类型是否是String和Number，是的话，把String类型转换成Number，再进行比较</li>
-<li>判断其中一方是否是Boolean，是的话就把Boolean转换成Number，再进行比较</li>
-<li>如果其中一方为Object，且另一方为String、Number或者Symbol，会将Object转换成字符串，再进行比较</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#125; == true //false，首先，&#123;&#125;转换为字符串（&quot;[object,Object]&quot;）,然后再转化为number（NaN），右边为1，所以为false</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>此处的Object转化为字符串，这涉及到每个Object中都有一个实例：valueOf()，其返回对象对应的字符串，数值或者布尔值，通常与toString()的返回值相同</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">常见的应用：a == 1 &amp;&amp; a == 2 //true</span><br><span class="line">const a = &#123;</span><br><span class="line">    value:1,</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        return this.value++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a == 1 &amp;&amp; a == 2);	//true</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ul>
-<li><p>Object.is和===的区别</p>
-<p>主要体现在+0和-0，NaN和NaN的判断上，修复了===的一些失误</p>
-<p>在===中：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(+0 === -0);    //true</span><br><span class="line">console.log(NaN === NaN);  //false</span><br></pre></td></tr></table></figure>
-
-<p>在Object.is中：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Object.is(+0,-0));     //false;</span><br><span class="line">console.log(Object.is(NaN,NaN));   //true;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="第四章-变量、作用域与内存"><a href="#第四章-变量、作用域与内存" class="headerlink" title="第四章 变量、作用域与内存"></a>第四章 变量、作用域与内存</h3><h5 id="原始值与引用值"><a href="#原始值与引用值" class="headerlink" title="原始值与引用值"></a>原始值与引用值</h5><ul>
-<li><p>原始值是最简单的数据</p>
-<p>保存原始值的变量是按值访问的，因为我们操作的就是存储在变量中的实际值</p>
-</li>
-<li><p>引用值是由多个值构成的对象</p>
-<p>JavaScript不允许直接访问内存地址，因此不能直接操作对象所在的内存空间，在操作对象时，实际上操作的是对该对象的引用而非实际的对象本身。</p>
-</li>
-<li><p>复制值</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num1 = 5;</span><br><span class="line">let num2 = num1;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>这里，num1包含数值5，当把num2初始化为num1时，num2也会得到数值5，这个值根存储在num1中的5是完全独立的，互不干扰</p>
-</blockquote>
-</li>
-</ul>
-<p><img src="/2021/12/26/JavaScript_1/a.jpg" alt="1"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let obj1 = new Object();</span><br><span class="line">let obj2 = obj1;</span><br><span class="line">obj1.name = &quot;chj&quot;;</span><br><span class="line">console.log(obj2.name);		//&quot;chj&quot;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/12/26/JavaScript_1/b.jpg" alt="2"></p>
-<ul>
-<li><p>传递参数</p>
-<p>所有的函数的参数都是按值传递的</p>
-<p><strong>参数为简单数据类型：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test(num)&#123;</span><br><span class="line">    num += 10;</span><br><span class="line">    return num;</span><br><span class="line">&#125;</span><br><span class="line">let count = 20;</span><br><span class="line">let result = test(count);</span><br><span class="line">console.log(count);		//20，没有变化</span><br><span class="line">console.log(result);	//30</span><br></pre></td></tr></table></figure>
-
-<p><strong>参数为引用数据类型：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function test(obj)&#123;</span><br><span class="line">    obj.name = &quot;jun&quot;;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &quot;hui&quot;;</span><br><span class="line">&#125;</span><br><span class="line">let person = new Object();</span><br><span class="line">person.name = &quot;chen&quot;;</span><br><span class="line">test(person);</span><br><span class="line">console.log(person.name);	//&quot;jun&quot;</span><br><span class="line"></span><br><span class="line">这个函数内部，先是对obj的name属性进行操作，然后，将obj重新定义为一个有着不同name的新对象，如果person是按引用传递的，那么person的name属性将被改成“hui”，但是，我们再次访问name属性时，它的值为第一次操作的值。当obj在函数内部重写时，他变成了指向本地对象的指针，而那个对象在函数执行结束后就销毁了。</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h5 id="执行上下文（Context）与作用域-Scope"><a href="#执行上下文（Context）与作用域-Scope" class="headerlink" title="执行上下文（Context）与作用域(Scope)"></a>执行上下文（Context）与作用域(Scope)</h5><blockquote>
-<p>执行上下文的概念非常重要，但是也很难理解，函数的每次调用都有与之紧密相关的作用域和上下文。从根本上来说，作用域是基于函数的，而上下文是基于对象的。 换句话说，作用域涉及到所被调用函数中的变量访问，并且不同的调用场景是不一样的。上下文始终是<code>this</code>关键字的值， 它是拥有（控制）当前所执行代码的对象的引用.</p>
-</blockquote>
-<ul>
-<li><strong>变量或函数</strong>的执行上下文决定了它们可以访问哪些数据，以及它们的行为，每个上下文都有一个关联的<strong>变量对象</strong>，而这个上下文中定义的所有变量和函数都存在于这个对象上。</li>
-<li>全局上下文是最外层的上下文，在浏览器中，全局上下文就是我们常说的window对象</li>
-<li>每个函数调用都有自己的上下文，当代码执行流进入函数时，函数的上下文会被推到上下文栈上，函数执行完后，上下文栈会弹出该函数上下文（执行完函数，销毁其变量）</li>
-<li>上下文的代码在执行的时候，会创建变量对象的一个<strong>作用域链</strong>，这个作用域链决定了各级上下文的代码在访问变量和函数时的顺序。如果上下文是函数，则其<strong>活动对象</strong>用作变量对象，活动对象最初只有一个定义变量：arguments。（全局上下文中没有这个变量）</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &quot;blue&quot;;</span><br><span class="line"></span><br><span class="line">function changeColor()&#123;</span><br><span class="line">    let anotherColor = &quot;red&quot;;</span><br><span class="line">    </span><br><span class="line">    function swapColor()&#123;</span><br><span class="line">        let tempColor = anotherColor;</span><br><span class="line">        anotherColor = Color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">        </span><br><span class="line">    //这里可以访问color，anotherColor和tempColor</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //这里可以访问color，anotherColor</span><br><span class="line">    swapColor();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//这里只能访问Color</span><br><span class="line">changeColor();</span><br><span class="line"></span><br><span class="line">以上代码涉及到三个上下文：全局上下文，changeColor()的局部上下文和swapColor()的局部上下文</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/12/26/JavaScript_1/c.jpg" alt="3"></p>
-<blockquote>
-<p>以上一图就很好地解释了：每个上下文都有一个关联的变量对象，上下文中定义的所有变量和函数都存在于这个对象上</p>
-</blockquote>
-<h5 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h5><blockquote>
-<p>至于内存管理，涉及到v8引擎关于如何进行垃圾回收的原理，后续我会专门写一篇总结</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>了解Git的基本使用</title>
-    <url>/2021/12/21/git/</url>
-    <content><![CDATA[<blockquote>
-<p>这两天，学习了一下Git的使用，其中，主要是看了廖雪峰老师的Git学习教程，下面的笔记也是我在学习过程中的一些记录，以及一些自己的理解，如有错误，还望小伙伴们指出！</p>
-</blockquote>
-<span id="more"></span>
-
-<h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>1.在合适的地方创建目录：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir learngit(目录名)</span><br></pre></td></tr></table></figure>
-
-<p>2.创建仓库：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="将文件添加至仓库"><a href="#将文件添加至仓库" class="headerlink" title="将文件添加至仓库"></a>将文件添加至仓库</h4><p>1.首先要在<strong>learngit</strong>目录下创建文件，例如readme.txt</p>
-<p>2.将readme.txt文件添加至仓库中</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add readme.txt</span><br></pre></td></tr></table></figure>
-
-<p>3.将文件提交至仓库中</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;add a file&quot;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>-m后面的内容为提交提交文件时的说明，可以为任意内容，但是最好有语义，能够让自己以及读者看懂此次提交是干什么</p>
-</blockquote>
-<h4 id="修改文件内容"><a href="#修改文件内容" class="headerlink" title="修改文件内容"></a>修改文件内容</h4><p>1.首先在文件中，修改要修改的内容</p>
-<p>2.再次使用add和commit命令，达到修改的目的</p>
-<p><strong>可以使用git status查看仓库状态</strong></p>
-<p><strong>使用git diff查看修改内容</strong></p>
-<h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><p>1.HEAD指向的版本就是当前的版本，我们可以使用git reset –hard  commit_id(版本号的id)回退到指定版本</p>
-<p>2.可以使用指令回到原来的版本：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset --hard HEAD^        //回退到上一个版本</span><br><span class="line"></span><br><span class="line">git reset --hard HEAD^^      //回退到上上个版本</span><br><span class="line"></span><br><span class="line">git reset --hard HEAD~100    //回退到前100个版本</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>穿梭前，可以使用<strong>git log</strong>查看提交历史，以便确定要回退到哪个版本</p>
-<p>要重返未来，可以使用<strong>git reflog</strong>产看命令历史，以便确定要回到未来的哪个版本</p>
-</blockquote>
-<h4 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h4><blockquote>
-<p>工作区：我们所有在文件上的操作都相当于在仓库的工作区中操作</p>
-</blockquote>
-<blockquote>
-<p>暂存区：当我们完成部分代码后，我们需要将新的版本往Git版本库中添加，这时，我们其实是分两部进行的，首先，使用 <strong>git add</strong> 将文件添加进去，实际上就是把文件添加到暂存区；然后，我们使用<strong>git  commit</strong> 提交修改，实际上就是把暂存区的所有内容提交到当前分支（因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支），所以现在也是在master分支上提交修改</p>
-</blockquote>
-<h4 id="管理修改"><a href="#管理修改" class="headerlink" title="管理修改"></a>管理修改</h4><p>一句话概括：如果不用git add将文件添加至暂存区，是不会加入到commit中的，即不会提交到当前分支</p>
-<h4 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h4><p>1.当文件修改目前是在工作区中时，撤销修改可以使用以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git restore readme.txt</span><br></pre></td></tr></table></figure>
-
-<p>2.当文件已经add到暂存区中，则需要使用两次restore命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">首先   git restore --staged readme.txt</span><br><span class="line"></span><br><span class="line">然后再次执行一次restore命令     git restore readme.txt</span><br></pre></td></tr></table></figure>
-
-<p>3.当文件已经commit到版本库中，则使用版本回退指令</p>
-<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><p>1.通常直接在文件管理器中把没用的文件删除，或者使用rm命令删除</p>
-<p>2.如果之前已经提交到版本库中，则此时版本库还保存着之前的文件，如果确实要从版本库中删除改文件，就用<code>git rm test.txt</code>删除，并且git commit</p>
-<p>3.如果是不小心删错了，分为两种情况，第一种是只删除了文件管理器（工作区）中的文件，暂存区中还保存着文件，则使用<code>git restore test.txt</code>即可恢复，另外一种情况是暂存区中的文件也没删除，则执行两次restore命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git restore --staged test.txt</span><br><span class="line"></span><br><span class="line">git restore test.txt</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="添加远程库（github）"><a href="#添加远程库（github）" class="headerlink" title="添加远程库（github）"></a>添加远程库（github）</h4><p>1.首先在GitHub上面右上角找到“Create a new repo..”，创建一个新的仓库，并未仓库名命名，其他保持默认设置</p>
-<p>2.在本地仓库中运行以下命令，使本地仓库与远程GitHub仓库关联：</p>
-<h4 id><a href="#" class="headerlink" title></a><img src="/2021/12/21/git/a.png" alt="63997055497"></h4><blockquote>
-<p>其中，远程库的名字就是origin，这是Git默认的叫法，其中642342217是我自己的GitHub账号，gitlearn为我的远程仓库名</p>
-</blockquote>
-<p>关联后，如果是第一次，则使用以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-
-<p>此后，每次本地提交后，可以使用以下命令，将修改后的文件提交至远程仓库：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="远程克隆"><a href="#远程克隆" class="headerlink" title="远程克隆"></a>远程克隆</h4><p>只需要一个命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:642342217/gitskills.git            //642342217为GitHub账号，gitskills为仓库名</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h4><p>在版本回退里，每次提交，Git都把他们串成一条时间线，这条时间线就是一个分支，截止到目前，我们只使用过master分支，每次提交，<code>master</code>分支都会向前移动一步，随着不断提交，<code>master</code>分支的线也越来越长；</p>
-<p>当我们创建新的分支时，例如<code>dev</code>，Git会新建一个指针叫<code>dev</code>,指向<code>master</code>相同的提交（此处我目前的理解是，就是拷贝一份一模一样的文件给dev分支），再把<code>HEAD</code>指向<code>dev</code>，表示当前分支在<code>dev</code>上；（用自己的话来概括就是，HEAD总是指向当前所在的分支）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch        		    //查看仓库中的分支</span><br><span class="line">git branch &lt;branchName&gt;     //创建分支</span><br><span class="line">git checkout &lt;name&gt;         //切换分支   或者   git switch &lt;name&gt;</span><br><span class="line">git checkout -b &lt;name&gt;      //创建并切换到该分支上</span><br><span class="line">git merge &lt;name&gt;            //合并某分支到当前分支</span><br><span class="line">git branch -d &lt;name&gt;        //删除分支</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="处理冲突"><a href="#处理冲突" class="headerlink" title="处理冲突"></a>处理冲突</h4><p>当在新分支（dev）上修改并提交后，返回<code>master</code>分支后，如果在<code>master</code>分支上继续修改，在合并分支时会造成冲突，此时必须手动解决冲突后在提交。<code>git status</code>会告诉我们冲突的文件，我们也可以直接查看<code>readme.txt</code>的内容，会标记出不同分支中的内容，修改文件中的冲突内容后，再次提交即可，最后，删除<code>dev</code>分支</p>
-<h4 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h4><p>通常，合并分支时，如果可能，Git会用<code>Fast forward</code>模式，但这种模式下，删除分支后，会丢掉分支信息</p>
-<p>使用Fast forward模式：</p>
-<p><img src="/2021/12/21/git/b.png" alt="63998871417"></p>
-<p>不使用Fast forward模式：</p>
-<p><img src="/2021/12/21/git/c.png" alt="63998879035"></p>
-<p>合并分支时，加上<code>--no--ff</code>参数就可以使用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而<code>fast forward</code>合并就看不出来曾经做过合并</p>
-<h4 id="Bug分支"><a href="#Bug分支" class="headerlink" title="Bug分支"></a>Bug分支</h4><p>当我们正在一个分支上进行开发时，此时街道一个修复bug的任务，但是当前正在<code>dev</code>上进行的工作还没有提交，工作时间还需要一天，但是必须在两小时内修复bug，此时，Git提供一个<code>stash</code>功能，可以把当前工作现场储藏起来，等 以后恢复现场后继续工作：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
-
-<p>此时，可以放心的创建分支来修复bug：</p>
-<p>1.首先确定要在哪个分支上修复bug，假设<code>master</code>分支上，就从master分支上创建临时分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b issue-101</span><br></pre></td></tr></table></figure>
-
-<p>2.修复bug后，提交文件，修复完成后，切换到<code>master</code>分支，并完成合并，最后删除<code>issue-101</code>分支</p>
-<p>3.接着回到<code>dev</code>分支上，接着干活，通过以下命令查看工作现场：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure>
-
-<p>恢复工作现场：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git stash apply       //恢复后，stash内容并不删除，需要使用                       //git stash drop 来删除</span><br><span class="line">git stash pop         //恢复的同时把stash内容也删除了</span><br></pre></td></tr></table></figure>
-
-<p>在master分支上修复bug后，其实这个bug在当前dev分支上也是存在的，此时我们只需要把之前提交所做的修改复制到dev分支，为此Git专门提供了一个<code>cherry-pick</code>命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git cherry-pick 4c805e2       //每次提交后都有对应的id</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="Feature分支"><a href="#Feature分支" class="headerlink" title="Feature分支"></a>Feature分支</h4><p>每次开发新功能，都要新建分支，当新的需求不需要此功能时，需要删除该功能，当该分支还没有合并到master分支上时，可以强行删除</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -D &lt;分支名&gt;    //注意，此处的D为大写</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h4><p>多人协作工作模式：</p>
-<p>1.首先，可以试图用<code>git push origin &lt;branch -name&gt;推送自己的修改</code></p>
-<p>2.如果推送失败，则因为远程分支比你的本地更新（也就是小伙伴已经修改并推送过了），需要先用<code>git pull</code>尝试合并；</p>
-<p>3.如果合并有冲突，则解决冲突，并在本地提交</p>
-<p>4.如果没有冲突或者已经解决冲突后，再用<code>git push origin &lt;branch-name&gt;</code>推送就能成功。</p>
-<blockquote>
-<p>如果<code>git pull</code>提示<code>no tracking information</code>，则说明本地分支和远程分支的链接关系没有创建，用命令<code>git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code>；</p>
-</blockquote>
-<p>查看远程库信息：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-
-<p>在本地创建和远程分支对应的分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -b branch-name origin/branch-name</span><br></pre></td></tr></table></figure>
-
-<p>建立本地分支和远程分支的关联：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream branch-name origin/branch-name</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h4><p>rebase操作可以把本地未push的分叉提交历史整理成直线</p>
-<p>rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比</p>
-<h4 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag &lt;tagname&gt;     用于新建一个标签，默认未HEAD,也可以指                         定一个commit id</span><br><span class="line">git tag -a &lt;tagname&gt; -m &quot;blablabla..&quot;可以指定标签信息</span><br><span class="line">git tag               查看所有标签</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="标签操作"><a href="#标签操作" class="headerlink" title="标签操作"></a>标签操作</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin &lt;tagname&gt;   推送一个本地标签</span><br><span class="line">git push origin --tags      推送全部未推送过的本地标签</span><br><span class="line">git tag -d &lt;tagname&gt;        删除一个本地标签</span><br><span class="line">git push origin :refs/tags/&lt;tagname&gt; 删除一个远程标签</span><br></pre></td></tr></table></figure>
-
 ]]></content>
   </entry>
 </search>
