@@ -447,7 +447,7 @@
 <h5 id="（7）渲染"><a href="#（7）渲染" class="headerlink" title="（7）渲染"></a>（7）渲染</h5><p>当浏览器接收到响应后，如果响应头中的<code>Content-Type</code>为<code>text/html</code>，那么接下来就要进入浏览器的解析和渲染工作了。</p>
 <h4 id="5-从输入URL到页面呈现发生了什么–解析渲染"><a href="#5-从输入URL到页面呈现发生了什么–解析渲染" class="headerlink" title="5.从输入URL到页面呈现发生了什么–解析渲染"></a>5.从输入URL到页面呈现发生了什么–解析渲染</h4><p>当浏览器接收到响应后，如果响应头中的<code>Content-Type</code>为<code>text/html</code>，那么接下来就要进入浏览器的解析和渲染工作了。</p>
 <ul>
-<li>第一步是处理HTML标记并构造DOM树，解析器进行解析过程中，发现非阻塞资源，例如一张图片，浏览器会请求这些资源，并且继续解析；当遇到一个CSS文件时，解析也可以继续进行。但是，对于<script>标签（特别是没有async或着defer属性）会阻塞渲染并停止HTML的解析。</li>
+<li>第一步是处理HTML标记并构造DOM树，解析器进行解析过程中，发现非阻塞资源，例如一张图片，浏览器会请求这些资源，并且继续解析；当遇到一个CSS文件时，解析也可以继续进行。但是，对于<code>&lt;script&gt;</code>标签（特别是没有async或着defer属性）会阻塞渲染并停止HTML的解析。</li>
 <li>第二步就是构造CSSOM树</li>
 <li>然后，将DOM树和CSSOM组合成一个Render树，计算样式树或渲染树从DOM树的根开始构建，遍历每个可见节点。</li>
 <li>接着，在渲染树上运行布局以计算每个节点的几何体，布局是确定呈现树中所有节点宽度、高度和位置，以及确定页面上每个对象的大小和位置的过程。</li>
@@ -534,7 +534,7 @@
 <p>当登录成功后，服务器除了返回Cookie，还会返回一个token，在后面的Cookie验证过程中，都需要携带这个token进行验证</p>
 </li>
 </ul>
-</script></li></ul>]]></content>
+]]></content>
       <tags>
         <tag>浏览器</tag>
       </tags>
